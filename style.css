@@ -427,7 +427,26 @@ p, li, a {
 
 @media (max-width: 768px) {
     .nav-menu {
-        display: none;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+        justify-content: center !important;
+    }
+    
+    .nav-menu a {
+        font-size: 0.9rem !important;
+        padding: 5px 8px !important;
+    }
+    
+    .header {
+        height: auto !important;
+        min-height: 100px !important;
+        padding: 10px !important;
+    }
+    
+    .header .row {
+        flex-direction: column !important;
+        gap: 10px !important;
     }
     .decoration {
         display: none;
