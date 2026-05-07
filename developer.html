@@ -20,12 +20,9 @@
             justify-content: center;
             padding: 40px 20px;
             position: relative;
-            
-            /* Нежный градиентный фон */
             background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 50%, #f5e0e8 100%);
         }
         
-        /* Декоративные полупрозрачные цветы */
         body::before {
             content: "🌸";
             font-size: 180px;
@@ -48,7 +45,6 @@
             transform: rotate(10deg);
         }
         
-        /* Дополнительные цветочные акценты */
         .flower-bg-1 {
             position: fixed;
             bottom: 5%;
@@ -180,7 +176,6 @@
             color: #d48a9e;
         }
 
-        /* Адаптивность */
         @media (max-width: 550px) {
             .dev-card {
                 padding: 30px 20px;
@@ -212,7 +207,6 @@
     </style>
 </head>
 <body>
-    <!-- Декоративные цветы -->
     <div class="flower-bg-1">🌹</div>
     <div class="flower-bg-2">🌺</div>
     <div class="flower-bg-3">💐</div>
@@ -223,56 +217,73 @@
             <p>Веб-сайт о макияже «Glamour»</p>
         </div>
         
-        <img src="https://github.com/soniazagnet-afk/Glamour/blob/main/developer.jpg" alt="Фото разработчика" class="developer-photo">
+        <!-- ✅ ИСПРАВЛЕННАЯ ССЫЛКА (raw.githubusercontent.com) -->
+        <img src="https://raw.githubusercontent.com/soniazagnet-afk/Glamour/main/developer.jpg" alt="Фото разработчика" class="developer-photo">
         
         <table class="info-table">
-            <tr><td>Специальность</td><td>5-04-0612-02 «Разработка и сопровождение программного обеспечения информационных систем»</td></tr>
-            <tr><td>Код разработчика</td><td>1</td></tr>
-            <tr><td>ФИО</td><td>Акопова Софья Грантовна</td></tr>
-            <tr><td>Тема сайта</td><td>Веб-сайт о макияже</td></tr>
-            <tr><td>Дата создания</td><td>04.05.2026</td></tr>
+            <tr>
+                <td>Специальность</td>
+                <td>5-04-0612-02 «Разработка и сопровождение программного обеспечения информационных систем»</td>
+            </tr>
+            <tr>
+                <td>Код разработчика</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>ФИО</td>
+                <td>Акопова Софья Грантовна</td>
+            </tr>
+            <tr>
+                <td>Тема сайта</td>
+                <td>Веб-сайт о макияже</td>
+            </tr>
+            <tr>
+                <td>Дата создания</td>
+                <td>04.05.2026</td>
+            </tr>
         </table>
         
         <div class="back-link">
             <a href="make.html" class="back-btn">← Вернуться на главную</a>
         </div>
     </div>
-<script>
-    function toggleTheme() {
-        if (document.body.classList.contains('dark-theme')) {
-            document.body.classList.remove('dark-theme');
-            localStorage.setItem('theme', 'light');
-            const btn = document.querySelector('.theme-toggle i');
-            if (btn) btn.className = 'fas fa-moon';
-        } else {
-            document.body.classList.add('dark-theme');
-            localStorage.setItem('theme', 'dark');
-            const btn = document.querySelector('.theme-toggle i');
-            if (btn) btn.className = 'fas fa-sun';
+
+    <script>
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-theme')) {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-moon';
+            } else {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
         }
-    }
 
-    function loadTheme() {
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-theme');
-            const btn = document.querySelector('.theme-toggle i');
-            if (btn) btn.className = 'fas fa-sun';
+        function loadTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
         }
-    }
 
-    function searchSite() {
-        const query = document.getElementById('searchInput')?.value.trim();
-        if (!query) { alert("🔍 Введите запрос"); return; }
-        alert(`🔍 Поиск: "${query}"`);
-    }
+        function searchSite() {
+            const query = document.getElementById('searchInput')?.value.trim();
+            if (!query) { alert("🔍 Введите запрос"); return; }
+            alert(`🔍 Поиск: "${query}"`);
+        }
 
-    function initSearch() {
-        const input = document.getElementById('searchInput');
-        if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') searchSite(); });
-    }
+        function initSearch() {
+            const input = document.getElementById('searchInput');
+            if (input) input.addEventListener('keypress', e => { if (e.key === 'Enter') searchSite(); });
+        }
 
-    initSearch();
-    loadTheme();
-</script>
+        initSearch();
+        loadTheme();
+    </script>
 </body>
 </html>
