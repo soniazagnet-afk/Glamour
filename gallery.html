@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея – Glamour</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .gallery-hero {
+            padding: 80px 0 40px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 138, 158, 0.08) 0%, rgba(194, 119, 139, 0.08) 100%);
+        }
+        .gallery-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .add-image-form {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+        }
+        .add-image-form h3 {
+            font-family: 'Playfair Display', serif;
+            color: #c2778b;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .add-image-form .input-group {
+            display: flex;
+            gap: 10px;
+        }
+        .add-image-form input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #f3dfe4;
+            border-radius: 35px;
+        }
+        .add-image-form button {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 35px;
+            cursor: pointer;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .gallery-item {
+            position: relative;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .gallery-item:hover {
+            transform: translateY(-10px);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .gallery-item .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        .gallery-item:hover .delete-btn {
+            opacity: 1;
+        }
+        .gallery-item .delete-btn:hover {
+            background: #d48a9e;
+        }
+        .empty-gallery {
+            text-align: center;
+            padding: 60px;
+            color: #7a6a6e;
+        }
+        body.dark-theme .add-image-form {
+            background: #1e1e2e;
+        }
+        body.dark-theme .add-image-form input {
+            background: #2a2a3e;
+            color: white;
+            border-color: #3a2f34;
+        }
+        @media (max-width: 768px) {
+            .gallery-hero h1 { font-size: 2rem; }
+            .add-image-form .input-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="decoration decoration-1">🌺</div>
+    <div class="decoration decoration-2">🌸</div>
+
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <a href="make.html" class="logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Glamour</span>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="nav-menu justify-content-center">
+                            <li><a href="make.html">Главная</a></li>
+                            <li><a href="catalog.html">Каталог</a></li>
+                            <li><a href="tips.html">Советы</a></li>
+                            <li><a href="test.html">Тест</a></li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3">
+                    <div class="header-actions justify-content-end">
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="gallery-hero">
+        <div class="container">
+            <h1>Вдохновение для макияжа</h1>
+            <p>Добавляй любимые образы — они сохранятся даже после перезагрузки страницы</p>
+        </div>
+    </section>
+
+    <div class="add-image-form">
+        <h3><i class="fas fa-plus-circle"></i> Добавить новое изображение</h3>
+        <div class="input-group">
+            <input type="text" id="imageUrl" placeholder="Введите URL изображения (https://...)" autocomplete="off">
+            <button id="addImageBtn"><i class="fas fa-plus"></i> Добавить</button>
+        </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-heart"></i> Glamour</h3>
+                    <p>Сайт о макияже и красоте</p>
+                </div>
+                <div class="footer-section">
+                    <h3>📌 Меню</h3>
+                    <ul>
+                        <li><a href="make.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="tips.html">Советы</a></li>
+                        <li><a href="test.html">Тест</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>👩‍💻 Разработчик</h3>
+                    <a href="developer.html" class="developer-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Информация о разработчике</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Glamour. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-theme')) {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-moon';
+            } else {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
+        }
+
+        function loadTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
+        }
+        loadTheme();
+
+        // ========== ГАЛЕРЕЯ С СОХРАНЕНИЕМ ==========
+        
+        // Начальные изображения
+        const defaultImages = [
+            "https://th.bing.com/th/id/OIP.a0bTbHsiVvN0_I9UyVKaTgHaJH?w=133&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "https://th.bing.com/th/id/OIP.JNPXcYUku6J4MkviX-YfiAHaJQ?w=138&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "https://th.bing.com/th/id/OIP.Jm2luWddtgwnae3RgR7mKQHaJQ?w=135&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "https://th.bing.com/th/id/OIP.Nojsb9cNPTlCDg3HQiZ6qAHaKA?w=145&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "https://th.bing.com/th/id/OIP.vYrhr3gdGr5EWnTQLZVMTwHaJO?w=136&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+            "https://th.bing.com/th/id/OIP.5gtBaheIkj7HR-OilaGxvgHaJC?w=155&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+        ];
+
+        let images = [];
+
+        function loadImages() {
+            const saved = localStorage.getItem('galleryImages');
+            if (saved) {
+                images = JSON.parse(saved);
+                console.log('Загружено сохранённых фото:', images.length);
+            } else {
+                images = [...defaultImages];
+                saveImages();
+                console.log('Загружены фото по умолчанию');
+            }
+            renderGallery();
+        }
+
+        function saveImages() {
+            localStorage.setItem('galleryImages', JSON.stringify(images));
+            console.log('Фото сохранены в localStorage');
+        }
+
+        function renderGallery() {
+            const grid = document.getElementById('galleryGrid');
+            if (!grid) return;
+
+            if (images.length === 0) {
+                grid.innerHTML = '<div class="empty-gallery"><i class="fas fa-images"></i><p>Галерея пуста. Добавьте первое изображение!</p></div>';
+                return;
+            }
+
+            grid.innerHTML = images.map((img, index) => `
+                <div class="gallery-item">
+                    <img src="${img}" alt="Фото макияжа" onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 250px; background: #fef5f0; color: #c2778b;\\'><i class=\\'fas fa-image\\' style=\\'font-size: 3rem;\\'></i><p style=\\'margin-left: 10px;\\'>Не удалось загрузить</p></div>'">
+                    <button class="delete-btn" onclick="deleteImage(${index})">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function deleteImage(index) {
+            if (confirm('Удалить это изображение из галереи?')) {
+                images.splice(index, 1);
+                saveImages();
+                renderGallery();
+            }
+        }
+
+        function addImage(url) {
+            if (!url || url.trim() === '') {
+                alert('Пожалуйста, введите URL изображения');
+                return false;
+            }
+            images.push(url);
+            saveImages();
+            renderGallery();
+            document.getElementById('imageUrl').value = '';
+            alert('✅ Изображение добавлено! Оно сохранится после перезагрузки страницы.');
+            return true;
+        }
+
+        document.getElementById('addImageBtn')?.addEventListener('click', () => {
+            const urlInput = document.getElementById('imageUrl');
+            addImage(urlInput.value);
+        });
+
+        document.getElementById('imageUrl')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                addImage(e.target.value);
+            }
+        });
+
+        loadImages();
+    </script>
+</body>
+</html>

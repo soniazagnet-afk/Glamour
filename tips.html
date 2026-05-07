@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Советы – Glamour</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- ЕДИНЫЙ CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ===== ТОЛЬКО УНИКАЛЬНЫЕ СТИЛИ ДЛЯ СТРАНИЦЫ СОВЕТОВ ===== */
+        
+        .tips-hero { 
+            padding: 80px 0 40px; 
+            text-align: center; 
+            background: linear-gradient(135deg, rgba(212, 138, 158, 0.08) 0%, rgba(194, 119, 139, 0.08) 100%); 
+        }
+        .tips-hero h1 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 3.8rem; 
+            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 70%); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            margin-bottom: 15px; 
+            font-weight: 700; 
+            letter-spacing: 2px; 
+            animation: fadeInUp 0.8s ease-out; 
+        }
+        .tips-hero p { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.3rem; 
+            color: #7a6a6e; 
+            font-weight: 400; 
+            animation: fadeInUp 0.8s ease-out 0.2s forwards; 
+            opacity: 0; 
+            animation-fill-mode: forwards; 
+        }
+
+        .tips-section { 
+            padding: 50px 0; 
+            max-width: 900px; 
+            margin: 0 auto; 
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(212, 138, 158, 0.12);
+            transition: all 0.3s;
+            margin-bottom: 40px;
+            border: 1px solid rgba(212, 138, 158, 0.1);
+        }
+        .tip-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 25px 50px rgba(212, 138, 158, 0.2); 
+        }
+        .tip-img { 
+            width: 100%; 
+            height: 320px; 
+            object-fit: cover; 
+            transition: transform 0.5s; 
+            cursor: pointer;
+        }
+        .tip-card:hover .tip-img { 
+            transform: scale(1.02); 
+        }
+        .tip-content { 
+            padding: 30px; 
+        }
+        .tip-content h3 { 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem; 
+            color: #c2778b; 
+            margin-bottom: 15px; 
+            font-weight: 600; 
+        }
+        .tip-preview { 
+            font-family: 'Cormorant Garamond', serif; 
+            color: #7a6a6e; 
+            line-height: 1.7; 
+            font-size: 1.1rem; 
+            margin-bottom: 20px; 
+        }
+        .tip-tags { 
+            margin-bottom: 20px; 
+        }
+        .tag { 
+            display: inline-block; 
+            padding: 5px 16px; 
+            background: linear-gradient(135deg, #fde8ed 0%, #f5e0e8 100%); 
+            color: #c2778b; 
+            border-radius: 25px; 
+            font-size: 0.85rem; 
+            margin-right: 8px; 
+            margin-bottom: 6px; 
+            font-weight: 500; 
+            border: 1px solid rgba(212, 138, 158, 0.2); 
+        }
+        .btn-read-more { 
+            background: linear-gradient(135deg, #d48a9e, #c2778b); 
+            color: white; 
+            border: none; 
+            padding: 10px 28px; 
+            border-radius: 40px; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            font-family: 'Playfair Display', serif; 
+            font-weight: 500; 
+            font-size: 0.9rem; 
+            letter-spacing: 0.5px; 
+        }
+        .btn-read-more:hover { 
+            transform: scale(1.02); 
+            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4); 
+        }
+
+        .expanded-block {
+            background: linear-gradient(135deg, #fff8fa, #fff);
+            border-top: 2px solid #f3dfe4;
+            padding: 35px;
+            animation: fadeInUp 0.4s ease-out;
+        }
+        .expanded-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a3b40;
+        }
+        .expanded-text p { 
+            margin-bottom: 16px; 
+        }
+        .expanded-text strong { 
+            color: #c2778b; 
+        }
+        .expanded-text ul, 
+        .expanded-text ol { 
+            margin-left: 25px; 
+            margin-bottom: 20px; 
+        }
+        .expanded-text li { 
+            margin-bottom: 8px; 
+        }
+        .btn-collapse {
+            background: transparent;
+            border: 2px solid #d48a9e;
+            color: #d48a9e;
+            padding: 8px 28px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-top: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-collapse:hover { 
+            background: linear-gradient(135deg, #d48a9e, #c2778b); 
+            color: white; 
+            border-color: transparent; 
+        }
+
+        /* Тёмная тема для советов */
+        body.dark-theme .tip-card { 
+            background: #1e1e2e; 
+            border-color: rgba(255,255,255,0.1); 
+        }
+        body.dark-theme .tip-content h3 { 
+            color: #ddd; 
+        }
+        body.dark-theme .tip-preview { 
+            color: #aaa; 
+        }
+        body.dark-theme .expanded-block { 
+            background: #2a2a3e; 
+            border-top-color: #3a2f34; 
+        }
+        body.dark-theme .expanded-text { 
+            color: #ddd; 
+        }
+        body.dark-theme .tag { 
+            background: #2a2a3e; 
+            color: #d48a9e; 
+        }
+
+        /* Медиазапросы */
+        @media (max-width: 768px) {
+            .tips-hero h1 { 
+                font-size: 2.2rem; 
+            }
+            .tip-content h3 { 
+                font-size: 1.4rem; 
+            }
+            .tip-img { 
+                height: 220px; 
+            }
+            .expanded-block { 
+                padding: 20px; 
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tips-hero h1 {
+                font-size: 1.6rem;
+            }
+            .tips-hero p {
+                font-size: 1rem;
+            }
+            .tip-content {
+                padding: 20px;
+            }
+            .tip-content h3 {
+                font-size: 1.2rem;
+            }
+            .tip-preview {
+                font-size: 0.95rem;
+            }
+            .btn-read-more, .btn-collapse {
+                padding: 8px 20px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Декоративные элементы (стили из style.css) -->
+    <div class="decoration decoration-1">🌺</div>
+    <div class="decoration decoration-2">🌸</div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <a href="make.html" class="logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Glamour</span>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="nav-menu justify-content-center">
+                            <li><a href="make.html">Главная</a></li>
+                            <li><a href="catalog.html">Каталог</a></li>
+                            <li><a href="tips.html">Советы</a></li>
+                            <li><a href="test.html">Тест</a></li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3">
+                    <div class="header-actions justify-content-end">
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== УЗКАЯ БЕГУЩАЯ СТРОКА ===== -->
+    <div class="marquee">
+        <div class="container" style="position: relative;">
+            <div class="marquee-box">
+                <div class="marquee-text" id="marqueeText">
+                    <span>ЛАЙФХАК: Наноси консилер треугольником под глазами — маскировка темных кругов будет идеальной! </span>
+    <span>ТРЕНД ВЕСНЫ 2026: «вишнёвый макияж» — помада, румяна и тени в ягодных оттенках </span>
+    <span>НОВЫЙ МАСТЕР-КЛАСС: Смоки-айс для начинающих — смотри в разделе «Советы» </span>
+    <span>ПРАВИЛО ОДНОГО АКЦЕНТА: яркие губы или выразительные глаза — не перегружай образ! </span>
+    <span>КАКОЙ ТИП КОЖИ У ТЕБЯ? Пройди тест и получи подборку уходовой косметики </span>
+    <span>ЗАПОМНИ: Пудру наноси только на Т-зону, если кожа сухая — не пересушивай её! </span>
+    <span>ХОЧЕШЬ БЫТЬ В КУРСЕ ТРЕНДОВ? Подпишись на рассылку — полезные советы каждую неделю </span>
+
+                </div>
+            </div>
+            
+            <!-- Кнопка управления -->
+            <div class="marquee-control-wrapper">
+                <button class="marquee-control-btn" id="marqueeControlBtn">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+                
+                <!-- Скрытая панель управления -->
+                <div class="marquee-panel" id="marqueePanel">
+                    <h4><i class="fas fa-magic"></i> Управление строкой</h4>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-exchange-alt"></i> Направление</label>
+                        <div>
+                            <button class="dir-option active" data-dir="left">← Влево</button>
+                            <button class="dir-option" data-dir="right">Вправо →</button>
+                        </div>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-tachometer-alt"></i> Скорость</label>
+                        <input type="range" id="marqueeSpeed" min="5" max="30" step="1" value="15">
+                        <span id="speedValueDisplay" class="speed-value">15</span>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-palette"></i> Стиль</label>
+                        <div>
+                            <button class="style-option active" data-style="0">🌸 Розовый</button>
+                            <button class="style-option" data-style="1">💜 Лаванда</button>
+                            <button class="style-option" data-style="2">🌿 Мятный</button>
+                        </div>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <button id="marqueePauseBtn" style="width: 100%; background: #4a3b40; color: white; border: none; padding: 7px 12px; border-radius: 20px;">
+                            <i class="fas fa-pause"></i> Пауза
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="tips-hero">
+        <div class="container">
+            <h1>📖 Советы по макияжу</h1>
+            <p>Профессиональные секреты красоты для безупречного образа</p>
+        </div>
+    </section>
+
+    <div class="container tips-section" id="tipsContainer">
+        <!-- Советы будут загружены сюда -->
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h3><i class="fas fa-heart"></i> Glamour</h3><p>Сайт о макияже и красоте</p><p>Вдохновляйся и сияй каждый день</p></div>
+                <div class="footer-section"><h3>📌 Меню</h3><ul><li><a href="make.html">Главная</a></li><li><a href="catalog.html">Каталог</a></li><li><a href="tips.html">Советы</a></li><li><a href="test.html">Тест</a></li><li><a href="contacts.html">Контакты</a></li><li><a href="gallery.html">Галерея</a></li></ul></div>
+                <div class="footer-section"><h3>📞 Контакты</h3><ul><li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li><li><a href="#"><i class="fab fa-instagram"></i> @glamour_beauty</a></li><li><a href="#"><i class="fab fa-telegram"></i> @glamour</a></li></ul><div class="social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
+                <div class="footer-section"><h3>👩‍💻 Разработчик</h3><a href="developer.html" class="developer-link"><i class="fas fa-user-circle"></i><span>Информация о разработчике</span></a></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте 💕</p></div>
+        </div>
+    </footer>
+
+    <script>
+        const tipsData = [
+            {
+                id: 1,
+                title: "💎 Как нанести тональный крем идеально?",
+                img: "https://th.bing.com/th/id/OIP._mlV0CsocCeFbEuHf5FOsgHaE8?w=271&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "Очисти и увлажни кожу. Нанеси праймер. Распредели тональный крем влажным спонжем похлопывающими движениями. Закрепи пудрой...",
+                tags: ["#тональныйкрем", "#макияжлица", "#советы"],
+                fullContent: `
+                    <p><strong>Шаг 1:</strong> Очисти и увлажни кожу. Без увлажнения тональный крем ляжет неровно, подчеркнет шелушения.</p>
+                    <p><strong>Шаг 2:</strong> Нанеси праймер – он скроет поры, разгладит текстуру и увеличит стойкость макияжа до 12 часов.</p>
+                    <p><strong>Шаг 3:</strong> Наноси тональный крем влажным спонжем похлопывающими движениями – так покрытие будет естественным, без полос и разводов.</p>
+                    <p><strong>Шаг 4:</strong> Закрепи результат легкой пудрой, уделяя особое внимание Т-зоне (лоб, нос, подбородок).</p>
+                    <p><strong>💡 Совет:</strong> Выбирай тональный крем на один тон светлее зимой и на один тон темнее летом. Лучше всего тестировать оттенок на линии челюсти при дневном освещении.</p>
+                `
+            },
+            {
+                id: 2,
+                title: "🔥 Смоки-айс для начинающих",
+                img: "https://th.bing.com/th/id/OIP.h_4E9gAuzfMcU-8tWNtgkwHaHa?w=200&h=200&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "Нанеси базу под тени. Нанеси светлый оттенок под бровь. Средний оттенок на подвижное веко. Темным оттенком затемни внешний уголок...",
+                tags: ["#смокиайс", "#вечерниймакияж", "#глаза"],
+                fullContent: `
+                    <p><strong>Шаг 1:</strong> Нанеси базу под тени – она продлит стойкость и не даст теням скататься.</p>
+                    <p><strong>Шаг 2:</strong> Нанеси самый светлый оттенок под бровь и во внутренний уголок глаза – это визуально раскроет взгляд.</p>
+                    <p><strong>Шаг 3:</strong> Средний оттенок нанеси на подвижное веко, создавая базу.</p>
+                    <p><strong>Шаг 4:</strong> Темным оттенком затемни внешний уголок и складку века, создавая глубину.</p>
+                    <p><strong>Шаг 5:</strong> Тщательно растушуй границы – главное в смоки-айс это идеальная растушевка! Используй пушистую кисть.</p>
+                    <p><strong>Шаг 6:</strong> Добавь подводку и нанеси тушь в несколько слоев.</p>
+                    <p><strong>💡 Совет:</strong> Для смоки-айс используй черные, серые, коричневые или фиолетовые оттенки.</p>
+                `
+            },
+            {
+                id: 3,
+                title: "💄 Как выбрать помаду по цветотипу?",
+                img: "https://th.bing.com/th/id/OIP.N49wwdmv4GeZLkvHlOwRaAHaEK?w=321&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "Лето: холодные розовые, ягодные. Весна: персиковые, коралловые. Осень: терракотовые, бронзовые. Зима: винные, бордовые...",
+                tags: ["#помада", "#цветотип", "#подбор"],
+                fullContent: `
+                    <p><strong>🌸 Лето</strong> (холодная светлая кожа): выбирай холодные розовые, ягодные, сливовые оттенки. Избегай оранжевых и коралловых.</p>
+                    <p><strong>🌼 Весна</strong> (теплая светлая кожа): персиковые, коралловые, лососевые оттенки, а также все оттенки с золотистым подтоном.</p>
+                    <p><strong>🍂 Осень</strong> (теплая темная кожа): терракотовые, бронзовые, кирпичные, карамельные, шоколадные.</p>
+                    <p><strong>❄️ Зима</strong> (холодная темная кожа): винные, бордовые, фуксия, темно-сливовые, чистые красные оттенки.</p>
+                    <p><strong>💡 Совет:</strong> Если сомневаешься – бери универсальный нюдовый оттенок, который на тон темнее твоих губ.</p>
+                `
+            },
+            {
+                id: 4,
+                title: "🌞 Дневной макияж за 5 минут",
+                img: "https://th.bing.com/th/id/OIP.L6rOSpC29BhpsouxqG8EvwHaEc?w=208&h=125&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "BB-крем на центральную часть лица. Консилер под глаза. Легкая пудра на Т-зону. Подкрути ресницы и нанеси тушь...",
+                tags: ["#дневноймакияж", "#быстро", "#экспресс"],
+                fullContent: `
+                    <p><strong>Минута 1:</strong> Нанеси легкий тональный крем или BB-крем только на центральную часть лица.</p>
+                    <p><strong>Минута 2:</strong> Консилер под глаза и на мелкие покраснения.</p>
+                    <p><strong>Минута 3:</strong> Легкая пудра на Т-зону (лоб, нос, подбородок).</p>
+                    <p><strong>Минута 4:</strong> Подкрути ресницы щипцами и нанеси один слой туши.</p>
+                    <p><strong>Минута 5:</strong> Прозрачный или розоватый блеск для губ.</p>
+                    <p><strong>💡 Совет:</strong> Добавь румяна на яблочки щек – образ станет свежим!</p>
+                `
+            },
+            {
+                id: 5,
+                title: "🧴 Уход за кожей перед макияжем",
+                img: "https://th.bing.com/th/id/OIP.WttNNikoGrGLVgon1CvbdQHaFM?w=280&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "Правильная подготовка кожи — залог долгого макияжа. Очищение, тонизирование, увлажнение...",
+                tags: ["#уходзакожей", "#подготовка", "#база"],
+                fullContent: `
+                    <p><strong>Шаг 1: Очищение</strong> — умойся гелем или пенкой для умывания.</p>
+                    <p><strong>Шаг 2: Тонизирование</strong> — протри лицо тоником. Он восстановит pH-баланс и сузит поры.</p>
+                    <p><strong>Шаг 3: Увлажнение</strong> — нанеси легкий увлажняющий крем. Дай ему впитаться 3-5 минут.</p>
+                    <p><strong>Шаг 4: База/Праймер</strong> — нанеси праймер. Он выровняет текстуру кожи и продлит стойкость макияжа.</p>
+                    <p><strong>💡 Совет:</strong> Для жирной кожи используй матирующий праймер. Для сухой — увлажняющий.</p>
+                `
+            },
+            {
+                id: 6,
+                title: "✨ Контуринг и скульптурирование лица",
+                img: "https://th.bing.com/th/id/OIP.X1d7G5mD7TjvRmOb3Z-tPQHaEK?w=328&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7",
+                preview: "Как правильно наносить скульптор, хайлайтер и бронзер, чтобы подчеркнуть достоинства...",
+                tags: ["#контуринг", "#скульптурирование", "#хайлайтер"],
+                fullContent: `
+                    <p><strong>ТЕМНЫЕ ОТТЕНКИ (скульптор/бронзер):</strong></p>
+                    <ul>
+                        <li>Под скулы (втяни щеки и проведи линию в получившейся впадине)</li>
+                        <li>По бокам лба (у линии роста волос)</li>
+                        <li>Под подбородок (чтобы сделать его четче)</li>
+                        <li>По бокам носа (если хочешь его сузить)</li>
+                    </ul>
+                    <p><strong>СВЕТЛЫЕ ОТТЕНКИ (хайлайтер/консилер):</strong></p>
+                    <ul>
+                        <li>Под глаза (треугольником)</li>
+                        <li>На спинку носа</li>
+                        <li>Над губой (галочка, чтобы сделать губы пухлее)</li>
+                        <li>На скулы (верхняя точка)</li>
+                    </ul>
+                    <p><strong>💡 Совет:</strong> Всегда тщательно растушевывай границы! Не должно быть видимых переходов.</p>
+                `
+            }
+        ];
+
+        function renderTips() {
+            const container = document.getElementById('tipsContainer');
+            container.innerHTML = '';
+            
+            tipsData.forEach(tip => {
+                const tipCard = document.createElement('div');
+                tipCard.className = 'tip-card';
+                tipCard.innerHTML = `
+                    <img src="${tip.img}" class="tip-img" alt="${tip.title}">
+                    <div class="tip-content">
+                        <h3>${tip.title}</h3>
+                        <p class="tip-preview">${tip.preview}</p>
+                        <div class="tip-tags">
+                            ${tip.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        </div>
+                        <button class="btn-read-more" onclick="toggleTip(${tip.id})">Читать полностью →</button>
+                    </div>
+                    <div id="expanded-${tip.id}" class="expanded-block" style="display: none;">
+                        <div class="expanded-text">
+                            ${tip.fullContent}
+                        </div>
+                        <button class="btn-collapse" onclick="toggleTip(${tip.id})">
+                            <i class="fas fa-chevron-up"></i> Свернуть
+                        </button>
+                    </div>
+                `;
+                container.appendChild(tipCard);
+            });
+        }
+
+        function toggleTip(id) {
+            const expandedDiv = document.getElementById(`expanded-${id}`);
+            if (expandedDiv.style.display === 'none' || expandedDiv.style.display === '') {
+                expandedDiv.style.display = 'block';
+                expandedDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                expandedDiv.style.display = 'none';
+            }
+        }
+
+        // ========== ТЕМА ==========
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-theme')) {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-moon';
+            } else {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
+        }
+
+        function loadTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                const btn = document.querySelector('.theme-toggle i');
+                if (btn) btn.className = 'fas fa-sun';
+            }
+        }
+
+        // ========== БЕГУЩАЯ СТРОКА С УПРАВЛЕНИЕМ ==========
+        const marqueeText = document.getElementById('marqueeText');
+        let currentDirection = 'left';
+        let currentSpeed = 15;
+        let isPaused = false;
+        let currentStyle = 0;
+
+        const styles = [
+            { bg: 'linear-gradient(135deg, #d48a9e, #c2778b)' },
+            { bg: 'linear-gradient(135deg, #b8a9c9, #9b8bb5)' },
+            { bg: 'linear-gradient(135deg, #7ec8a5, #56ab7a)' }
+        ];
+
+        function updateMarquee() {
+            if (!marqueeText) return;
+            marqueeText.style.animation = 'none';
+            void marqueeText.offsetHeight;
+            if (!isPaused) {
+                const direction = currentDirection === 'left' ? 'normal' : 'reverse';
+                marqueeText.style.animation = `marqueeScroll ${currentSpeed}s linear infinite`;
+                marqueeText.style.animationDirection = direction;
+            }
+        }
+
+        function updateMarqueeStyle() {
+            const marqueeDiv = document.querySelector('.marquee');
+            if (marqueeDiv) {
+                marqueeDiv.style.background = styles[currentStyle].bg;
+            }
+        }
+
+        // Открытие/закрытие панели
+        const controlBtn = document.getElementById('marqueeControlBtn');
+        const panel = document.getElementById('marqueePanel');
+
+        if (controlBtn && panel) {
+            controlBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                panel.classList.toggle('open');
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (panel && controlBtn) {
+                if (!panel.contains(e.target) && !controlBtn.contains(e.target)) {
+                    panel.classList.remove('open');
+                }
+            }
+        });
+
+        // Направление
+        document.querySelectorAll('.dir-option').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.dir-option').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentDirection = this.dataset.dir;
+                updateMarquee();
+            });
+        });
+
+        // Скорость
+        const speedSlider = document.getElementById('marqueeSpeed');
+        const speedDisplay = document.getElementById('speedValueDisplay');
+        if (speedSlider && speedDisplay) {
+            speedSlider.addEventListener('input', function(e) {
+                currentSpeed = parseInt(e.target.value);
+                speedDisplay.textContent = currentSpeed;
+                updateMarquee();
+            });
+        }
+
+        // Стиль
+        document.querySelectorAll('.style-option').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.style-option').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentStyle = parseInt(this.dataset.style);
+                updateMarqueeStyle();
+            });
+        });
+
+        // Пауза
+        const pauseBtn = document.getElementById('marqueePauseBtn');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', function() {
+                isPaused = !isPaused;
+                if (isPaused) {
+                    this.innerHTML = '<i class="fas fa-play"></i> Старт';
+                    marqueeText.style.animationPlayState = 'paused';
+                } else {
+                    this.innerHTML = '<i class="fas fa-pause"></i> Пауза';
+                    marqueeText.style.animationPlayState = 'running';
+                }
+            });
+        }
+
+        updateMarquee();
+        updateMarqueeStyle();
+        renderTips();
+        loadTheme();
+
+        // ===== ОБРАБОТКА КЛИКА ПО КАРТИНКАМ =====
+        function showImageInfo(imgElement, title, description, price, category) {
+            let infoPanel = document.getElementById('imageInfoPanel');
+            
+            if (!infoPanel) {
+                infoPanel = document.createElement('div');
+                infoPanel.id = 'imageInfoPanel';
+                infoPanel.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    max-width: 320px;
+                    background: linear-gradient(135deg, #ffffff 0%, #fef8fa 100%);
+                    border-radius: 20px;
+                    padding: 20px;
+                    box-shadow: 0 15px 40px rgba(212, 138, 158, 0.3);
+                    border-left: 5px solid #d48a9e;
+                    z-index: 1000;
+                    animation: slideInRight 0.4s ease-out;
+                    font-family: 'Cormorant Garamond', serif;
+                    backdrop-filter: blur(10px);
+                `;
+                document.body.appendChild(infoPanel);
+            }
+            
+            infoPanel.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                    <h4 style="color: #c2778b; margin: 0; font-family: 'Playfair Display', serif; font-size: 1.2rem;">
+                        <i class="fas fa-info-circle"></i> ${category || 'Информация'}
+                    </h4>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #d48a9e;">&times;</button>
+                </div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <img src="${imgElement.src}" alt="${title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 15px;">
+                    <div style="flex: 1;">
+                        <strong style="color: #4a3b40;">${title || 'Совет'}</strong>
+                        <p style="margin: 8px 0 0; font-size: 0.85rem; color: #7a6a6e;">${description || 'Нажмите на изображение, чтобы увидеть информацию'}</p>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                if (infoPanel && infoPanel.parentNode) {
+                    infoPanel.style.animation = 'slideInRight 0.3s ease-out reverse';
+                    setTimeout(() => {
+                        if (infoPanel.parentNode) infoPanel.remove();
+                    }, 300);
+                }
+            }, 8000);
+        }
+        
+        function bindImageClickEvents() {
+            const images = document.querySelectorAll('.tip-img');
+            images.forEach(img => {
+                img.removeEventListener('click', img._clickHandler);
+                const handler = function(event) {
+                    event.stopPropagation();
+                    let title = '';
+                    let description = '';
+                    const parentCard = this.closest('.tip-card');
+                    if (parentCard) {
+                        const titleElem = parentCard.querySelector('.tip-content h3');
+                        if (titleElem) title = titleElem.innerText;
+                        const previewElem = parentCard.querySelector('.tip-preview');
+                        if (previewElem) description = previewElem.innerText;
+                    }
+                    if (!description) {
+                        description = `✨ ${title || 'Полезный совет'} для твоей красоты! ✨`;
+                    }
+                    showImageInfo(this, title, description, '', 'Совет');
+                };
+                img.addEventListener('click', handler);
+                img._clickHandler = handler;
+                img.style.cursor = 'pointer';
+            });
+        }
+        
+        setTimeout(bindImageClickEvents, 500);
+    </script>
+</body>
+</html>
