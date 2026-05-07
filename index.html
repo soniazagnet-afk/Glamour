@@ -430,33 +430,207 @@
                 font-size: 1.3rem;
             }
         }
-/* Резиновые отступы для главной */
-.hero {
-    padding: 8% 0 5%;
-}
 
-.hero h1 {
-    font-size: clamp(2rem, 6vw, 4rem);
-}
+        /* Резиновые отступы для главной */
+        .hero {
+            padding: 8% 0 5%;
+        }
 
-.hero p {
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-}
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 4rem);
+        }
 
-.category-card {
-    padding: 8% 5%;
-}
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.4rem);
+        }
 
-.category-img {
-    width: 80%;
-    max-width: 240px;
-    height: auto;
-    aspect-ratio: 1/1;
-}
+        .category-card {
+            padding: 8% 5%;
+        }
 
-.tip-content {
-    padding: 5%;
-}
+        .category-img {
+            width: 80%;
+            max-width: 240px;
+            height: auto;
+            aspect-ratio: 1/1;
+        }
+
+        .tip-content {
+            padding: 5%;
+        }
+
+        /* ===== УЗКАЯ БЕГУЩАЯ СТРОКА ===== */
+        .marquee {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            padding: 6px 0;
+            position: relative;
+        }
+
+        .marquee-box {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: white;
+            letter-spacing: 0.5px;
+            padding-left: 100%;
+            animation: marqueeScroll 15s linear infinite;
+        }
+
+        .marquee-text span {
+            margin: 0 35px;
+        }
+
+        .marquee-text i {
+            margin: 0 6px;
+            font-size: 0.7rem;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .marquee-box:hover .marquee-text {
+            animation-play-state: paused;
+        }
+
+        /* Кнопка управления */
+        .marquee-control-wrapper {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .marquee-control-btn {
+            background: rgba(255, 255, 255, 0.25);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .marquee-control-btn:hover {
+            background: rgba(255, 255, 255, 0.45);
+            transform: scale(1.05);
+        }
+
+        /* Панель управления (скрыта по умолчанию) */
+        .marquee-panel {
+            position: absolute;
+            right: 0;
+            top: 40px;
+            background: white;
+            border-radius: 16px;
+            padding: 15px 20px;
+            width: 220px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 20;
+            border: 1px solid rgba(212, 138, 158, 0.3);
+        }
+
+        .marquee-panel.open {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .marquee-panel h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: #c2778b;
+            margin-bottom: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .marquee-panel-group {
+            margin-bottom: 12px;
+        }
+
+        .marquee-panel-group label {
+            font-size: 0.7rem;
+            color: #7a6a6e;
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .marquee-panel-group button {
+            background: #fef5f0;
+            border: 1px solid #f3dfe4;
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.2s;
+            margin-right: 6px;
+            margin-bottom: 4px;
+        }
+
+        .marquee-panel-group button:hover {
+            background: #d48a9e;
+            color: white;
+        }
+
+        .marquee-panel-group button.active {
+            background: #d48a9e;
+            color: white;
+        }
+
+        .marquee-panel input {
+            width: 100%;
+            accent-color: #d48a9e;
+        }
+
+        .speed-value {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.7rem;
+            color: #d48a9e;
+            font-weight: bold;
+        }
+
+        /* Тёмная тема */
+        body.dark-theme .marquee {
+            background: linear-gradient(135deg, #4a3b40, #3a2f34);
+        }
+
+        body.dark-theme .marquee-panel {
+            background: #1e1e2e;
+            border-color: #3a2f34;
+        }
+
+        body.dark-theme .marquee-panel-group button {
+            background: #2a2a3e;
+            color: #ddd;
+            border-color: #3a2f34;
+        }
+
+        @media (max-width: 700px) {
+            .marquee-text span {
+                margin: 0 20px;
+                font-size: 0.75rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -465,36 +639,94 @@
     <div class="decoration decoration-2">🌸</div>
 
     <!-- Header -->
-<header class="header">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-3">
-                <a href="make.html" class="logo">
-                    <i class="fas fa-heart"></i>
-                    <span>Glamour</span>
-                </a>
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <a href="make.html" class="logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Glamour</span>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="nav-menu justify-content-center">
+                            <li><a href="make.html">Главная</a></li>
+                            <li><a href="catalog.html">Каталог</a></li>
+                            <li><a href="tips.html">Советы</a></li>
+                            <li><a href="test.html">Тест</a></li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3">
+                    <div class="header-actions justify-content-end">
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-6">
-                <nav>
-                    <ul class="nav-menu justify-content-center">
-                        <li><a href="make.html">Главная</a></li>
-                        <li><a href="catalog.html">Каталог</a></li>
-                        <li><a href="tips.html">Советы</a></li>
-                        <li><a href="test.html">Тест</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                    </ul>
-                </nav>
+        </div>
+    </header>
+
+    <!-- ===== УЗКАЯ БЕГУЩАЯ СТРОКА ===== -->
+    <div class="marquee">
+        <div class="container" style="position: relative;">
+            <div class="marquee-box">
+                <div class="marquee-text" id="marqueeText">
+                    <span>ЛАЙФХАК: Наноси консилер треугольником под глазами — маскировка темных кругов будет идеальной! </span>
+    <span>ТРЕНД ВЕСНЫ 2026: «вишнёвый макияж» — помада, румяна и тени в ягодных оттенках </span>
+    <span>НОВЫЙ МАСТЕР-КЛАСС: Смоки-айс для начинающих — смотри в разделе «Советы» </span>
+    <span>ПРАВИЛО ОДНОГО АКЦЕНТА: яркие губы или выразительные глаза — не перегружай образ! </span>
+    <span>КАКОЙ ТИП КОЖИ У ТЕБЯ? Пройди тест и получи подборку уходовой косметики </span>
+    <span>ЗАПОМНИ: Пудру наноси только на Т-зону, если кожа сухая — не пересушивай её! </span>
+    <span>ХОЧЕШЬ БЫТЬ В КУРСЕ ТРЕНДОВ? Подпишись на рассылку — полезные советы каждую неделю </span>
+                </div>
             </div>
-            <div class="col-md-3">
-                <div class="header-actions justify-content-end">
-                    <button class="theme-toggle" onclick="toggleTheme()">
-                        <i class="fas fa-moon"></i>
-                    </button>
+            
+            <!-- Кнопка открытия управления -->
+            <div class="marquee-control-wrapper">
+                <button class="marquee-control-btn" id="marqueeControlBtn">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+                
+                <!-- Скрытая панель управления -->
+                <div class="marquee-panel" id="marqueePanel">
+                    <h4><i class="fas fa-magic"></i> Управление строкой</h4>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-exchange-alt"></i> Направление</label>
+                        <div>
+                            <button class="dir-option active" data-dir="left">← Влево</button>
+                            <button class="dir-option" data-dir="right">Вправо →</button>
+                        </div>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-tachometer-alt"></i> Скорость</label>
+                        <input type="range" id="marqueeSpeed" min="5" max="30" step="1" value="15">
+                        <span id="speedValueDisplay" class="speed-value">15</span>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <label><i class="fas fa-palette"></i> Стиль</label>
+                        <div>
+                            <button class="style-option active" data-style="0">🌸 Розовый</button>
+                            <button class="style-option" data-style="1">💜 Лаванда</button>
+                            <button class="style-option" data-style="2">🌿 Мятный</button>
+                        </div>
+                    </div>
+                    
+                    <div class="marquee-panel-group">
+                        <button id="marqueePauseBtn" style="width: 100%; background: #4a3b40; color: white; border: none;">
+                            <i class="fas fa-pause"></i> Пауза
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</header>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -603,6 +835,7 @@
                         <li><a href="tips.html">Советы</a></li>
                         <li><a href="test.html">Тест</a></li>
                         <li><a href="contacts.html">Контакты</a></li>
+			<li><a href="gallery.html">Галерея</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
@@ -634,18 +867,6 @@
     </footer>
 
     <script>
- 
-        function initSearch() {
-            const searchInput = document.getElementById('searchInput');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        searchSite();
-                    }
-                });
-            }
-        }
-
         // ========== ТЁМНАЯ ТЕМА ==========
         function toggleTheme() {
             if (document.body.classList.contains('dark-theme')) {
@@ -677,6 +898,224 @@
             }
         }
         loadTheme();
+
+        // ========== БЕГУЩАЯ СТРОКА С УПРАВЛЕНИЕМ ==========
+        const marqueeText = document.getElementById('marqueeText');
+        let currentDirection = 'left';
+        let currentSpeed = 15;
+        let isPaused = false;
+        let currentStyle = 0;
+
+        // Стили для строки
+        const styles = [
+            { bg: 'linear-gradient(135deg, #d48a9e, #c2778b)' },  // розовый
+            { bg: 'linear-gradient(135deg, #b8a9c9, #9b8bb5)' },  // лаванда
+            { bg: 'linear-gradient(135deg, #7ec8a5, #56ab7a)' }   // мятный
+        ];
+
+        function updateMarquee() {
+            if (!marqueeText) return;
+            marqueeText.style.animation = 'none';
+            // принудительный перерасчёт
+            void marqueeText.offsetHeight;
+            if (!isPaused) {
+                const direction = currentDirection === 'left' ? 'normal' : 'reverse';
+                marqueeText.style.animation = `marqueeScroll ${currentSpeed}s linear infinite`;
+                marqueeText.style.animationDirection = direction;
+            }
+        }
+
+        function updateMarqueeStyle() {
+            const marqueeDiv = document.querySelector('.marquee');
+            if (marqueeDiv) {
+                marqueeDiv.style.background = styles[currentStyle].bg;
+            }
+        }
+
+        // Открытие/закрытие панели (исправлено)
+        const controlBtn = document.getElementById('marqueeControlBtn');
+        const panel = document.getElementById('marqueePanel');
+
+        if (controlBtn && panel) {
+            controlBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                panel.classList.toggle('open');
+                console.log('Кнопка нажата, панель открыта:', panel.classList.contains('open'));
+            });
+        } else {
+            console.log('Элементы не найдены: controlBtn или panel');
+        }
+
+        // Закрытие панели при клике вне её
+        document.addEventListener('click', function(e) {
+            if (panel && controlBtn) {
+                if (!panel.contains(e.target) && !controlBtn.contains(e.target)) {
+                    panel.classList.remove('open');
+                }
+            }
+        });
+
+        // Направление
+        const dirOptions = document.querySelectorAll('.dir-option');
+        if (dirOptions.length) {
+            dirOptions.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    dirOptions.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentDirection = this.dataset.dir;
+                    updateMarquee();
+                });
+            });
+        }
+
+        // Скорость
+        const speedSlider = document.getElementById('marqueeSpeed');
+        const speedDisplay = document.getElementById('speedValueDisplay');
+        if (speedSlider && speedDisplay) {
+            speedSlider.addEventListener('input', function(e) {
+                currentSpeed = parseInt(e.target.value);
+                speedDisplay.textContent = currentSpeed;
+                updateMarquee();
+            });
+        }
+
+        // Стиль (3 варианта)
+        const styleOptions = document.querySelectorAll('.style-option');
+        if (styleOptions.length) {
+            styleOptions.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    styleOptions.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentStyle = parseInt(this.dataset.style);
+                    updateMarqueeStyle();
+                });
+            });
+        }
+
+        // Пауза/Старт
+        const pauseBtn = document.getElementById('marqueePauseBtn');
+        if (pauseBtn) {
+            pauseBtn.addEventListener('click', function() {
+                isPaused = !isPaused;
+                if (isPaused) {
+                    this.innerHTML = '<i class="fas fa-play"></i> Старт';
+                    marqueeText.style.animationPlayState = 'paused';
+                } else {
+                    this.innerHTML = '<i class="fas fa-pause"></i> Пауза';
+                    marqueeText.style.animationPlayState = 'running';
+                }
+            });
+        }
+
+        // Запуск
+        updateMarquee();
+        updateMarqueeStyle();
+
+        // ===== ФУНКЦИЯ ДЛЯ ОБРАБОТКИ КЛИКА ПО КАРТИНКЕ =====
+        function showImageInfo(imgElement, title, description, price, category) {
+            let infoPanel = document.getElementById('imageInfoPanel');
+            
+            if (!infoPanel) {
+                infoPanel = document.createElement('div');
+                infoPanel.id = 'imageInfoPanel';
+                infoPanel.style.cssText = `
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    max-width: 320px;
+                    background: linear-gradient(135deg, #ffffff 0%, #fef8fa 100%);
+                    border-radius: 20px;
+                    padding: 20px;
+                    box-shadow: 0 15px 40px rgba(212, 138, 158, 0.3);
+                    border-left: 5px solid #d48a9e;
+                    z-index: 1000;
+                    animation: slideInRight 0.4s ease-out;
+                    font-family: 'Cormorant Garamond', serif;
+                    backdrop-filter: blur(10px);
+                `;
+                document.body.appendChild(infoPanel);
+            }
+            
+            infoPanel.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px;">
+                    <h4 style="color: #c2778b; margin: 0; font-family: 'Playfair Display', serif; font-size: 1.2rem;">
+                        <i class="fas fa-info-circle"></i> ${category || 'Информация'}
+                    </h4>
+                    <button onclick="this.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #d48a9e;">&times;</button>
+                </div>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <img src="${imgElement.src}" alt="${title}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 15px;">
+                    <div style="flex: 1;">
+                        <strong style="color: #4a3b40;">${title || 'Товар'}</strong>
+                        ${price ? `<p style="color: #d48a9e; margin: 5px 0; font-weight: bold;">${price}</p>` : ''}
+                        <p style="margin: 8px 0 0; font-size: 0.85rem; color: #7a6a6e;">${description || 'Нажмите на изображение, чтобы увидеть информацию'}</p>
+                    </div>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                if (infoPanel && infoPanel.parentNode) {
+                    infoPanel.style.animation = 'slideInRight 0.3s ease-out reverse';
+                    setTimeout(() => {
+                        if (infoPanel.parentNode) infoPanel.remove();
+                    }, 300);
+                }
+            }, 8000);
+        }
+        
+        function bindImageClickEvents() {
+            const productInfo = {
+                'Тональный крем Perfect Skin': { desc: 'Идеальное покрытие с SPF 15', price: '89 BYN', category: 'Лицо' },
+                'Консилер Hide and Shine': { desc: 'Маскирует темные круги и покраснения', price: '59 BYN', category: 'Лицо' },
+                'Пудра Velvet Finish': { desc: 'Бархатистая матовость на 8+ часов', price: '69 BYN', category: 'Лицо' },
+                'Хайлайтер Glow Up': { desc: 'Сияние изнутри, не подчеркивает поры', price: '75 BYN', category: 'Лицо' },
+                'Румяна Blush Pink': { desc: 'Нежный румянец для свежего вида', price: '49 BYN', category: 'Лицо' },
+                'Тушь Lash Queen': { desc: 'Объем и длина без комочков', price: '79 BYN', category: 'Глаза' },
+                'Палетка теней Nude Dream': { desc: '12 оттенков для любых образов', price: '129 BYN', category: 'Глаза' },
+                'Матовая помада Red Velvet': { desc: 'Стойкая классика на 10 часов', price: '85 BYN', category: 'Губы' },
+                'Блеск Shiny Gloss': { desc: 'Объемный глянец без липкости', price: '55 BYN', category: 'Губы' }
+            };
+            
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.removeEventListener('click', img._clickHandler);
+                const handler = function(event) {
+                    event.stopPropagation();
+                    let title = this.alt || this.title || '';
+                    let description = '';
+                    let price = '';
+                    let category = '';
+                    
+                    const parentCard = this.closest('.product-card, .tip-card, .category-card');
+                    if (parentCard) {
+                        const titleElem = parentCard.querySelector('.product-title, .tip-content h3, .category-card h3');
+                        if (titleElem) title = titleElem.innerText;
+                        const priceElem = parentCard.querySelector('.product-price');
+                        if (priceElem) price = priceElem.innerText;
+                        const descElem = parentCard.querySelector('.tip-preview');
+                        if (descElem) description = descElem.innerText;
+                    }
+                    
+                    if (productInfo[title]) {
+                        description = productInfo[title].desc;
+                        price = productInfo[title].price;
+                        category = productInfo[title].category;
+                    }
+                    
+                    if (!description) {
+                        description = `✨ ${title || 'Косметический продукт'} — отличный выбор для твоей красоты! ✨`;
+                    }
+                    showImageInfo(this, title, description, price, category);
+                };
+                img.addEventListener('click', handler);
+                img._clickHandler = handler;
+                img.style.cursor = 'pointer';
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            bindImageClickEvents();
+        });
     </script>
 </body>
 </html>
