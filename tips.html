@@ -256,16 +256,23 @@
                             <li><a href="tips.html">Советы</a></li>
                             <li><a href="test.html">Тест</a></li>
                             <li><a href="contacts.html">Контакты</a></li>
+<li><a href="register.html">👤</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-md-3">
-                    <div class="header-actions justify-content-end">
-                        <button class="theme-toggle" onclick="toggleTheme()">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
-                </div>
+    <div class="header-actions justify-content-end" style="display: flex; align-items: center; gap: 12px;">
+        <!-- ПОИСК -->
+        <div class="header-search">
+            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
+            <div id="globalSearchResults" class="search-dropdown"></div>
+        </div>
+        <!-- КНОПКА ТЕМЫ -->
+        <button class="theme-toggle" onclick="toggleTheme()">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+</div>
             </div>
         </div>
     </header>
@@ -697,5 +704,125 @@
         
         setTimeout(bindImageClickEvents, 500);
     </script>
+<script>
+    // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+    // Получаем имя текущей страницы из URL
+    let currentPage = window.location.pathname.split('/').pop();
+    
+    // Если страница не определена (например, просто /), считаем что это make.html
+    if (currentPage === '' || currentPage === '/') {
+        currentPage = 'make.html';
+    }
+    
+    // Находим все ссылки в меню
+    const menuLinks = document.querySelectorAll('.nav-menu a');
+    
+    // Перебираем ссылки и сравниваем с текущей страницей
+    menuLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+        }
+    });
+</script>
+<script>
+    // ===== ГЛОБАЛЬНЫЙ ПОИСК =====
+    const searchInput = document.getElementById('globalSearchInput');
+    const searchResults = document.getElementById('globalSearchResults');
+    
+    // Данные для поиска
+    const searchData = [
+        { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Хайлайтер Glow Up", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Румяна Blush Pink", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Праймер Smooth Base", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "BB-крем Natural Look", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Фиксатор Stay All Day", category: "Каталог → Лицо", url: "catalog.html#face" },
+        { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "Палетка теней Nude Dream", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "Подводка Perfect Line", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "Карандаш Soft Liner", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "База под тени Prime Eyes", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "Палетка Smoky Eyes", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+        { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Блеск Shiny Gloss", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Карандаш Lip Liner", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Жидкая помада Liquid Matte", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Масло Lip Oil", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Тинт Lip Tint", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Нюдовая помада Nude Kiss", category: "Каталог → Губы", url: "catalog.html#lips" },
+        { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+        { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+        { title: "Как выбрать помаду по цветотипу", category: "Советы", url: "tips.html" },
+        { title: "Дневной макияж за 5 минут", category: "Советы", url: "tips.html" },
+        { title: "Уход за кожей перед макияжем", category: "Советы", url: "tips.html" },
+        { title: "Контуринг и скульптурирование", category: "Советы", url: "tips.html" },
+        { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" },
+        { title: "Тест: Макияж глаз", category: "Тесты", url: "test.html" },
+        { title: "Тест: Тип кожи", category: "Тесты", url: "test.html" }
+    ];
+    
+    function highlightText(text, query) {
+        if (!query) return text;
+        const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+    
+    function performGlobalSearch() {
+        const query = searchInput.value.trim();
+        
+        if (query === '') {
+            searchResults.classList.remove('show');
+            return;
+        }
+        
+        const filtered = searchData.filter(item => 
+            item.title.toLowerCase().includes(query.toLowerCase())
+        );
+        
+        if (filtered.length === 0) {
+            searchResults.innerHTML = `<div class="no-results">😔 Ничего не найдено по запросу «${query}»</div>`;
+            searchResults.classList.add('show');
+            return;
+        }
+        
+        searchResults.innerHTML = filtered.map(item => `
+            <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                <a href="${item.url}">
+                    <div class="item-title">${highlightText(item.title, query)}</div>
+                    <div class="item-category">${item.category}</div>
+                </a>
+            </div>
+        `).join('');
+        
+        searchResults.classList.add('show');
+    }
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', performGlobalSearch);
+        
+        // Закрыть результаты при клике вне
+        document.addEventListener('click', function(e) {
+            if (searchInput && searchResults) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('show');
+                }
+            }
+        });
+        
+        // Поиск при нажатии Enter
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+    }
+</script>
+
 </body>
 </html>
