@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация – Glamour</title>
+    
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- Единый CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* ===== СТИЛИ ДЛЯ СТРАНИЦЫ РЕГИСТРАЦИИ ===== */
+        
+        .register-hero {
+            padding: 60px 0 30px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 138, 158, 0.08) 0%, rgba(194, 119, 139, 0.08) 100%);
+        }
+
+        .register-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 70%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .register-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: #7a6a6e;
+        }
+
+        /* Контейнер формы */
+        .register-container {
+            max-width: 550px;
+            margin: 30px auto 60px;
+            background: white;
+            border-radius: 48px;
+            padding: 40px;
+            box-shadow: 0 25px 55px rgba(212, 138, 158, 0.2);
+            border: 1px solid rgba(212, 138, 158, 0.1);
+            transition: all 0.3s;
+        }
+
+        .register-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #c2778b;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* Поля формы */
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .form-group label {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: #4a3b40;
+            margin-bottom: 8px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .form-group label i {
+            margin-right: 8px;
+            color: #d48a9e;
+        }
+
+        .form-control {
+            border-radius: 35px;
+            padding: 14px 20px;
+            border: 2px solid #f3dfe4;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+            width: 100%;
+        }
+
+        .form-control:focus {
+            border-color: #d48a9e;
+            box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.1);
+            outline: none;
+        }
+
+        /* Индикатор силы пароля */
+        .password-strength {
+            margin-top: 8px;
+            height: 6px;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .strength-text {
+            font-size: 0.7rem;
+            margin-top: 5px;
+            text-align: right;
+        }
+
+        .strength-weak {
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            width: 30%;
+        }
+
+        .strength-medium {
+            background: linear-gradient(90deg, #ffb347, #ffcc66);
+            width: 60%;
+        }
+
+        .strength-strong {
+            background: linear-gradient(90deg, #5cb85c, #8bc34a);
+            width: 100%;
+        }
+
+        /* Чекбокс согласия */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .checkbox-group input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #d48a9e;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #7a6a6e;
+        }
+
+        .checkbox-group label a {
+            color: #d48a9e;
+            text-decoration: none;
+        }
+
+        /* Кнопка регистрации */
+        .btn-register {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-family: 'Playfair Display', serif;
+            width: 100%;
+        }
+
+        .btn-register:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 138, 158, 0.4);
+        }
+
+        /* Кастомные валидационные сообщения */
+        .error-message {
+            color: #d48a9e;
+            font-size: 0.7rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        /* Модальное окно успеха (jQuery UI Dialog) */
+        .success-dialog {
+            display: none;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .success-dialog i {
+            font-size: 4rem;
+            color: #5cb85c;
+            margin-bottom: 15px;
+        }
+
+        .success-dialog h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a3b40;
+            margin-bottom: 10px;
+        }
+
+        /* Тёмная тема */
+        body.dark-theme .register-container {
+            background: #1e1e2e;
+            border-color: #3a2f34;
+        }
+
+        body.dark-theme .form-group label {
+            color: #ddd;
+        }
+
+        body.dark-theme .form-control {
+            background: #2a2a3e;
+            border-color: #3a2f34;
+            color: white;
+        }
+
+        body.dark-theme .checkbox-group label {
+            color: #aaa;
+        }
+
+        /* Адаптив */
+        @media (max-width: 576px) {
+            .register-container {
+                margin: 20px;
+                padding: 25px;
+            }
+            .register-hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Декоративные элементы -->
+    <div class="decoration decoration-1">🌺</div>
+    <div class="decoration decoration-2">🌸</div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3">
+                    <a href="make.html" class="logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Glamour</span>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="nav-menu justify-content-center">
+                            <li><a href="make.html">Главная</a></li>
+                            <li><a href="catalog.html">Каталог</a></li>
+                            <li><a href="tips.html">Советы</a></li>
+                            <li><a href="test.html">Тест</a></li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                           
+                            <li><a href="register.html">👤</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3">
+                    <div class="header-actions justify-content-end" style="display: flex; align-items: center; gap: 12px;">
+                        <div class="header-search">
+                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
+                            <div id="globalSearchResults" class="search-dropdown"></div>
+                        </div>
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero секция -->
+    <section class="register-hero">
+        <div class="container">
+            <h1>✨ Создайте аккаунт ✨</h1>
+            <p>Присоединяйтесь к Glamour и получайте персональные рекомендации</p>
+        </div>
+    </section>
+
+    <!-- Форма регистрации -->
+    <div class="register-container">
+        <h2><i class="fas fa-user-plus"></i> Регистрация</h2>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Имя</label>
+                <input type="text" id="fullname" class="form-control" placeholder="Введите ваше имя" autocomplete="off">
+                <div id="fullnameError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пожалуйста, введите имя (минимум 2 символа)</div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="email" class="form-control" placeholder="example@mail.ru" autocomplete="off">
+                <div id="emailError" class="error-message"><i class="fas fa-exclamation-circle"></i> Введите корректный email адрес</div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-lock"></i> Пароль</label>
+                <input type="password" id="password" class="form-control" placeholder="Придумайте пароль">
+                <div class="password-strength" id="passwordStrength"></div>
+                <div class="strength-text" id="strengthText"></div>
+                <div id="passwordError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пароль должен содержать минимум 6 символов</div>
+            </div>
+            
+            <div class="form-group">
+                <label><i class="fas fa-check-circle"></i> Подтверждение пароля</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Повторите пароль">
+                <div id="confirmError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пароли не совпадают</div>
+            </div>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="agreement">
+                <label for="agreement">Я согласен(на) с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a></label>
+            </div>
+            <div id="agreementError" class="error-message" style="text-align: center;"><i class="fas fa-exclamation-circle"></i> Необходимо подтвердить согласие</div>
+            
+            <button type="submit" class="btn-register">
+                <i class="fas fa-paper-plane"></i> Зарегистрироваться
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-heart"></i> Glamour</h3>
+                    <p>Сайт о макияже и красоте</p>
+                </div>
+                <div class="footer-section">
+                    <h3>📌 Меню</h3>
+                    <ul>
+                        <li><a href="make.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="tips.html">Советы</a></li>
+                        <li><a href="test.html">Тест</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                        <li><a href="register.html">Регистрация</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>👩‍💻 Разработчик</h3>
+                    <a href="developer.html" class="developer-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Информация о разработчике</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Glamour. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery и jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+    <script>
+        // ===== ТЁМНАЯ ТЕМА =====
+        function toggleTheme() {
+            if (document.body.classList.contains('dark-theme')) {
+                document.body.classList.remove('dark-theme');
+                localStorage.setItem('theme', 'light');
+                $('.theme-toggle i').attr('class', 'fas fa-moon');
+            } else {
+                document.body.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+                $('.theme-toggle i').attr('class', 'fas fa-sun');
+            }
+        }
+
+        function loadTheme() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-theme');
+                $('.theme-toggle i').attr('class', 'fas fa-sun');
+            }
+        }
+        loadTheme();
+
+        // ===== ИНТЕРАКТИВНАЯ ФОРМА РЕГИСТРАЦИИ С JQUERY И JQUERY UI =====
+        $(document).ready(function() {
+            
+            // ---------- 1. ЭФФЕКТ ПРИ ФОКУСЕ НА ПОЛЯХ (jQuery UI highlight) ----------
+            $('.form-control').on('focus', function() {
+                $(this).effect('highlight', { color: '#fde8ed' }, 800);
+            });
+            
+            // ---------- 2. АНИМАЦИЯ ПОЯВЛЕНИЯ ФОРМЫ ----------
+            $('.register-container').hide().fadeIn(1000);
+            
+            // ---------- 3. ИНДИКАТОР СИЛЫ ПАРОЛЯ ----------
+            $('#password').on('keyup', function() {
+                const password = $(this).val();
+                let strength = 0;
+                
+                if (password.length >= 6) strength++;
+                if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+                if (password.match(/[0-9]/)) strength++;
+                if (password.match(/[^a-zA-Z0-9]/)) strength++;
+                
+                const $strengthBar = $('#passwordStrength');
+                const $strengthText = $('#strengthText');
+                
+                if (password.length === 0) {
+                    $strengthBar.css('background', '#f3dfe4').css('width', '0');
+                    $strengthText.text('');
+                } else if (strength <= 1) {
+                    $strengthBar.css('background', 'linear-gradient(90deg, #ff6b6b, #ff8e8e)').css('width', '30%');
+                    $strengthText.html('<span style="color:#ff6b6b;">🔴 Слабый пароль</span>');
+                } else if (strength <= 2) {
+                    $strengthBar.css('background', 'linear-gradient(90deg, #ffb347, #ffcc66)').css('width', '60%');
+                    $strengthText.html('<span style="color:#ffb347;">🟡 Средний пароль</span>');
+                } else {
+                    $strengthBar.css('background', 'linear-gradient(90deg, #5cb85c, #8bc34a)').css('width', '100%');
+                    $strengthText.html('<span style="color:#5cb85c;">🟢 Сильный пароль</span>');
+                }
+            });
+            
+            // ---------- 4. ПРОВЕРКА СОВПАДЕНИЯ ПАРОЛЕЙ В РЕАЛЬНОМ ВРЕМЕНИ ----------
+            $('#confirmPassword').on('keyup', function() {
+                const password = $('#password').val();
+                const confirm = $(this).val();
+                
+                if (confirm !== '' && password !== confirm) {
+                    $(this).css('border-color', '#d48a9e');
+                    $('#confirmError').slideDown(200);
+                } else {
+                    $(this).css('border-color', '#f3dfe4');
+                    $('#confirmError').slideUp(200);
+                }
+            });
+            
+            // ---------- 5. ВАЛИДАЦИЯ EMAIL В РЕАЛЬНОМ ВРЕМЕНИ ----------
+            $('#email').on('blur', function() {
+                const email = $(this).val();
+                const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+                
+                if (email !== '' && !emailRegex.test(email)) {
+                    $(this).effect('shake', { distance: 5, times: 2 }, 300);
+                    $(this).css('border-color', '#d48a9e');
+                    $('#emailError').slideDown(200);
+                } else {
+                    $(this).css('border-color', '#f3dfe4');
+                    $('#emailError').slideUp(200);
+                }
+            });
+            
+            // ---------- 6. ОБРАБОТКА ОТПРАВКИ ФОРМЫ ----------
+            $('#registerForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Сбрасываем ошибки
+                $('.error-message').slideUp(200);
+                $('.form-control').css('border-color', '#f3dfe4');
+                
+                let isValid = true;
+                
+                // Валидация имени
+                const fullname = $('#fullname').val().trim();
+                if (fullname.length < 2) {
+                    $('#fullname').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#fullname').css('border-color', '#d48a9e');
+                    $('#fullnameError').slideDown(200);
+                    isValid = false;
+                }
+                
+                // Валидация email
+                const email = $('#email').val().trim();
+                const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    $('#email').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#email').css('border-color', '#d48a9e');
+                    $('#emailError').slideDown(200);
+                    isValid = false;
+                }
+                
+                // Валидация пароля
+                const password = $('#password').val();
+                if (password.length < 6) {
+                    $('#password').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#password').css('border-color', '#d48a9e');
+                    $('#passwordError').slideDown(200);
+                    isValid = false;
+                }
+                
+                // Проверка совпадения паролей
+                const confirm = $('#confirmPassword').val();
+                if (password !== confirm) {
+                    $('#confirmPassword').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#confirmPassword').css('border-color', '#d48a9e');
+                    $('#confirmError').slideDown(200);
+                    isValid = false;
+                }
+                
+                // Проверка согласия
+                const agreement = $('#agreement').is(':checked');
+                if (!agreement) {
+                    $('#agreementError').slideDown(200);
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // Сохраняем данные в localStorage
+                    const userData = {
+                        fullname: fullname,
+                        email: email,
+                        registeredDate: new Date().toLocaleString()
+                    };
+                    localStorage.setItem('registeredUser', JSON.stringify(userData));
+                    
+                    // Анимация кнопки
+                    $('.btn-register').effect('pulsate', { times: 2 }, 500);
+                    
+                    // ---------- 7. JQUERY UI DIALOG (модальное окно успеха) ----------
+                    $('<div class="success-dialog">' +
+                        '<i class="fas fa-check-circle"></i>' +
+                        '<h3>Регистрация прошла успешно!</h3>' +
+                        '<p>Добро пожаловать, ' + fullname + '!</p>' +
+                        '<p>На указанный email отправлено письмо с подтверждением.</p>' +
+                        '<hr>' +
+                        '<p style="font-size:0.8rem; color:#7a6a6e;">Мы рады видеть вас в нашем бьюти-сообществе 💕</p>' +
+                    '</div>').dialog({
+                        title: '🎉 Поздравляем!',
+                        modal: true,
+                        width: 400,
+                        height: 'auto',
+                        buttons: {
+                            'На главную': function() {
+                                window.location.href = 'make.html';
+                            },
+                            'Остаться': function() {
+                                $(this).dialog('close');
+                            }
+                        },
+                        close: function() {
+                            $(this).remove();
+                        },
+                        show: {
+                            effect: 'fade',
+                            duration: 400
+                        },
+                        hide: {
+                            effect: 'fade',
+                            duration: 400
+                        }
+                    });
+                    
+                    // Очищаем форму
+                    $('#registerForm')[0].reset();
+                    $('#passwordStrength').css('width', '0');
+                    $('#strengthText').text('');
+                } else {
+                    // Показываем эффект "тряска" для всей формы
+                    $('.register-container').effect('shake', { distance: 8, times: 2 }, 400);
+                }
+            });
+        });
+    </script>
+
+    <!-- Поиск -->
+    <script>
+        const searchInput = document.getElementById('globalSearchInput');
+        const searchResults = document.getElementById('globalSearchResults');
+        
+        const searchData = [
+            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
+        ];
+        
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+        
+        function performGlobalSearch() {
+            const query = searchInput.value.trim();
+            if (query === '') {
+                searchResults.classList.remove('show');
+                return;
+            }
+            const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+            if (filtered.length === 0) {
+                searchResults.innerHTML = `<div class="no-results">😔 Ничего не найдено</div>`;
+                searchResults.classList.add('show');
+                return;
+            }
+            searchResults.innerHTML = filtered.map(item => `
+                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                    <div class="item-title">${highlightText(item.title, query)}</div>
+                    <div class="item-category">${item.category}</div>
+                </div>
+            `).join('');
+            searchResults.classList.add('show');
+        }
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', performGlobalSearch);
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('show');
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
