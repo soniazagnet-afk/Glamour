@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Галерея – Glamour</title>
+    <title>Интерактивная галерея – Glamour</title>
     
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    
+    <!-- Единый CSS -->
     <link rel="stylesheet" href="style.css">
     
     <style>
+        /* ===== СПЕЦИАЛЬНЫЕ СТИЛИ ДЛЯ ГАЛЕРЕИ ===== */
+        
         .gallery-hero {
             padding: 80px 0 40px;
             text-align: center;
             background: linear-gradient(135deg, rgba(212, 138, 158, 0.08) 0%, rgba(194, 119, 139, 0.08) 100%);
         }
+        
         .gallery-hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: 3.5rem;
@@ -23,106 +34,294 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .add-image-form {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 25px;
+        
+        .gallery-hero p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: #7a6a6e;
+        }
+        
+        /* Панель управления */
+        .gallery-toolbar {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+            padding: 20px;
             background: white;
             border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.1);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            border: 1px solid rgba(212, 138, 158, 0.1);
         }
-        .add-image-form h3 {
+        
+        .tool-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            border: none;
+            border-radius: 40px;
+            color: white;
             font-family: 'Playfair Display', serif;
-            color: #c2778b;
-            text-align: center;
-            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
         }
-        .add-image-form .input-group {
+        
+        .tool-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4);
+        }
+        
+        .tool-btn.reset {
+            background: #4a3b40;
+        }
+        
+        .tool-btn.reset:hover {
+            background: #3a2f34;
+        }
+        
+        .add-form {
             display: flex;
             gap: 10px;
+            align-items: center;
         }
-        .add-image-form input {
-            flex: 1;
-            padding: 12px 20px;
-            border: 2px solid #f3dfe4;
-            border-radius: 35px;
+        
+        .add-form input {
+            padding: 10px 20px;
+            border: 1px solid #f3dfe4;
+            border-radius: 40px;
+            width: 250px;
+            font-family: 'Cormorant Garamond', serif;
+            outline: none;
+            transition: all 0.3s;
         }
-        .add-image-form button {
-            background: linear-gradient(135deg, #d48a9e, #c2778b);
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            border-radius: 35px;
-            cursor: pointer;
+        
+        .add-form input:focus {
+            border-color: #d48a9e;
+            box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
         }
+        
+        /* Сетка галереи */
         .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            list-style: none;
         }
+        
         .gallery-item {
-            position: relative;
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             transition: all 0.3s;
+            cursor: grab;
+            position: relative;
         }
-        .gallery-item:hover {
-            transform: translateY(-10px);
+        
+        .gallery-item:active {
+            cursor: grabbing;
         }
+        
+        /* Стиль для перетаскиваемого элемента */
+        .gallery-item.ui-sortable-helper {
+            transform: rotate(3deg) scale(1.02);
+            box-shadow: 0 20px 40px rgba(212, 138, 158, 0.3);
+            cursor: grabbing;
+        }
+        
+        /* Плейсхолдер во время перетаскивания */
+        .ui-sortable-placeholder {
+            background: rgba(212, 138, 158, 0.2);
+            border: 2px dashed #d48a9e;
+            border-radius: 20px;
+            visibility: visible !important;
+            height: 0;
+        }
+        
         .gallery-item img {
             width: 100%;
             height: 250px;
             object-fit: cover;
-        }
-        .gallery-item .delete-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 0, 0, 0.6);
-            color: white;
-            border: none;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
+            display: block;
             cursor: pointer;
-            opacity: 0;
+        }
+        
+        .gallery-item .item-info {
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+        
+        .gallery-item .item-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.85rem;
+            color: #4a3b40;
+        }
+        
+        .gallery-item .delete-btn {
+            background: rgba(212, 138, 158, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            color: #c2778b;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .gallery-item:hover .delete-btn {
-            opacity: 1;
-        }
+        
         .gallery-item .delete-btn:hover {
             background: #d48a9e;
+            color: white;
+            transform: scale(1.1);
         }
+        
+        /* Анимации */
+        .gallery-item-new {
+            animation: fadeInScale 0.5s ease-out;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .gallery-item-shake {
+            animation: shake 0.3s ease-in-out;
+            background: #ffe0e0;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        
+        /* Пустое состояние */
         .empty-gallery {
             text-align: center;
             padding: 60px;
             color: #7a6a6e;
+            font-size: 1.2rem;
         }
-        body.dark-theme .add-image-form {
+        
+        /* Модальное окно для просмотра (на весь экран) */
+        .modal-view {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .modal-view img {
+            max-width: 90vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-view .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            transition: all 0.3s;
+            z-index: 2001;
+        }
+        
+        .modal-view .close-modal:hover {
+            transform: scale(1.1);
+            color: #d48a9e;
+        }
+        
+        /* Уведомления */
+        .gallery-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d48a9e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            z-index: 1000;
+            font-family: 'Playfair Display', serif;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.3s ease-out;
+        }
+        
+        /* Тёмная тема для галереи */
+        body.dark-theme .gallery-toolbar,
+        body.dark-theme .gallery-item,
+        body.dark-theme .gallery-item .item-info {
             background: #1e1e2e;
         }
-        body.dark-theme .add-image-form input {
+        
+        body.dark-theme .gallery-item .item-title {
+            color: #ddd;
+        }
+        
+        body.dark-theme .add-form input {
             background: #2a2a3e;
+            border-color: #3a2f34;
             color: white;
+        }
+        
+        body.dark-theme .gallery-toolbar {
             border-color: #3a2f34;
         }
+        
+        /* Адаптив */
         @media (max-width: 768px) {
             .gallery-hero h1 { font-size: 2rem; }
-            .add-image-form .input-group { flex-direction: column; }
+            .gallery-toolbar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .add-form {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- Декоративные элементы -->
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
+    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="row align-items-center">
@@ -140,11 +339,16 @@
                             <li><a href="tips.html">Советы</a></li>
                             <li><a href="test.html">Тест</a></li>
                             <li><a href="contacts.html">Контакты</a></li>
+<li><a href="register.html">👤</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-md-3">
-                    <div class="header-actions justify-content-end">
+                    <div class="header-actions justify-content-end" style="display: flex; align-items: center; gap: 12px;">
+                        <div class="header-search">
+                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
+                            <div id="globalSearchResults" class="search-dropdown"></div>
+                        </div>
                         <button class="theme-toggle" onclick="toggleTheme()">
                             <i class="fas fa-moon"></i>
                         </button>
@@ -154,29 +358,50 @@
         </div>
     </header>
 
+    <!-- Hero секция -->
     <section class="gallery-hero">
         <div class="container">
-            <h1>Вдохновение для макияжа</h1>
-            <p>Добавляй любимые образы — они сохранятся даже после перезагрузки страницы</p>
+            <h1>✨ Интерактивная галерея ✨</h1>
+            <p>Перетаскивайте, добавляйте, удаляйте — создайте свою коллекцию красоты</p>
         </div>
     </section>
 
-    <div class="add-image-form">
-        <h3><i class="fas fa-plus-circle"></i> Добавить новое изображение</h3>
-        <div class="input-group">
-            <input type="text" id="imageUrl" placeholder="Введите URL изображения (https://...)" autocomplete="off">
-            <button id="addImageBtn"><i class="fas fa-plus"></i> Добавить</button>
+    <!-- Панель управления -->
+    <div class="gallery-toolbar">
+        <button class="tool-btn" id="sortableBtn">
+            <i class="fas fa-arrows-alt"></i> Включить сортировку
+        </button>
+        <button class="tool-btn" id="shakeBtn">
+            <i class="fas fa-waveform"></i> Эффект тряски
+        </button>
+        <button class="tool-btn reset" id="resetBtn">
+            <i class="fas fa-undo-alt"></i> Сбросить порядок
+        </button>
+        <div class="add-form">
+            <input type="text" id="imageUrl" placeholder="Введите URL изображения..." autocomplete="off">
+            <button class="tool-btn" id="addImageBtn">
+                <i class="fas fa-plus"></i> Добавить
+            </button>
         </div>
     </div>
 
-    <div class="gallery-grid" id="galleryGrid"></div>
+    <!-- Сетка галереи -->
+    <ul class="gallery-grid" id="galleryGrid"></ul>
 
+    <!-- Модальное окно для просмотра (на весь экран) -->
+    <div id="imageModal" class="modal-view">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="" alt="Просмотр">
+    </div>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3><i class="fas fa-heart"></i> Glamour</h3>
                     <p>Сайт о макияже и красоте</p>
+                    <p>Вдохновляйся и сияй каждый день ✨</p>
                 </div>
                 <div class="footer-section">
                     <h3>📌 Меню</h3>
@@ -197,119 +422,313 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Glamour. Все права защищены.</p>
+                <p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте 💕</p>
             </div>
         </div>
     </footer>
 
+    <!-- jQuery, jQuery UI -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
     <script>
+        // ===== ТЁМНАЯ ТЕМА =====
         function toggleTheme() {
             if (document.body.classList.contains('dark-theme')) {
                 document.body.classList.remove('dark-theme');
                 localStorage.setItem('theme', 'light');
-                const btn = document.querySelector('.theme-toggle i');
-                if (btn) btn.className = 'fas fa-moon';
+                const icon = document.querySelector('.theme-toggle i');
+                if (icon) icon.className = 'fas fa-moon';
             } else {
                 document.body.classList.add('dark-theme');
                 localStorage.setItem('theme', 'dark');
-                const btn = document.querySelector('.theme-toggle i');
-                if (btn) btn.className = 'fas fa-sun';
+                const icon = document.querySelector('.theme-toggle i');
+                if (icon) icon.className = 'fas fa-sun';
             }
         }
 
         function loadTheme() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
-                const btn = document.querySelector('.theme-toggle i');
-                if (btn) btn.className = 'fas fa-sun';
+                const icon = document.querySelector('.theme-toggle i');
+                if (icon) icon.className = 'fas fa-sun';
             }
         }
         loadTheme();
 
-        // ========== ГАЛЕРЕЯ С СОХРАНЕНИЕМ ==========
-        
+        // ===== ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ =====
+        let sortableEnabled = false;
+        let sortableInstance = null;
+
         // Начальные изображения
         const defaultImages = [
-            "https://th.bing.com/th/id/OIP.a0bTbHsiVvN0_I9UyVKaTgHaJH?w=133&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            "https://th.bing.com/th/id/OIP.JNPXcYUku6J4MkviX-YfiAHaJQ?w=138&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            "https://th.bing.com/th/id/OIP.Jm2luWddtgwnae3RgR7mKQHaJQ?w=135&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            "https://th.bing.com/th/id/OIP.Nojsb9cNPTlCDg3HQiZ6qAHaKA?w=145&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            "https://th.bing.com/th/id/OIP.vYrhr3gdGr5EWnTQLZVMTwHaJO?w=136&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7",
-            "https://th.bing.com/th/id/OIP.5gtBaheIkj7HR-OilaGxvgHaJC?w=155&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7"
+            { url: "https://th.bing.com/th/id/OIP.a0bTbHsiVvN0_I9UyVKaTgHaJH?w=133&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Нежный образ" },
+            { url: "https://th.bing.com/th/id/OIP.JNPXcYUku6J4MkviX-YfiAHaJQ?w=138&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Сияющая кожа" },
+            { url: "https://th.bing.com/th/id/OIP.Jm2luWddtgwnae3RgR7mKQHaJQ?w=135&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Гламурный макияж" },
+            { url: "https://th.bing.com/th/id/OIP.Nojsb9cNPTlCDg3HQiZ6qAHaKA?w=145&h=195&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Смоки-айс" },
+            { url: "https://th.bing.com/th/id/OIP.vYrhr3gdGr5EWnTQLZVMTwHaJO?w=136&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Красная помада" },
+            { url: "https://th.bing.com/th/id/OIP.5gtBaheIkj7HR-OilaGxvgHaJC?w=155&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7", title: "Вечерний образ" }
         ];
 
         let images = [];
 
+        function showToast(message) {
+            const toast = $('<div class="gallery-toast">' + message + '</div>');
+            $('body').append(toast);
+            toast.fadeIn(300);
+            setTimeout(function() {
+                toast.fadeOut(300, function() { $(this).remove(); });
+            }, 2000);
+        }
+
         function loadImages() {
-            const saved = localStorage.getItem('galleryImages');
+            const saved = localStorage.getItem('galleryImages_jquery');
             if (saved) {
                 images = JSON.parse(saved);
-                console.log('Загружено сохранённых фото:', images.length);
             } else {
-                images = [...defaultImages];
+                images = JSON.parse(JSON.stringify(defaultImages));
                 saveImages();
-                console.log('Загружены фото по умолчанию');
             }
             renderGallery();
         }
 
         function saveImages() {
-            localStorage.setItem('galleryImages', JSON.stringify(images));
-            console.log('Фото сохранены в localStorage');
+            localStorage.setItem('galleryImages_jquery', JSON.stringify(images));
         }
 
         function renderGallery() {
-            const grid = document.getElementById('galleryGrid');
-            if (!grid) return;
-
+            const $grid = $('#galleryGrid');
+            
             if (images.length === 0) {
-                grid.innerHTML = '<div class="empty-gallery"><i class="fas fa-images"></i><p>Галерея пуста. Добавьте первое изображение!</p></div>';
+                $grid.html('<div class="empty-gallery"><i class="fas fa-images"></i><p>Галерея пуста. Добавьте первое изображение!</p></div>');
                 return;
             }
 
-            grid.innerHTML = images.map((img, index) => `
-                <div class="gallery-item">
-                    <img src="${img}" alt="Фото макияжа" onerror="this.parentElement.innerHTML='<div style=\\'display: flex; align-items: center; justify-content: center; height: 250px; background: #fef5f0; color: #c2778b;\\'><i class=\\'fas fa-image\\' style=\\'font-size: 3rem;\\'></i><p style=\\'margin-left: 10px;\\'>Не удалось загрузить</p></div>'">
-                    <button class="delete-btn" onclick="deleteImage(${index})">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            `).join('');
+            $grid.html(images.map((img, index) => `
+                <li class="gallery-item" data-index="${index}">
+                    <img src="${img.url}" alt="${img.title}" class="gallery-img">
+                    <div class="item-info">
+                        <span class="item-title">${escapeHtml(img.title)}</span>
+                        <button class="delete-btn" onclick="deleteImage(${index})">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </li>
+            `).join(''));
+
+            // Привязываем клик для увеличения
+            $('.gallery-img').off('click').on('click', function(e) {
+                e.stopPropagation();
+                const imgSrc = $(this).attr('src');
+                $('#modalImage').attr('src', imgSrc);
+                $('#imageModal').fadeIn(300);
+            });
+            
+            // Если сортировка включена, пересоздаём её
+            if (sortableEnabled) {
+                enableSortable();
+            }
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            return text.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
 
-        function deleteImage(index) {
-            if (confirm('Удалить это изображение из галереи?')) {
+        window.deleteImage = function(index) {
+            const $item = $(`.gallery-item[data-index="${index}"]`);
+            $item.addClass('gallery-item-shake');
+            
+            setTimeout(() => {
                 images.splice(index, 1);
                 saveImages();
                 renderGallery();
-            }
-        }
+                showToast('🗑️ Изображение удалено');
+            }, 200);
+        };
 
-        function addImage(url) {
-            if (!url || url.trim() === '') {
-                alert('Пожалуйста, введите URL изображения');
-                return false;
+        function addImage() {
+            const url = $('#imageUrl').val().trim();
+            if (!url) {
+                $('#imageUrl').effect('shake', { distance: 5, times: 3 }, 500);
+                return;
             }
-            images.push(url);
+
+            const title = prompt('Введите название для этого изображения:', 'Новый образ');
+            if (title === null) return;
+
+            images.push({ url: url, title: title || 'Новый образ' });
             saveImages();
             renderGallery();
-            document.getElementById('imageUrl').value = '';
-            alert('✅ Изображение добавлено! Оно сохранится после перезагрузки страницы.');
-            return true;
+            
+            // Анимация для нового элемента
+            const $newItem = $('#galleryGrid .gallery-item').last();
+            $newItem.addClass('gallery-item-new');
+            setTimeout(() => $newItem.removeClass('gallery-item-new'), 500);
+            
+            $('#imageUrl').val('');
+            showToast('✨ Изображение добавлено! Перетащите, чтобы изменить порядок');
         }
 
-        document.getElementById('addImageBtn')?.addEventListener('click', () => {
-            const urlInput = document.getElementById('imageUrl');
-            addImage(urlInput.value);
-        });
+        function enableSortable() {
+            if (sortableInstance) {
+                sortableInstance.sortable('destroy');
+            }
+            sortableInstance = $('#galleryGrid').sortable({
+                items: '.gallery-item',
+                update: function(event, ui) {
+                    const newOrder = [];
+                    $('#galleryGrid .gallery-item').each(function() {
+                        const idx = $(this).data('index');
+                        newOrder.push(images[idx]);
+                    });
+                    images = newOrder;
+                    saveImages();
+                    // Обновляем data-index
+                    $('#galleryGrid .gallery-item').each(function(i) {
+                        $(this).attr('data-index', i);
+                    });
+                },
+                opacity: 0.6,
+                cursor: 'grabbing',
+                placeholder: 'ui-sortable-placeholder',
+                forcePlaceholderSize: true,
+                tolerance: 'pointer',
+                start: function() {
+                    $('.gallery-item').css('cursor', 'grabbing');
+                },
+                stop: function() {
+                    $('.gallery-item').css('cursor', 'grab');
+                }
+            });
+        }
 
-        document.getElementById('imageUrl')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                addImage(e.target.value);
+        function toggleSortable() {
+            if (sortableEnabled) {
+                if (sortableInstance) {
+                    sortableInstance.sortable('destroy');
+                    sortableInstance = null;
+                }
+                sortableEnabled = false;
+                $('#sortableBtn').html('<i class="fas fa-arrows-alt"></i> Включить сортировку');
+                $('#sortableBtn').css('background', 'linear-gradient(135deg, #d48a9e, #c2778b)');
+                showToast('🔓 Сортировка выключена');
+            } else {
+                enableSortable();
+                sortableEnabled = true;
+                $('#sortableBtn').html('<i class="fas fa-check"></i> Сортировка включена');
+                $('#sortableBtn').css('background', '#4a3b40');
+                showToast('🔒 Сортировка включена! Перетаскивайте изображения');
+            }
+        }
+
+        function shakeGallery() {
+            $('#galleryGrid .gallery-item').each(function() {
+                $(this).effect('shake', { distance: 8, times: 2 }, 400);
+            });
+            showToast('🔮 Магия трансформации!');
+        }
+
+        function resetOrder() {
+            if (sortableEnabled) {
+                toggleSortable();
+            }
+            images = JSON.parse(JSON.stringify(defaultImages));
+            saveImages();
+            renderGallery();
+            showToast('🔄 Порядок сброшен к исходному!');
+        }
+
+        // Закрытие модального окна
+        $('#imageModal .close-modal, #imageModal').on('click', function(e) {
+            if (e.target === this || $(e.target).hasClass('close-modal')) {
+                $('#imageModal').fadeOut(300);
+            }
+        });
+        
+        // Закрытие по Escape
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $('#imageModal').is(':visible')) {
+                $('#imageModal').fadeOut(300);
             }
         });
 
-        loadImages();
+        // Обработчики событий
+        $(document).ready(function() {
+            loadImages();
+            
+            $('#addImageBtn').on('click', addImage);
+            $('#imageUrl').on('keypress', function(e) {
+                if (e.key === 'Enter') addImage();
+            });
+            $('#sortableBtn').on('click', toggleSortable);
+            $('#shakeBtn').on('click', shakeGallery);
+            $('#resetBtn').on('click', resetOrder);
+        });
     </script>
+
+    <!-- Поиск -->
+    <script>
+        const searchInput = document.getElementById('globalSearchInput');
+        const searchResults = document.getElementById('globalSearchResults');
+        
+        const searchData = [
+            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Хайлайтер Glow Up", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Румяна Blush Pink", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+            { title: "Палетка теней Nude Dream", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+            { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
+            { title: "Блеск Shiny Gloss", category: "Каталог → Губы", url: "catalog.html#lips" },
+            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+            { title: "Как выбрать помаду по цветотипу", category: "Советы", url: "tips.html" },
+            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
+        ];
+        
+        function highlightText(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<span class="highlight">$1</span>');
+        }
+        
+        function performGlobalSearch() {
+            const query = searchInput.value.trim();
+            if (query === '') {
+                searchResults.classList.remove('show');
+                return;
+            }
+            const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+            if (filtered.length === 0) {
+                searchResults.innerHTML = `<div class="no-results">😔 Ничего не найдено</div>`;
+                searchResults.classList.add('show');
+                return;
+            }
+            searchResults.innerHTML = filtered.map(item => `
+                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                    <div class="item-title">${highlightText(item.title, query)}</div>
+                    <div class="item-category">${item.category}</div>
+                </div>
+            `).join('');
+            searchResults.classList.add('show');
+        }
+        
+        if (searchInput) {
+            searchInput.addEventListener('input', performGlobalSearch);
+            document.addEventListener('click', function(e) {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.classList.remove('show');
+                }
+            });
+        }
+    </script>
+
 </body>
 </html>
