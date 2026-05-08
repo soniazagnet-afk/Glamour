@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
     
     <style>
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
         * {
             margin: 0;
             padding: 0;
@@ -25,21 +26,37 @@
             font-family: 'Cormorant Garamond', serif;
             background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
             min-height: 100vh;
+            transition: background 0.3s;
         }
 
         body.dark-theme {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
 
-        /* ===== ХЕДЕР И МЕНЮ ===== */
+        /* Декоративные элементы */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.08;
+            z-index: 0;
+            font-size: 120px;
+        }
+        .decoration-1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
+        .decoration-2 { bottom: 15%; right: 3%; animation: float 10s ease-in-out infinite reverse; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* ===== ХЕДЕР ===== */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid rgba(212, 138, 158, 0.1);
             padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         body.dark-theme .header {
@@ -52,12 +69,19 @@
             padding: 0 20px;
         }
 
-        .header-inner {
+        .row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
+            align-items: center;
+            position: relative;
         }
+
+        .col-md-3, .col-md-6 {
+            padding: 0 15px;
+        }
+
+        .col-md-3 { width: 25%; }
+        .col-md-6 { width: 50%; }
 
         /* Логотип */
         .logo {
@@ -68,7 +92,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
         }
@@ -82,16 +106,14 @@
             cursor: pointer;
             color: #d48a9e;
             transition: transform 0.3s;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            z-index: 1001;
         }
 
         .burger-btn:hover {
             transform: scale(1.1);
-            background: rgba(212, 138, 158, 0.1);
         }
 
         /* Навигационное меню */
@@ -171,21 +193,24 @@
             padding: 8px 20px;
             display: block;
             white-space: nowrap;
+            font-size: 0.95rem;
         }
 
         .dropdown-menu-sub a:hover {
             background: #fde8ed;
+            transform: translateX(5px);
         }
 
         body.dark-theme .dropdown-menu-sub a:hover {
             background: #2a2a3e;
         }
 
-        /* Правая часть хедера (поиск + тема) */
+        /* Поиск и тема */
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            justify-content: flex-end;
         }
 
         .header-search {
@@ -199,20 +224,30 @@
             font-size: 0.85rem;
             width: 180px;
             outline: none;
+            transition: all 0.3s;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .header-search input:focus {
+            width: 220px;
+            border-color: #d48a9e;
+            box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
         }
 
         .search-dropdown {
             position: absolute;
             top: 100%;
             right: 0;
-            width: 260px;
+            width: 280px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            display: none;
-            z-index: 200;
-            max-height: 300px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            max-height: 350px;
             overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            margin-top: 8px;
+            border: 1px solid #f3dfe4;
         }
 
         .search-dropdown.show {
@@ -220,20 +255,41 @@
         }
 
         .search-dropdown-item {
-            padding: 10px 15px;
-            cursor: pointer;
+            padding: 12px 16px;
             border-bottom: 1px solid #f3dfe4;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
         .search-dropdown-item:hover {
-            background: #fde8ed;
+            background: #fef5f0;
+        }
+
+        .search-dropdown-item .item-title {
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            color: #4a3b40;
+            font-size: 0.85rem;
+        }
+
+        .search-dropdown-item .item-category {
+            font-size: 0.7rem;
+            color: #d48a9e;
+            margin-top: 4px;
         }
 
         .highlight {
             background: #fde8ed;
-            color: #d48a9e;
-            border-radius: 3px;
-            padding: 0 2px;
+            color: #c2778b;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+
+        .no-results {
+            padding: 15px;
+            text-align: center;
+            color: #7a6a6e;
+            font-size: 0.8rem;
         }
 
         .theme-toggle {
@@ -244,8 +300,11 @@
             height: 40px;
             cursor: pointer;
             font-size: 1.2rem;
-            color: #d48a9e;
             transition: all 0.3s;
+            color: #d48a9e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-toggle:hover {
@@ -253,19 +312,404 @@
             background: rgba(212, 138, 158, 0.4);
         }
 
-        /* ===== АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ ===== */
+        /* ===== Hero Section ===== */
+        .hero {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+
+        .slogan {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #b595a8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 5vw, 3.5rem);
+            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 50%, #c2778b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            color: #7a6a6e;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .hero-image {
+            max-width: 800px;
+            margin: 30px auto;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(212, 138, 158, 0.3);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .btn-custom {
+            padding: 12px 35px;
+            margin: 10px;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s;
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+        }
+
+        .btn-primary-custom {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4);
+        }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 138, 158, 0.5);
+            color: white;
+        }
+
+        .btn-secondary-custom {
+            background: white;
+            color: #d48a9e;
+            border: 2px solid #d48a9e;
+        }
+
+        .btn-secondary-custom:hover {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== Categories ===== */
+        .categories {
+            padding: 60px 0;
+            background: white;
+        }
+
+        body.dark-theme .categories {
+            background: transparent;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 50px;
+        }
+
+        .category-card {
+            text-align: center;
+            padding: 30px 20px;
+            border-radius: 25px;
+            transition: all 0.4s;
+            cursor: pointer;
+            background: linear-gradient(135deg, #fff5f7 0%, #fff 100%);
+            border: 2px solid rgba(212, 138, 158, 0.1);
+            margin-bottom: 20px;
+        }
+
+        body.dark-theme .category-card {
+            background: #1e1e2e;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 138, 158, 0.2);
+        }
+
+        .category-img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.2);
+        }
+
+        .category-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a3b40;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        body.dark-theme .category-card h3 {
+            color: #ddd;
+        }
+
+        .category-card p {
+            color: #7a6a6e;
+        }
+
+        /* ===== Tips ===== */
+        .tips {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+        }
+
+        body.dark-theme .tips {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+            transition: all 0.4s;
+            margin-bottom: 30px;
+        }
+
+        body.dark-theme .tip-card {
+            background: #1e1e2e;
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(212, 138, 158, 0.25);
+        }
+
+        .tip-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .tip-content {
+            padding: 25px;
+        }
+
+        .tip-content h3 {
+            font-family: 'Playfair Display', serif;
+            color: #4a3b40;
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+        }
+
+        body.dark-theme .tip-content h3 {
+            color: #ddd;
+        }
+
+        .tip-content p {
+            color: #7a6a6e;
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: linear-gradient(135deg, #fde8ed 0%, #f5e0e8 100%);
+            color: #c2778b;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            margin-right: 8px;
+        }
+
+        .btn-all-tips {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 0;
+            padding: 12px 40px;
+            background: transparent;
+            border: 2px solid #d48a9e;
+            color: #d48a9e;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-all-tips:hover {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+        }
+
+        /* ===== Newsletter ===== */
+        .newsletter {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #d48a9e 0%, #c2778b 50%, #b595a8 100%);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-family: 'Playfair Display', serif;
+            color: white;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin-bottom: 15px;
+        }
+
+        .newsletter p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 35px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 12px 35px;
+            background: #4a3b40;
+            color: white;
+            border: none;
+            border-radius: 35px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #3a2f34;
+            transform: translateY(-2px);
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: linear-gradient(135deg, #4a3b40, #3a2f34);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: #d48a9e;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            background: #d48a9e;
+            transform: translateY(-3px);
+        }
+
+        .developer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
+        /* ===== БЕГУЩАЯ СТРОКА ===== */
+        .marquee {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            padding: 6px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            color: white;
+            font-size: 0.8rem;
+            padding-left: 100%;
+            animation: marqueeScroll 20s linear infinite;
+        }
+
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .marquee-text span {
+            margin: 0 30px;
+        }
+
+        /* ===== АДАПТИВНОСТЬ ===== */
         @media (max-width: 768px) {
             .burger-btn {
-                display: flex;
+                display: block;
+            }
+
+            .col-md-3, .col-md-6 {
+                width: 100%;
+                text-align: center;
             }
 
             .nav-menu {
                 display: none;
                 flex-direction: column;
-                width: 100%;
                 background: white;
-                border-radius: 20px;
                 padding: 20px;
+                border-radius: 20px;
                 margin-top: 15px;
                 gap: 15px;
             }
@@ -275,14 +719,13 @@
             }
 
             .nav-menu.show {
-                display: flex;
+                display: flex !important;
             }
 
             .nav-menu li {
                 text-align: center;
             }
 
-            /* На мобильных подменю не выпадает, а показывается по клику */
             .dropdown-menu-sub {
                 position: static;
                 display: none;
@@ -300,245 +743,85 @@
                 font-size: 10px;
             }
 
-            .header-actions {
-                gap: 10px;
+            .header-search input {
+                width: 150px;
             }
 
-            .header-search input {
-                width: 120px;
-                font-size: 0.75rem;
+            .category-img {
+                width: 150px;
+                height: 150px;
             }
         }
 
         @media (max-width: 576px) {
             .header-search input {
-                width: 100px;
+                width: 120px;
             }
             
-            .logo {
-                font-size: 1.3rem;
+            .btn-custom {
+                padding: 8px 20px;
+                font-size: 0.85rem;
             }
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 60px 0 40px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 6vw, 4rem);
-            background: linear-gradient(135deg, #4a3b40 0%, #d48a9e 50%, #c2778b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: clamp(1rem, 2.5vw, 1.4rem);
-            color: #7a6a6e;
-        }
-
-        .hero-image {
-            max-width: 800px;
-            margin: 30px auto;
-            border-radius: 30px;
-            overflow: hidden;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-        }
-
-        .btn-custom {
-            padding: 12px 30px;
-            margin: 10px;
-            border-radius: 35px;
-            text-decoration: none;
-            display: inline-block;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .btn-primary-custom {
-            background: linear-gradient(135deg, #d48a9e, #c2778b);
-            color: white;
-        }
-
-        .btn-secondary-custom {
-            background: white;
-            color: #d48a9e;
-            border: 2px solid #d48a9e;
-        }
-
-        /* Categories, Tips, Newsletter - кратко */
-        .categories, .tips, .newsletter {
-            padding: 60px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            margin-bottom: 40px;
-        }
-
-        .category-card, .tip-card {
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .category-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .newsletter {
-            background: linear-gradient(135deg, #d48a9e, #c2778b);
-            text-align: center;
-            color: white;
-        }
-
-        .newsletter-form {
-            display: flex;
-            gap: 10px;
-            max-width: 500px;
-            margin: 0 auto;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .newsletter-form input {
-            padding: 12px 20px;
-            border-radius: 30px;
-            border: none;
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .newsletter-form button {
-            padding: 12px 25px;
-            border-radius: 30px;
-            border: none;
-            background: #4a3b40;
-            color: white;
-            cursor: pointer;
-        }
-
-        /* Футер */
-        .footer {
-            background: linear-gradient(135deg, #4a3b40, #3a2f34);
-            color: white;
-            padding: 40px 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-        }
-
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .social-icons a {
-            width: 35px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            margin-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Бегущая строка */
-        .marquee {
-            background: linear-gradient(135deg, #d48a9e, #c2778b);
-            padding: 6px 0;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .marquee-text {
-            display: inline-block;
-            white-space: nowrap;
-            color: white;
-            padding-left: 100%;
-            animation: marqueeScroll 20s linear infinite;
-        }
-
-        @keyframes marqueeScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .marquee-text span {
-            margin: 0 30px;
+            
+            .hero {
+                padding: 30px 0 20px;
+            }
+            
+            .section-title {
+                margin-bottom: 30px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header с бургер-меню -->
+    <!-- Декоративные элементы -->
+    <div class="decoration decoration-1">🌺</div>
+    <div class="decoration decoration-2">🌸</div>
+
+    <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="header-inner">
-                <a href="make.html" class="logo">
-                    <i class="fas fa-heart"></i>
-                    <span>Glamour</span>
-                </a>
-                
-                <button class="burger-btn" id="burgerBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                
-                <nav>
-                    <ul class="nav-menu" id="navMenu">
-                        <li><a href="make.html">Главная</a></li>
-                        <li class="dropdown">
-                            <a href="catalog.html">Каталог</a>
-                            <ul class="dropdown-menu-sub">
-                                <li><a href="catalog.html#face">💄 Для лица</a></li>
-                                <li><a href="catalog.html#eyes">👁️ Для глаз</a></li>
-                                <li><a href="catalog.html#lips">💋 Для губ</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="tips.html">Советы</a></li>
-                        <li><a href="test.html">Тест</a></li>
-                        <li><a href="contacts.html">Контакты</a></li>
-                        <li><a href="register.html">👤</a></li>
-                    </ul>
-                </nav>
-                
-                <div class="header-actions">
-                    <div class="header-search">
-                        <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
-                        <div id="globalSearchResults" class="search-dropdown"></div>
-                    </div>
-                    <button class="theme-toggle" onclick="toggleTheme()">
-                        <i class="fas fa-moon"></i>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="make.html" class="logo">
+                        <i class="fas fa-heart"></i>
+                        <span>Glamour</span>
+                    </a>
+                    <button class="burger-btn" id="burgerBtn">
+                        <i class="fas fa-bars"></i>
                     </button>
+                </div>
+                <div class="col-md-6">
+                    <nav>
+                        <ul class="nav-menu justify-content-center" id="navMenu">
+                            <li><a href="make.html">Главная</a></li>
+                            <li class="dropdown">
+                                <a href="catalog.html">Каталог</a>
+                                <ul class="dropdown-menu-sub">
+                                    <li><a href="catalog.html#face">💄 Для лица</a></li>
+                                    <li><a href="catalog.html#eyes">👁️ Для глаз</a></li>
+                                    <li><a href="catalog.html#lips">💋 Для губ</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="tips.html">Советы</a></li>
+                            <li><a href="test.html">Тест</a></li>
+                            <li><a href="contacts.html">Контакты</a></li>
+                            <li><a href="register.html">👤</a></li>
+                            <li><a href="gallery.html">🖼️ Галерея</a></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-3">
+                    <div class="header-actions">
+                        <div class="header-search">
+                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
+                            <div id="globalSearchResults" class="search-dropdown"></div>
+                        </div>
+                        <button class="theme-toggle" onclick="toggleTheme()">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -550,16 +833,18 @@
             <span>✨ ЛАЙФХАК: Наноси консилер треугольником под глазами ✨</span>
             <span>🔥 ТРЕНД ВЕСНЫ 2026: вишнёвый макияж 🔥</span>
             <span>💄 ПРАВИЛО ОДНОГО АКЦЕНТА: яркие губы или глаза 💄</span>
+            <span>💎 СМОКИ-АЙС ДЛЯ НАЧИНАЮЩИХ: смотри в разделе Советы 💎</span>
         </div>
     </div>
 
-    <!-- Hero -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
+            <p class="slogan">«Красота — это искусство быть собой»</p>
             <h1>Идеальный макияж начинается здесь</h1>
-            <p>Профессиональные советы, трендовые подборки и лучшая косметика</p>
+            <p>Профессиональные советы, трендовые подборки и лучшая косметика для вашей красоты</p>
             <div class="hero-image">
-                <img src="https://th.bing.com/th/id/OIP.PbUGyveNs5YpRHUshFkcWgHaDz?w=349&h=179&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Макияж">
+                <img src="https://th.bing.com/th/id/OIP.PbUGyveNs5YpRHUshFkcWgHaDz?w=349&h=179&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Профессиональный макияж">
             </div>
             <div>
                 <a href="catalog.html" class="btn-custom btn-primary-custom">Смотреть каталог</a>
@@ -575,26 +860,58 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="category-card" onclick="location.href='catalog.html#face'">
-                        <img src="https://th.bing.com/th/id/OIP.8MC6S9KhyNoiuNOwtvQ0BgHaJQ?w=157&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="category-img">
+                        <img src="https://th.bing.com/th/id/OIP.8MC6S9KhyNoiuNOwtvQ0BgHaJQ?w=157&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Косметика для лица" class="category-img">
                         <h3>💄 Лицо</h3>
-                        <p>Тональные кремы, пудра, консилеры</p>
+                        <p>Тональные кремы, пудра, консилеры и хайлайтеры</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="category-card" onclick="location.href='catalog.html#eyes'">
-                        <img src="https://th.bing.com/th/id/OIP.kHS565qpR-sUWgVU8fBuiAHaEB?w=339&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="category-img">
+                        <img src="https://th.bing.com/th/id/OIP.kHS565qpR-sUWgVU8fBuiAHaEB?w=339&h=184&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Косметика для глаз" class="category-img">
                         <h3>👁️ Глаза</h3>
-                        <p>Тушь, тени, подводка</p>
+                        <p>Тушь, тени, подводка и средства для бровей</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="category-card" onclick="location.href='catalog.html#lips'">
-                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop" class="category-img">
+                        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=400&h=400&fit=crop" alt="Косметика для губ" class="category-img">
                         <h3>💋 Губы</h3>
-                        <p>Помады, блески, карандаши</p>
+                        <p>Помады, блески, карандаши и тинты</p>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Tips -->
+    <section class="tips">
+        <div class="container">
+            <h2 class="section-title">📖 Свежие советы</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="tip-card">
+                        <img src="https://th.bing.com/th/id/OIP.PPLzSPN7HIrGB807ysEl4wHaFC?w=265&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Нанесение тонального крема" class="tip-img">
+                        <div class="tip-content">
+                            <h3>💎 Как нанести тональный крем идеально?</h3>
+                            <p>Секреты профессиональных визажистов: подготовка кожи, выбор спонжа и техника нанесения для безупречного покрытия...</p>
+                            <span class="tag">#тональныйкрем</span>
+                            <span class="tag">#макияж</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="tip-card">
+                        <img src="https://th.bing.com/th/id/OIP.h_4E9gAuzfMcU-8tWNtgkwHaHa?w=200&h=200&c=7&r=0&o=5&dpr=1.3&pid=1.7" alt="Смоки-айс макияж" class="tip-img">
+                        <div class="tip-content">
+                            <h3>🔥 Смоки-айс для начинающих</h3>
+                            <p>Пошаговая инструкция: от выбора теней до идеальной растушёвки. Создай эффектный вечерний образ за 10 минут!</p>
+                            <span class="tag">#смоки</span>
+                            <span class="tag">#вечерниймакияж</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="tips.html" class="btn-all-tips">📚 Читать все советы →</a>
         </div>
     </section>
 
@@ -602,7 +919,7 @@
     <section class="newsletter">
         <div class="container">
             <h2>💌 Будь в курсе новинок!</h2>
-            <p>Подпишись на рассылку и получай советы первыми</p>
+            <p>Подпишись на рассылку и получай советы, скидки и новости первыми</p>
             <form class="newsletter-form" id="newsletterForm">
                 <input type="email" placeholder="Введите ваш email" required>
                 <button type="submit">Подписаться</button>
@@ -615,29 +932,45 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>Glamour</h3>
+                    <h3><i class="fas fa-heart"></i> Glamour</h3>
                     <p>Сайт о макияже и красоте</p>
+                    <p>Вдохновляйся и сияй каждый день ✨</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Меню</h3>
+                    <h3>📌 Меню</h3>
                     <ul>
                         <li><a href="make.html">Главная</a></li>
                         <li><a href="catalog.html">Каталог</a></li>
                         <li><a href="tips.html">Советы</a></li>
                         <li><a href="test.html">Тест</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Контакты</h3>
-                    <p>info@glamour.ru</p>
+                    <h3>📞 Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> @glamour_beauty</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> @glamour</a></li>
+                    </ul>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
                     </div>
+                </div>
+                <div class="footer-section">
+                    <h3>👩‍💻 Разработчик</h3>
+                    <a href="developer.html" class="developer-link">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Информация о разработчике</span>
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Glamour. Создано с любовью к красоте</p>
+                <p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте 💕</p>
             </div>
         </div>
     </footer>
@@ -647,33 +980,153 @@
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
     <script>
-        // ========== БУРГЕР-МЕНЮ (для телефонов) ==========
-        $('#burgerBtn').on('click', function() {
-            $('#navMenu').toggleClass('show');
-            const icon = $(this).find('i');
-            if (icon.hasClass('fa-bars')) {
-                icon.removeClass('fa-bars').addClass('fa-times');
-            } else {
-                icon.removeClass('fa-times').addClass('fa-bars');
+        $(document).ready(function() {
+            // ===== БУРГЕР-МЕНЮ (работает на телефонах) =====
+            $('#burgerBtn').on('click', function() {
+                $('#navMenu').toggleClass('show');
+                const icon = $(this).find('i');
+                if (icon.hasClass('fa-bars')) {
+                    icon.removeClass('fa-bars').addClass('fa-times');
+                } else {
+                    icon.removeClass('fa-times').addClass('fa-bars');
+                }
+            });
+
+            // ===== АДАПТИВНОЕ ПОДМЕНЮ =====
+            function initDropdown() {
+                if (window.innerWidth <= 768) {
+                    // На мобильных: подменю по клику
+                    $('.dropdown > a').off('mouseenter mouseleave').on('click', function(e) {
+                        e.preventDefault();
+                        $(this).siblings('.dropdown-menu-sub').toggleClass('show');
+                    });
+                } else {
+                    // На десктопе: подменю при наведении
+                    $('.dropdown > a').off('click');
+                    $('.dropdown').off('mouseenter mouseleave').on('mouseenter', function() {
+                        $(this).find('.dropdown-menu-sub').stop(true, true).slideDown(200);
+                    }).on('mouseleave', function() {
+                        $(this).find('.dropdown-menu-sub').stop(true, true).slideUp(200);
+                    });
+                }
             }
+            initDropdown();
+            $(window).on('resize', initDropdown);
+
+            // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+            let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+            $('.nav-menu a').each(function() {
+                if ($(this).attr('href') === currentPage) {
+                    $(this).addClass('active');
+                }
+            });
+
+            // ===== ПОЛНОЦЕННЫЙ ПОИСК =====
+            const searchData = [
+                { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Хайлайтер Glow Up", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Румяна Blush Pink", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Праймер Smooth Base", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "BB-крем Natural Look", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Фиксатор Stay All Day", category: "Каталог → Лицо", url: "catalog.html#face" },
+                { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "Палетка теней Nude Dream", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "Подводка Perfect Line", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "Карандаш Soft Liner", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "База под тени Prime Eyes", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "Палетка Smoky Eyes", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+                { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Блеск Shiny Gloss", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Карандаш Lip Liner", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Жидкая помада Liquid Matte", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Масло Lip Oil", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Тинт Lip Tint", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Нюдовая помада Nude Kiss", category: "Каталог → Губы", url: "catalog.html#lips" },
+                { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+                { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+                { title: "Как выбрать помаду по цветотипу", category: "Советы", url: "tips.html" },
+                { title: "Дневной макияж за 5 минут", category: "Советы", url: "tips.html" },
+                { title: "Уход за кожей перед макияжем", category: "Советы", url: "tips.html" },
+                { title: "Контуринг и скульптурирование", category: "Советы", url: "tips.html" },
+                { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" },
+                { title: "Тест: Макияж глаз", category: "Тесты", url: "test.html" },
+                { title: "Тест: Тип кожи", category: "Тесты", url: "test.html" }
+            ];
+
+            function highlightText(text, query) {
+                if (!query) return text;
+                const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+                return text.replace(regex, '<span class="highlight">$1</span>');
+            }
+
+            const searchInput = $('#globalSearchInput');
+            const searchResults = $('#globalSearchResults');
+
+            searchInput.on('input', function() {
+                const query = $(this).val().trim();
+                if (query === '') {
+                    searchResults.removeClass('show');
+                    return;
+                }
+                const filtered = searchData.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase())
+                );
+                if (filtered.length === 0) {
+                    searchResults.html(`<div class="no-results">😔 Ничего не найдено по запросу «${query}»</div>`);
+                } else {
+                    searchResults.html(filtered.map(item => `
+                        <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                            <div class="item-title">${highlightText(item.title, query)}</div>
+                            <div class="item-category">${item.category}</div>
+                        </div>
+                    `).join(''));
+                }
+                searchResults.addClass('show');
+            });
+
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.header-search').length) {
+                    searchResults.removeClass('show');
+                }
+            });
+
+            searchInput.on('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = $(this).val().trim();
+                    if (query) {
+                        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+
+            // ===== jQuery UI ДИАЛОГ ПРИ ПОДПИСКЕ =====
+            $('#newsletterForm').on('submit', function(e) {
+                e.preventDefault();
+                const email = $(this).find('input[type="email"]').val();
+                $('<div>').html(`
+                    <div style="text-align: center; padding: 20px;">
+                        <i class="fas fa-envelope" style="font-size: 48px; color: #d48a9e;"></i>
+                        <h3>Спасибо за подписку!</h3>
+                        <p>На почту ${email} отправлены советы по красоте.</p>
+                        <p style="font-size: 12px; color: #7a6a6e;">Вы будете получать лучшие рекомендации</p>
+                    </div>
+                `).dialog({
+                    title: '💌 Подписка оформлена',
+                    modal: true,
+                    width: 400,
+                    buttons: {
+                        'Отлично!': function() { $(this).dialog('close'); }
+                    },
+                    show: { effect: 'fade', duration: 400 },
+                    hide: { effect: 'fade', duration: 300 }
+                });
+                $(this)[0].reset();
+            });
         });
 
-        // ========== НА МОБИЛЬНЫХ: ПОДМЕНЮ ПО КЛИКУ ==========
-        if (window.innerWidth <= 768) {
-            $('.dropdown > a').on('click', function(e) {
-                e.preventDefault();
-                $(this).siblings('.dropdown-menu-sub').toggleClass('show');
-            });
-        } else {
-            // На десктопе: при наведении
-            $('.dropdown').on('mouseenter', function() {
-                $(this).find('.dropdown-menu-sub').stop(true, true).slideDown(200);
-            }).on('mouseleave', function() {
-                $(this).find('.dropdown-menu-sub').stop(true, true).slideUp(200);
-            });
-        }
-
-        // ========== ТЁМНАЯ ТЕМА ==========
+        // ===== ТЁМНАЯ ТЕМА =====
         function toggleTheme() {
             if (document.body.classList.contains('dark-theme')) {
                 document.body.classList.remove('dark-theme');
@@ -693,86 +1146,6 @@
             }
         }
         loadTheme();
-
-        // ========== ПОДСВЕТКА АКТИВНОГО ПУНКТА ==========
-        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
-        $('.nav-menu a').each(function() {
-            if ($(this).attr('href') === currentPage) {
-                $(this).addClass('active');
-            }
-        });
-
-        // ========== ПОИСК (полная версия) ==========
-        const searchData = [
-            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Хайлайтер Glow Up", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Румяна Blush Pink", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
-            { title: "Палетка теней Nude Dream", category: "Каталог → Глаза", url: "catalog.html#eyes" },
-            { title: "Подводка Perfect Line", category: "Каталог → Глаза", url: "catalog.html#eyes" },
-            { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
-            { title: "Блеск Shiny Gloss", category: "Каталог → Губы", url: "catalog.html#lips" },
-            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
-            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
-            { title: "Как выбрать помаду по цветотипу", category: "Советы", url: "tips.html" },
-            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" },
-            { title: "Тест: Макияж глаз", category: "Тесты", url: "test.html" }
-        ];
-
-        function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-
-        $('#globalSearchInput').on('input', function() {
-            const query = $(this).val().trim();
-            if (query === '') {
-                $('#globalSearchResults').removeClass('show');
-                return;
-            }
-            const filtered = searchData.filter(item => 
-                item.title.toLowerCase().includes(query.toLowerCase())
-            );
-            if (filtered.length === 0) {
-                $('#globalSearchResults').html('<div class="search-dropdown-item">😔 Ничего не найдено</div>');
-            } else {
-                $('#globalSearchResults').html(filtered.map(item => `
-                    <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
-                        <div class="item-title">${highlightText(item.title, query)}</div>
-                        <div class="item-category">${item.category}</div>
-                    </div>
-                `).join(''));
-            }
-            $('#globalSearchResults').addClass('show');
-        });
-
-        $(document).on('click', function(e) {
-            if (!$(e.target).closest('.header-search').length) {
-                $('#globalSearchResults').removeClass('show');
-            }
-        });
-
-        // ========== ПОДПИСКА (jQuery UI Dialog) ==========
-        $('#newsletterForm').on('submit', function(e) {
-            e.preventDefault();
-            const email = $(this).find('input[type="email"]').val();
-            $('<div>').html(`
-                <div style="text-align:center;padding:20px;">
-                    <i class="fas fa-envelope" style="font-size:48px;color:#d48a9e;"></i>
-                    <h3>Спасибо за подписку!</h3>
-                    <p>На почту ${email} отправлены советы по красоте.</p>
-                </div>
-            `).dialog({
-                title: '💌 Подписка оформлена',
-                modal: true,
-                width: 400,
-                buttons: { 'Отлично!': function() { $(this).dialog('close'); } }
-            });
-            $(this)[0].reset();
-        });
     </script>
 </body>
 </html>
