@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Регистрация – Glamour</title>
     
     <!-- Bootstrap -->
@@ -13,12 +13,167 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <!-- Единый CSS -->
-    <link rel="stylesheet" href="style.css">
     
     <style>
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
+            min-height: 100vh;
+            transition: background 0.3s;
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        /* Декоративные элементы */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.08;
+            z-index: 0;
+            font-size: 120px;
+        }
+        .decoration-1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
+        .decoration-2 { bottom: 15%; right: 3%; animation: float 10s ease-in-out infinite reverse; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* ===== ХЕДЕР ===== */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 138, 158, 0.1);
+            padding: 15px 0;
+        }
+
+        body.dark-theme .header {
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .col-md-3 { width: 25%; }
+        .col-md-6 { width: 50%; }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #d48a9e;
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #4a3b40;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        body.dark-theme .nav-menu a { color: #ddd; }
+        .nav-menu a:hover, .nav-menu a.active { color: #d48a9e; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        .header-search { position: relative; }
+        .header-search input {
+            padding: 8px 15px;
+            border: 1px solid #f3dfe4;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            width: 180px;
+            outline: none;
+        }
+
+        .search-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 280px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: none;
+            z-index: 1000;
+            border: 1px solid #f3dfe4;
+        }
+        .search-dropdown.show { display: block; }
+        .search-dropdown-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f3dfe4;
+            cursor: pointer;
+        }
+        .search-dropdown-item:hover { background: #fef5f0; }
+
+        .theme-toggle {
+            background: rgba(212,138,158,0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #d48a9e;
+        }
+
         /* ===== СТИЛИ ДЛЯ СТРАНИЦЫ РЕГИСТРАЦИИ ===== */
-        
         .register-hero {
             padding: 60px 0 30px;
             text-align: center;
@@ -40,7 +195,6 @@
             color: #7a6a6e;
         }
 
-        /* Контейнер формы */
         .register-container {
             max-width: 550px;
             margin: 30px auto 60px;
@@ -52,6 +206,11 @@
             transition: all 0.3s;
         }
 
+        body.dark-theme .register-container {
+            background: #1e1e2e;
+            border-color: #3a2f34;
+        }
+
         .register-container h2 {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -60,7 +219,6 @@
             margin-bottom: 30px;
         }
 
-        /* Поля формы */
         .form-group {
             margin-bottom: 25px;
             position: relative;
@@ -74,6 +232,8 @@
             display: block;
             font-size: 0.9rem;
         }
+
+        body.dark-theme .form-group label { color: #ddd; }
 
         .form-group label i {
             margin-right: 8px;
@@ -91,13 +251,18 @@
             width: 100%;
         }
 
+        body.dark-theme .form-control {
+            background: #2a2a3e;
+            border-color: #3a2f34;
+            color: white;
+        }
+
         .form-control:focus {
             border-color: #d48a9e;
             box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.1);
             outline: none;
         }
 
-        /* Индикатор силы пароля */
         .password-strength {
             margin-top: 8px;
             height: 6px;
@@ -111,22 +276,6 @@
             text-align: right;
         }
 
-        .strength-weak {
-            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
-            width: 30%;
-        }
-
-        .strength-medium {
-            background: linear-gradient(90deg, #ffb347, #ffcc66);
-            width: 60%;
-        }
-
-        .strength-strong {
-            background: linear-gradient(90deg, #5cb85c, #8bc34a);
-            width: 100%;
-        }
-
-        /* Чекбокс согласия */
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -148,12 +297,8 @@
             color: #7a6a6e;
         }
 
-        .checkbox-group label a {
-            color: #d48a9e;
-            text-decoration: none;
-        }
+        body.dark-theme .checkbox-group label { color: #aaa; }
 
-        /* Кнопка регистрации */
         .btn-register {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
@@ -173,7 +318,6 @@
             box-shadow: 0 8px 25px rgba(212, 138, 158, 0.4);
         }
 
-        /* Кастомные валидационные сообщения */
         .error-message {
             color: #d48a9e;
             font-size: 0.7rem;
@@ -181,64 +325,215 @@
             display: none;
         }
 
-        /* Модальное окно успеха (jQuery UI Dialog) */
-        .success-dialog {
+        /* Анимации для формы */
+        .additional-field {
             display: none;
-            text-align: center;
-            padding: 10px;
+            overflow: hidden;
         }
 
-        .success-dialog i {
-            font-size: 4rem;
-            color: #5cb85c;
-            margin-bottom: 15px;
+        .additional-field.show {
+            display: block;
+            animation: slideDownFade 0.4s ease-out;
         }
 
-        .success-dialog h3 {
-            font-family: 'Playfair Display', serif;
-            color: #4a3b40;
-            margin-bottom: 10px;
+        @keyframes slideDownFade {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Тёмная тема */
-        body.dark-theme .register-container {
-            background: #1e1e2e;
-            border-color: #3a2f34;
+        @keyframes fadeInOut {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        body.dark-theme .form-group label {
-            color: #ddd;
+        @media (max-width: 768px) {
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none !important;
+                position: absolute;
+                top: 70px;
+                left: 15px;
+                right: 15px;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 20px;
+                gap: 15px;
+                z-index: 1000;
+            }
+            body.dark-theme .nav-menu { background: #1e1e2e; }
+            .nav-menu.show { display: flex !important; }
+            .nav-menu li { text-align: center; width: 100%; }
+            .header-search input { width: 120px; }
         }
 
-        body.dark-theme .form-control {
-            background: #2a2a3e;
-            border-color: #3a2f34;
-            color: white;
-        }
-
-        body.dark-theme .checkbox-group label {
-            color: #aaa;
-        }
-
-        /* Адаптив */
         @media (max-width: 576px) {
-            .register-container {
-                margin: 20px;
-                padding: 25px;
-            }
-            .register-hero h1 {
-                font-size: 2rem;
-            }
+            .register-container { margin: 20px; padding: 25px; }
+            .register-hero h1 { font-size: 2rem; }
+        }
+        
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4a3b40, #3a2f34);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        .social-icons { display: flex; gap: 12px; margin-top: 15px; }
+        .social-icons a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8rem;
+        }
+
+        /* Бегущая строка */
+        .marquee {
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            padding: 8px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .marquee-text {
+            display: inline-block;
+            white-space: nowrap;
+            color: white;
+            font-size: 0.85rem;
+            padding-left: 100%;
+            animation: marqueeScroll 20s linear infinite;
+            font-family: 'Playfair Display', serif;
+        }
+        .marquee-text span { margin: 0 30px; }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+        @media (max-width: 700px) {
+            .marquee-text span { margin: 0 20px; font-size: 0.75rem; }
+        }
+
+        /* Выдвижная панель */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            max-width: 90vw;
+            height: 100vh;
+            background: linear-gradient(145deg, #ffffff 0%, #fef8fa 100%);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            transition: right 0.4s;
+            display: flex;
+            flex-direction: column;
+            border-left: 4px solid #d48a9e;
+        }
+        body.dark-theme .sidebar { background: linear-gradient(145deg, #1e1e2e 0%, #2a2a3e 100%); }
+        .sidebar.open { right: 0; }
+        .sidebar-toggle-btn {
+            position: fixed;
+            right: 20px;
+            bottom: 80px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 2px dashed #f3dfe4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .sidebar-header h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #c2778b; margin: 0; }
+        .sidebar-close { background: none; border: none; font-size: 1.8rem; cursor: pointer; color: #d48a9e; }
+        .sidebar-content { padding: 25px; flex: 1; }
+        .sidebar-section {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #fef5f0;
+            border-radius: 16px;
+        }
+        body.dark-theme .sidebar-section { background: #2a2a3e; }
+        .sidebar-section h4 { font-family: 'Playfair Display', serif; color: #d48a9e; margin-bottom: 10px; font-size: 1.1rem; }
+        .sidebar-tip {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 12px;
+        }
+        body.dark-theme .sidebar-tip { background: #1e1e2e; }
+        .sidebar-tip i { color: #d48a9e; font-size: 1.2rem; }
+        .sidebar-tip-text h5 { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #4a3b40; margin-bottom: 5px; }
+        body.dark-theme .sidebar-tip-text h5 { color: #ddd; }
+        .sidebar-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        @media (max-width: 480px) {
+            .sidebar { width: 100%; right: -100%; }
+            .sidebar-toggle-btn { width: 45px; height: 45px; font-size: 1.2rem; bottom: 70px; right: 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Декоративные элементы -->
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
-    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="row align-items-center">
@@ -247,27 +542,32 @@
                         <i class="fas fa-heart"></i>
                         <span>Glamour</span>
                     </a>
+                    <button class="burger-btn" id="burgerBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
                 <div class="col-md-6">
                     <nav>
-                        <ul class="nav-menu justify-content-center">
+                        <ul class="nav-menu justify-content-center" id="navMenu">
                             <li><a href="make.html">Главная</a></li>
-                            <li><a href="catalog.html">Каталог</a></li>
+                            <li class="dropdown">
+                                <a href="catalog.html">Каталог</a>
+     
+                          </li>
                             <li><a href="tips.html">Советы</a></li>
                             <li><a href="test.html">Тест</a></li>
                             <li><a href="contacts.html">Контакты</a></li>
-                           
                             <li><a href="register.html">👤</a></li>
                         </ul>
                     </nav>
                 </div>
                 <div class="col-md-3">
-                    <div class="header-actions justify-content-end" style="display: flex; align-items: center; gap: 12px;">
+                    <div class="header-actions">
                         <div class="header-search">
-                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
+                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
                             <div id="globalSearchResults" class="search-dropdown"></div>
                         </div>
-                        <button class="theme-toggle" onclick="toggleTheme()">
+                        <button class="theme-toggle" id="themeToggleBtn">
                             <i class="fas fa-moon"></i>
                         </button>
                     </div>
@@ -276,7 +576,18 @@
         </div>
     </header>
 
-    <!-- Hero секция -->
+    <!-- Бегущая строка -->
+    <div class="marquee">
+        <div class="container" style="position: relative;">
+            <div class="marquee-text" id="marqueeText">
+                <span>✨ ЛАЙФХАК: Наноси консилер треугольником под глазами ✨</span>
+                <span>🔥 ТРЕНД ВЕСНЫ 2026: вишнёвый макияж 🔥</span>
+                <span>💄 ПРАВИЛО ОДНОГО АКЦЕНТА: яркие губы или глаза 💄</span>
+                <span>💎 СМОКИ-АЙС ДЛЯ НАЧИНАЮЩИХ: смотри в разделе Советы 💎</span>
+            </div>
+        </div>
+    </div>
+
     <section class="register-hero">
         <div class="container">
             <h1>✨ Создайте аккаунт ✨</h1>
@@ -284,20 +595,19 @@
         </div>
     </section>
 
-    <!-- Форма регистрации -->
     <div class="register-container">
         <h2><i class="fas fa-user-plus"></i> Регистрация</h2>
         
         <form id="registerForm">
             <div class="form-group">
                 <label><i class="fas fa-user"></i> Имя</label>
-                <input type="text" id="fullname" class="form-control" placeholder="Введите ваше имя" autocomplete="off">
+                <input type="text" id="fullname" class="form-control" placeholder="Введите ваше имя">
                 <div id="fullnameError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пожалуйста, введите имя (минимум 2 символа)</div>
             </div>
             
             <div class="form-group">
                 <label><i class="fas fa-envelope"></i> Email</label>
-                <input type="email" id="email" class="form-control" placeholder="example@mail.ru" autocomplete="off">
+                <input type="email" id="email" class="form-control" placeholder="example@mail.ru">
                 <div id="emailError" class="error-message"><i class="fas fa-exclamation-circle"></i> Введите корректный email адрес</div>
             </div>
             
@@ -315,9 +625,25 @@
                 <div id="confirmError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пароли не совпадают</div>
             </div>
             
+            <!-- Дополнительное поле (появляется по чекбоксу) -->
+            <div class="form-group additional-field" id="subscriberField">
+                <label><i class="fas fa-envelope"></i> Подписка на новости</label>
+                <select class="form-control" id="newsletterType">
+                    <option value="daily">Ежедневные советы</option>
+                    <option value="weekly">Еженедельная рассылка</option>
+                    <option value="monthly">Только новинки</option>
+                </select>
+            </div>
+            
+            <!-- Чекбокс для показа дополнительного поля -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="showNewsletter">
+                <label for="showNewsletter">📧 Хочу получать бьюти-рассылку</label>
+            </div>
+            
             <div class="checkbox-group">
                 <input type="checkbox" id="agreement">
-                <label for="agreement">Я согласен(на) с <a href="#">политикой конфиденциальности</a> и <a href="#">правилами сайта</a></label>
+                <label for="agreement">Я согласен(на) с <a href="#">политикой конфиденциальности</a></label>
             </div>
             <div id="agreementError" class="error-message" style="text-align: center;"><i class="fas fa-exclamation-circle"></i> Необходимо подтвердить согласие</div>
             
@@ -327,7 +653,6 @@
         </form>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -336,19 +661,18 @@
                     <p>Сайт о макияже и красоте</p>
                 </div>
                 <div class="footer-section">
-                    <h3>📌 Меню</h3>
+                    <h3>Меню</h3>
                     <ul>
                         <li><a href="make.html">Главная</a></li>
                         <li><a href="catalog.html">Каталог</a></li>
                         <li><a href="tips.html">Советы</a></li>
                         <li><a href="test.html">Тест</a></li>
                         <li><a href="contacts.html">Контакты</a></li>
-                        <li><a href="register.html">Регистрация</a></li>
                         <li><a href="gallery.html">Галерея</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>👩‍💻 Разработчик</h3>
+                    <h3>Разработчик</h3>
                     <a href="developer.html" class="developer-link">
                         <i class="fas fa-user-circle"></i>
                         <span>Информация о разработчике</span>
@@ -361,261 +685,290 @@
         </div>
     </footer>
 
-    <!-- jQuery и jQuery UI -->
+    <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+        <i class="fas fa-gem"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-sparkles"></i> Бьюти-советы</h3>
+            <button class="sidebar-close" id="sidebarCloseBtn">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h4>Совет дня</h4>
+                <p>✨ Наноси консилер треугольником под глазами — это визуально поднимает скулы!</p>
+            </div>
+            <div class="sidebar-section">
+                <h4>Тренд недели</h4>
+                <p>🔥 «Вишнёвый макияж» — главный тренд весны 2026!</p>
+            </div>
+            <div class="sidebar-tip">
+                <i class="fas fa-hand-peace"></i>
+                <div class="sidebar-tip-text">
+                    <h5>Как выбрать помаду по цветотипу?</h5>
+                    <p>Для "Зимы" — холодные винные оттенки, для "Весны" — коралловые.</p>
+                </div>
+            </div>
+            <div class="sidebar-tip">
+                <i class="fas fa-eye"></i>
+                <div class="sidebar-tip-text">
+                    <h5>Смоки-айс за 5 минут</h5>
+                    <p>Нанеси темные тени на внешний уголок и растушуй.</p>
+                </div>
+            </div>
+            <button class="sidebar-btn" onclick="window.location.href='tips.html'">
+                <i class="fas fa-book-open"></i> Все советы
+            </button>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
     <script>
-        // ===== ТЁМНАЯ ТЕМА =====
+        // Тёмная тема
         function toggleTheme() {
             if (document.body.classList.contains('dark-theme')) {
                 document.body.classList.remove('dark-theme');
                 localStorage.setItem('theme', 'light');
-                $('.theme-toggle i').attr('class', 'fas fa-moon');
+                $('#themeToggleBtn i').attr('class', 'fas fa-moon');
             } else {
                 document.body.classList.add('dark-theme');
                 localStorage.setItem('theme', 'dark');
-                $('.theme-toggle i').attr('class', 'fas fa-sun');
+                $('#themeToggleBtn i').attr('class', 'fas fa-sun');
             }
         }
+        $('#themeToggleBtn').on('click', toggleTheme);
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            $('#themeToggleBtn i').attr('class', 'fas fa-sun');
+        }
 
-        function loadTheme() {
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-theme');
-                $('.theme-toggle i').attr('class', 'fas fa-sun');
+        // Бургер-меню
+        $('#burgerBtn').on('click', function() {
+            $('#navMenu').toggleClass('show');
+            const icon = $(this).find('i');
+            icon.toggleClass('fa-bars fa-times');
+        });
+
+        // Адаптивное подменю
+        function initDropdown() {
+            if (window.innerWidth <= 768) {
+                $('.dropdown > a').off('mouseenter mouseleave').on('click', function(e) {
+                    e.preventDefault();
+                    $(this).siblings('.dropdown-menu-sub').toggleClass('show');
+                });
+            } else {
+                $('.dropdown > a').off('click');
+                $('.dropdown').off('mouseenter mouseleave').on('mouseenter', function() {
+                    $(this).find('.dropdown-menu-sub').stop(true, true).slideDown(200);
+                }).on('mouseleave', function() {
+                    $(this).find('.dropdown-menu-sub').stop(true, true).slideUp(200);
+                });
             }
         }
-        loadTheme();
+        initDropdown();
+        $(window).on('resize', initDropdown);
 
-        // ===== ИНТЕРАКТИВНАЯ ФОРМА РЕГИСТРАЦИИ С JQUERY И JQUERY UI =====
+        // Выдвижная панель
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+        const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
+
+        function openSidebar() {
+            sidebar.classList.add('open');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeSidebar() {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', openSidebar);
+        if (sidebarCloseBtn) sidebarCloseBtn.addEventListener('click', closeSidebar);
+        if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
+
+        // ПОДСВЕТКА АКТИВНОГО ПУНКТА
+        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+        $('.nav-menu a').each(function() {
+            if ($(this).attr('href') === currentPage) $(this).addClass('active');
+        });
+
+        // ===== ФОРМА РЕГИСТРАЦИИ С АНИМАЦИЯМИ =====
         $(document).ready(function() {
-            
-            // ---------- 1. ЭФФЕКТ ПРИ ФОКУСЕ НА ПОЛЯХ (jQuery UI highlight) ----------
+            // Эффект при фокусе
             $('.form-control').on('focus', function() {
                 $(this).effect('highlight', { color: '#fde8ed' }, 800);
             });
             
-            // ---------- 2. АНИМАЦИЯ ПОЯВЛЕНИЯ ФОРМЫ ----------
+            // Анимация появления формы
             $('.register-container').hide().fadeIn(1000);
             
-            // ---------- 3. ИНДИКАТОР СИЛЫ ПАРОЛЯ ----------
+            // Индикатор силы пароля
             $('#password').on('keyup', function() {
                 const password = $(this).val();
                 let strength = 0;
-                
                 if (password.length >= 6) strength++;
                 if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
                 if (password.match(/[0-9]/)) strength++;
                 if (password.match(/[^a-zA-Z0-9]/)) strength++;
                 
-                const $strengthBar = $('#passwordStrength');
-                const $strengthText = $('#strengthText');
-                
                 if (password.length === 0) {
-                    $strengthBar.css('background', '#f3dfe4').css('width', '0');
-                    $strengthText.text('');
+                    $('#passwordStrength').css('background', '#f3dfe4').css('width', '0');
+                    $('#strengthText').text('');
                 } else if (strength <= 1) {
-                    $strengthBar.css('background', 'linear-gradient(90deg, #ff6b6b, #ff8e8e)').css('width', '30%');
-                    $strengthText.html('<span style="color:#ff6b6b;">🔴 Слабый пароль</span>');
+                    $('#passwordStrength').css('background', 'linear-gradient(90deg, #ff6b6b, #ff8e8e)').css('width', '30%');
+                    $('#strengthText').html('<span style="color:#ff6b6b;">🔴 Слабый пароль</span>');
                 } else if (strength <= 2) {
-                    $strengthBar.css('background', 'linear-gradient(90deg, #ffb347, #ffcc66)').css('width', '60%');
-                    $strengthText.html('<span style="color:#ffb347;">🟡 Средний пароль</span>');
+                    $('#passwordStrength').css('background', 'linear-gradient(90deg, #ffb347, #ffcc66)').css('width', '60%');
+                    $('#strengthText').html('<span style="color:#ffb347;">🟡 Средний пароль</span>');
                 } else {
-                    $strengthBar.css('background', 'linear-gradient(90deg, #5cb85c, #8bc34a)').css('width', '100%');
-                    $strengthText.html('<span style="color:#5cb85c;">🟢 Сильный пароль</span>');
+                    $('#passwordStrength').css('background', 'linear-gradient(90deg, #5cb85c, #8bc34a)').css('width', '100%');
+                    $('#strengthText').html('<span style="color:#5cb85c;">🟢 Сильный пароль</span>');
                 }
             });
             
-            // ---------- 4. ПРОВЕРКА СОВПАДЕНИЯ ПАРОЛЕЙ В РЕАЛЬНОМ ВРЕМЕНИ ----------
+            // Проверка совпадения паролей
             $('#confirmPassword').on('keyup', function() {
                 const password = $('#password').val();
                 const confirm = $(this).val();
-                
                 if (confirm !== '' && password !== confirm) {
                     $(this).css('border-color', '#d48a9e');
-                    $('#confirmError').slideDown(200);
+                    $('#confirmError').fadeIn(200);
                 } else {
                     $(this).css('border-color', '#f3dfe4');
-                    $('#confirmError').slideUp(200);
+                    $('#confirmError').fadeOut(200);
                 }
             });
             
-            // ---------- 5. ВАЛИДАЦИЯ EMAIL В РЕАЛЬНОМ ВРЕМЕНИ ----------
+            // Валидация email
             $('#email').on('blur', function() {
                 const email = $(this).val();
                 const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-                
                 if (email !== '' && !emailRegex.test(email)) {
                     $(this).effect('shake', { distance: 5, times: 2 }, 300);
                     $(this).css('border-color', '#d48a9e');
-                    $('#emailError').slideDown(200);
+                    $('#emailError').fadeIn(200);
                 } else {
                     $(this).css('border-color', '#f3dfe4');
-                    $('#emailError').slideUp(200);
+                    $('#emailError').fadeOut(200);
                 }
             });
             
-            // ---------- 6. ОБРАБОТКА ОТПРАВКИ ФОРМЫ ----------
+            // Анимация дополнительного поля
+            $('#showNewsletter').on('change', function() {
+                const $extraField = $('#subscriberField');
+                if ($(this).is(':checked')) {
+                    $extraField.show();
+                    $extraField.addClass('show');
+                    $extraField.effect('highlight', { color: '#fde8ed' }, 800);
+                } else {
+                    $extraField.removeClass('show');
+                    $extraField.fadeOut(300);
+                }
+            });
+            
+            // Отправка формы
             $('#registerForm').on('submit', function(e) {
                 e.preventDefault();
                 
-                // Сбрасываем ошибки
-                $('.error-message').slideUp(200);
+                $('.error-message').fadeOut(200);
                 $('.form-control').css('border-color', '#f3dfe4');
                 
                 let isValid = true;
-                
-                // Валидация имени
                 const fullname = $('#fullname').val().trim();
+                const email = $('#email').val().trim();
+                const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+                const password = $('#password').val();
+                const confirm = $('#confirmPassword').val();
+                const agreement = $('#agreement').is(':checked');
+                
                 if (fullname.length < 2) {
                     $('#fullname').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#fullname').css('border-color', '#d48a9e');
-                    $('#fullnameError').slideDown(200);
+                    $('#fullnameError').fadeIn(200);
                     isValid = false;
                 }
                 
-                // Валидация email
-                const email = $('#email').val().trim();
-                const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
                 if (!emailRegex.test(email)) {
                     $('#email').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#email').css('border-color', '#d48a9e');
-                    $('#emailError').slideDown(200);
+                    $('#emailError').fadeIn(200);
                     isValid = false;
                 }
                 
-                // Валидация пароля
-                const password = $('#password').val();
                 if (password.length < 6) {
                     $('#password').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#password').css('border-color', '#d48a9e');
-                    $('#passwordError').slideDown(200);
+                    $('#passwordError').fadeIn(200);
                     isValid = false;
                 }
                 
-                // Проверка совпадения паролей
-                const confirm = $('#confirmPassword').val();
                 if (password !== confirm) {
                     $('#confirmPassword').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#confirmPassword').css('border-color', '#d48a9e');
-                    $('#confirmError').slideDown(200);
+                    $('#confirmError').fadeIn(200);
                     isValid = false;
                 }
                 
-                // Проверка согласия
-                const agreement = $('#agreement').is(':checked');
                 if (!agreement) {
-                    $('#agreementError').slideDown(200);
+                    $('#agreementError').fadeIn(200);
                     isValid = false;
                 }
                 
                 if (isValid) {
-                    // Сохраняем данные в localStorage
-                    const userData = {
-                        fullname: fullname,
-                        email: email,
-                        registeredDate: new Date().toLocaleString()
-                    };
+                    const userData = { fullname: fullname, email: email, registeredDate: new Date().toLocaleString() };
                     localStorage.setItem('registeredUser', JSON.stringify(userData));
-                    
-                    // Анимация кнопки
                     $('.btn-register').effect('pulsate', { times: 2 }, 500);
                     
-                    // ---------- 7. JQUERY UI DIALOG (модальное окно успеха) ----------
                     $('<div class="success-dialog">' +
                         '<i class="fas fa-check-circle"></i>' +
                         '<h3>Регистрация прошла успешно!</h3>' +
                         '<p>Добро пожаловать, ' + fullname + '!</p>' +
                         '<p>На указанный email отправлено письмо с подтверждением.</p>' +
-                        '<hr>' +
-                        '<p style="font-size:0.8rem; color:#7a6a6e;">Мы рады видеть вас в нашем бьюти-сообществе 💕</p>' +
                     '</div>').dialog({
                         title: '🎉 Поздравляем!',
                         modal: true,
                         width: 400,
-                        height: 'auto',
                         buttons: {
-                            'На главную': function() {
-                                window.location.href = 'make.html';
-                            },
-                            'Остаться': function() {
-                                $(this).dialog('close');
-                            }
+                            'На главную': function() { window.location.href = 'make.html'; },
+                            'Остаться': function() { $(this).dialog('close'); }
                         },
-                        close: function() {
-                            $(this).remove();
-                        },
-                        show: {
-                            effect: 'fade',
-                            duration: 400
-                        },
-                        hide: {
-                            effect: 'fade',
-                            duration: 400
-                        }
+                        show: { effect: 'fade', duration: 400 },
+                        hide: { effect: 'fade', duration: 400 }
                     });
                     
-                    // Очищаем форму
                     $('#registerForm')[0].reset();
                     $('#passwordStrength').css('width', '0');
                     $('#strengthText').text('');
                 } else {
-                    // Показываем эффект "тряска" для всей формы
                     $('.register-container').effect('shake', { distance: 8, times: 2 }, 400);
                 }
             });
         });
-    </script>
 
-    <!-- Поиск -->
-    <script>
-        const searchInput = document.getElementById('globalSearchInput');
-        const searchResults = document.getElementById('globalSearchResults');
-        
+        // Поиск
         const searchData = [
             { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
             { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
             { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
-            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
-            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
+            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" }
         ];
         
-        function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-        
-        function performGlobalSearch() {
-            const query = searchInput.value.trim();
-            if (query === '') {
-                searchResults.classList.remove('show');
-                return;
-            }
+        $('#globalSearchInput').on('input', function() {
+            const query = $(this).val().trim();
+            if (!query) { $('#globalSearchResults').removeClass('show'); return; }
             const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
-            if (filtered.length === 0) {
-                searchResults.innerHTML = `<div class="no-results">😔 Ничего не найдено</div>`;
-                searchResults.classList.add('show');
-                return;
-            }
-            searchResults.innerHTML = filtered.map(item => `
-                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
-                    <div class="item-title">${highlightText(item.title, query)}</div>
-                    <div class="item-category">${item.category}</div>
-                </div>
-            `).join('');
-            searchResults.classList.add('show');
-        }
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', performGlobalSearch);
-            document.addEventListener('click', function(e) {
-                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                    searchResults.classList.remove('show');
-                }
-            });
-        }
+            $('#globalSearchResults').html(filtered.length ? filtered.map(item => `
+                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">${item.title} — ${item.category}</div>
+            `).join('') : '<div class="search-dropdown-item">😔 Ничего не найдено</div>').addClass('show');
+        });
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.header-search').length) $('#globalSearchResults').removeClass('show');
+        });
     </script>
-
 </body>
 </html>
