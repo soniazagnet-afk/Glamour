@@ -946,6 +946,57 @@
         });
     }
 </script>
+<!-- ВЫДВИЖНАЯ ПАНЕЛЬ -->
+<button class="sidebar-toggle-btn" id="sidebarToggleBtn">
+    <i class="fas fa-gem"></i>
+</button>
 
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <h3><i class="fas fa-sparkles"></i> Бьюти-советы</h3>
+        <button class="sidebar-close" id="sidebarCloseBtn">&times;</button>
+    </div>
+    <div class="sidebar-content">
+        <div class="sidebar-section">
+            <h4><i class="fas fa-tips"></i> Совет дня</h4>
+            <p>✨ Наноси консилер треугольником под глазами — это визуально поднимает скулы и маскирует темные круги!</p>
+        </div>
+        
+        <div class="sidebar-section">
+            <h4><i class="fas fa-fire"></i> Тренд недели</h4>
+            <p>🔥 «Вишнёвый макияж» — помада и румяна в ягодных оттенках. Главный тренд весны 2026!</p>
+        </div>
+        
+        <div class="sidebar-tip">
+            <i class="fas fa-hand-peace"></i>
+            <div class="sidebar-tip-text">
+                <h5>Как выбрать помаду по цветотипу?</h5>
+                <p>Для "Зимы" — холодные винные оттенки, для "Весны" — коралловые и персиковые.</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-tip">
+            <i class="fas fa-eye"></i>
+            <div class="sidebar-tip-text">
+                <h5>Смоки-айс за 5 минут</h5>
+                <p>Нанеси темные тени на внешний уголок и растушуй. Готово!</p>
+            </div>
+        </div>
+        
+        <div class="sidebar-tip">
+            <i class="fas fa-heart"></i>
+            <div class="sidebar-tip-text">
+                <h5>Уход перед макияжем</h5>
+                <p>Всегда увлажняй кожу за 10 минут до нанесения тонального крема.</p>
+            </div>
+        </div>
+        
+        <button class="sidebar-btn" onclick="window.location.href='tips.html'">
+            <i class="fas fa-book-open"></i> Все советы
+        </button>
+    </div>
+</div>
 </body>
 </html>
