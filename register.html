@@ -240,27 +240,92 @@
             color: #d48a9e;
         }
 
-        .form-control {
-            border-radius: 35px;
-            padding: 14px 20px;
-            border: 2px solid #f3dfe4;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1rem;
+        /* Стилизация полей jQuery UI */
+        .form-control, .ui-widget.ui-widget-content {
+            border-radius: 35px !important;
+            padding: 14px 20px !important;
+            border: 2px solid #f3dfe4 !important;
+            font-family: 'Cormorant Garamond', serif !important;
+            font-size: 1rem !important;
             transition: all 0.3s;
             background: white;
             width: 100%;
         }
 
-        body.dark-theme .form-control {
-            background: #2a2a3e;
-            border-color: #3a2f34;
-            color: white;
+        body.dark-theme .form-control,
+        body.dark-theme .ui-widget.ui-widget-content {
+            background: #2a2a3e !important;
+            border-color: #3a2f34 !important;
+            color: white !important;
         }
 
-        .form-control:focus {
-            border-color: #d48a9e;
-            box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.1);
+        .form-control:focus, .ui-widget.ui-widget-content:focus {
+            border-color: #d48a9e !important;
+            box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.1) !important;
             outline: none;
+        }
+
+        /* Стили для Selectmenu (Dropdown) */
+        .ui-selectmenu-menu .ui-menu {
+            border-radius: 16px !important;
+            overflow: hidden !important;
+        }
+        
+        .ui-selectmenu-button {
+            border-radius: 35px !important;
+            padding: 14px 20px !important;
+            border: 2px solid #f3dfe4 !important;
+            background: white !important;
+            width: 100% !important;
+            font-family: 'Cormorant Garamond', serif !important;
+        }
+        
+        body.dark-theme .ui-selectmenu-button {
+            background: #2a2a3e !important;
+            border-color: #3a2f34 !important;
+        }
+        
+        body.dark-theme .ui-selectmenu-button .ui-selectmenu-text {
+            color: white !important;
+        }
+
+        /* Стили для Datepicker */
+        .ui-datepicker {
+            background: white !important;
+            border-radius: 20px !important;
+            border: 2px solid #d48a9e !important;
+            box-shadow: 0 10px 30px rgba(212,138,158,0.2) !important;
+            font-family: 'Cormorant Garamond', serif !important;
+            z-index: 9999 !important;
+        }
+        .ui-datepicker .ui-datepicker-header {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            border-radius: 18px 18px 0 0 !important;
+            color: white !important;
+        }
+        .ui-datepicker .ui-datepicker-title {
+            color: white !important;
+        }
+        .ui-datepicker .ui-datepicker-prev, 
+        .ui-datepicker .ui-datepicker-next {
+            color: white !important;
+            cursor: pointer;
+        }
+        .ui-datepicker .ui-state-default {
+            background: #fef5f0 !important;
+            border-radius: 50% !important;
+            text-align: center !important;
+        }
+        .ui-datepicker .ui-state-active {
+            background: #d48a9e !important;
+            color: white !important;
+        }
+        body.dark-theme .ui-datepicker {
+            background: #1e1e2e !important;
+        }
+        body.dark-theme .ui-datepicker .ui-state-default {
+            background: #2a2a3e !important;
+            color: #ddd !important;
         }
 
         .password-strength {
@@ -325,7 +390,6 @@
             display: none;
         }
 
-        /* Анимации для формы */
         .additional-field {
             display: none;
             overflow: hidden;
@@ -347,37 +411,6 @@
             }
         }
 
-        @keyframes fadeInOut {
-            from { opacity: 0; transform: translateX(-10px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        @media (max-width: 768px) {
-            .burger-btn { display: block; }
-            .nav-menu {
-                display: none !important;
-                position: absolute;
-                top: 70px;
-                left: 15px;
-                right: 15px;
-                background: white;
-                flex-direction: column;
-                padding: 20px;
-                border-radius: 20px;
-                gap: 15px;
-                z-index: 1000;
-            }
-            body.dark-theme .nav-menu { background: #1e1e2e; }
-            .nav-menu.show { display: flex !important; }
-            .nav-menu li { text-align: center; width: 100%; }
-            .header-search input { width: 120px; }
-        }
-
-        @media (max-width: 576px) {
-            .register-container { margin: 20px; padding: 25px; }
-            .register-hero h1 { font-size: 2rem; }
-        }
-        
         /* Footer */
         .footer {
             background: linear-gradient(135deg, #4a3b40, #3a2f34);
@@ -391,7 +424,19 @@
             gap: 30px;
             margin-bottom: 30px;
         }
-        .footer-section a { color: rgba(255,255,255,0.8); text-decoration: none; }
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #fde8ed;
+        }
+        .footer-section p, .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        .footer-section a:hover { color: #d48a9e; }
+        .footer-section ul { list-style: none; padding: 0; }
         .social-icons { display: flex; gap: 12px; margin-top: 15px; }
         .social-icons a {
             width: 35px;
@@ -401,6 +446,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+        .developer-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
         }
         .footer-bottom {
             text-align: center;
@@ -430,9 +481,6 @@
         @keyframes marqueeScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
-        }
-        @media (max-width: 700px) {
-            .marquee-text span { margin: 0 20px; font-size: 0.75rem; }
         }
 
         /* Выдвижная панель */
@@ -523,7 +571,31 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        @media (max-width: 480px) {
+
+        @media (max-width: 768px) {
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none !important;
+                position: absolute;
+                top: 70px;
+                left: 15px;
+                right: 15px;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 20px;
+                gap: 15px;
+                z-index: 1000;
+            }
+            body.dark-theme .nav-menu { background: #1e1e2e; }
+            .nav-menu.show { display: flex !important; }
+            .nav-menu li { text-align: center; width: 100%; }
+            .header-search input { width: 120px; }
+        }
+
+        @media (max-width: 576px) {
+            .register-container { margin: 20px; padding: 25px; }
+            .register-hero h1 { font-size: 2rem; }
             .sidebar { width: 100%; right: -100%; }
             .sidebar-toggle-btn { width: 45px; height: 45px; font-size: 1.2rem; bottom: 70px; right: 15px; }
         }
@@ -550,10 +622,7 @@
                     <nav>
                         <ul class="nav-menu justify-content-center" id="navMenu">
                             <li><a href="make.html">Главная</a></li>
-                            <li class="dropdown">
-                                <a href="catalog.html">Каталог</a>
-     
-                          </li>
+                            <li><a href="catalog.html">Каталог</a></li>
                             <li><a href="tips.html">Советы</a></li>
                             <li><a href="test.html">Тест</a></li>
                             <li><a href="contacts.html">Контакты</a></li>
@@ -576,7 +645,6 @@
         </div>
     </header>
 
-    <!-- Бегущая строка -->
     <div class="marquee">
         <div class="container" style="position: relative;">
             <div class="marquee-text" id="marqueeText">
@@ -601,19 +669,38 @@
         <form id="registerForm">
             <div class="form-group">
                 <label><i class="fas fa-user"></i> Имя</label>
-                <input type="text" id="fullname" class="form-control" placeholder="Введите ваше имя">
+                <input type="text" id="fullname" class="form-control ui-widget ui-widget-content ui-corner-all" placeholder="Введите ваше имя">
                 <div id="fullnameError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пожалуйста, введите имя (минимум 2 символа)</div>
             </div>
             
             <div class="form-group">
                 <label><i class="fas fa-envelope"></i> Email</label>
-                <input type="email" id="email" class="form-control" placeholder="example@mail.ru">
+                <input type="email" id="email" class="form-control ui-widget ui-widget-content ui-corner-all" placeholder="example@mail.ru">
                 <div id="emailError" class="error-message"><i class="fas fa-exclamation-circle"></i> Введите корректный email адрес</div>
+            </div>
+
+            <!-- ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN) для выбора пола -->
+            <div class="form-group">
+                <label><i class="fas fa-venus-mars"></i> Пол</label>
+                <select id="gender" class="form-control">
+                    <option value="">Выберите пол</option>
+                    <option value="female">Женский</option>
+                    <option value="male">Мужской</option>
+                    <option value="other">Другой</option>
+                </select>
+                <div id="genderError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пожалуйста, выберите пол</div>
+            </div>
+
+            <!-- ДАТА РОЖДЕНИЯ С КАЛЕНДАРЁМ (DATEPICKER) -->
+            <div class="form-group">
+                <label><i class="fas fa-calendar-alt"></i> Дата рождения</label>
+                <input type="text" id="birthdate" class="form-control ui-widget ui-widget-content ui-corner-all" placeholder="Выберите дату рождения" readonly>
+                <div id="birthdateError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пожалуйста, выберите дату рождения</div>
             </div>
             
             <div class="form-group">
                 <label><i class="fas fa-lock"></i> Пароль</label>
-                <input type="password" id="password" class="form-control" placeholder="Придумайте пароль">
+                <input type="password" id="password" class="form-control ui-widget ui-widget-content ui-corner-all" placeholder="Придумайте пароль">
                 <div class="password-strength" id="passwordStrength"></div>
                 <div class="strength-text" id="strengthText"></div>
                 <div id="passwordError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пароль должен содержать минимум 6 символов</div>
@@ -621,11 +708,10 @@
             
             <div class="form-group">
                 <label><i class="fas fa-check-circle"></i> Подтверждение пароля</label>
-                <input type="password" id="confirmPassword" class="form-control" placeholder="Повторите пароль">
+                <input type="password" id="confirmPassword" class="form-control ui-widget ui-widget-content ui-corner-all" placeholder="Повторите пароль">
                 <div id="confirmError" class="error-message"><i class="fas fa-exclamation-circle"></i> Пароли не совпадают</div>
             </div>
             
-            <!-- Дополнительное поле (появляется по чекбоксу) -->
             <div class="form-group additional-field" id="subscriberField">
                 <label><i class="fas fa-envelope"></i> Подписка на новости</label>
                 <select class="form-control" id="newsletterType">
@@ -635,7 +721,6 @@
                 </select>
             </div>
             
-            <!-- Чекбокс для показа дополнительного поля -->
             <div class="checkbox-group">
                 <input type="checkbox" id="showNewsletter">
                 <label for="showNewsletter">📧 Хочу получать бьюти-рассылку</label>
@@ -659,9 +744,10 @@
                 <div class="footer-section">
                     <h3><i class="fas fa-heart"></i> Glamour</h3>
                     <p>Сайт о макияже и красоте</p>
+                    <p>Вдохновляйся и сияй каждый день ✨</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Меню</h3>
+                    <h3>📌 Меню</h3>
                     <ul>
                         <li><a href="make.html">Главная</a></li>
                         <li><a href="catalog.html">Каталог</a></li>
@@ -672,7 +758,21 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Разработчик</h3>
+                    <h3>📞 Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> @glamour_beauty</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> @glamour</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>👩‍💻 Разработчик</h3>
                     <a href="developer.html" class="developer-link">
                         <i class="fas fa-user-circle"></i>
                         <span>Информация о разработчике</span>
@@ -680,7 +780,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Glamour. Все права защищены.</p>
+                <p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте 💕</p>
             </div>
         </div>
     </footer>
@@ -696,11 +796,11 @@
         </div>
         <div class="sidebar-content">
             <div class="sidebar-section">
-                <h4>Совет дня</h4>
+                <h4><i class="fas fa-tips"></i> Совет дня</h4>
                 <p>✨ Наноси консилер треугольником под глазами — это визуально поднимает скулы!</p>
             </div>
             <div class="sidebar-section">
-                <h4>Тренд недели</h4>
+                <h4><i class="fas fa-fire"></i> Тренд недели</h4>
                 <p>🔥 «Вишнёвый макияж» — главный тренд весны 2026!</p>
             </div>
             <div class="sidebar-tip">
@@ -797,8 +897,42 @@
             if ($(this).attr('href') === currentPage) $(this).addClass('active');
         });
 
-        // ===== ФОРМА РЕГИСТРАЦИИ С АНИМАЦИЯМИ =====
+        // ===== ФОРМА РЕГИСТРАЦИИ С JQUERY UI =====
         $(document).ready(function() {
+            
+            // ===== 1. SELECTMENU (ВЫПАДАЮЩЕЕ МЕНЮ) =====
+            $("#gender").selectmenu({
+                width: '100%',
+                classes: {
+                    "ui-selectmenu-button": "ui-corner-all"
+                },
+                change: function(event, ui) {
+                    if (ui.item.value !== '') {
+                        $('#genderError').fadeOut(200);
+                    }
+                }
+            });
+            
+            // ===== 2. DATEPICKER (КАЛЕНДАРЬ) =====
+            $("#birthdate").datepicker({
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1920:2026",
+                dateFormat: "dd.mm.yy",
+                showAnim: "slideDown",
+                showButtonPanel: true,
+                closeText: "Закрыть",
+                prevText: "◀",
+                nextText: "▶",
+                currentText: "Сегодня",
+                monthNames: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
+                dayNamesMin: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+                onSelect: function(dateText) {
+                    $(this).css('border-color', '#f3dfe4');
+                    $('#birthdateError').fadeOut(200);
+                }
+            });
+            
             // Эффект при фокусе
             $('.form-control').on('focus', function() {
                 $(this).effect('highlight', { color: '#fde8ed' }, 800);
@@ -882,6 +1016,8 @@
                 const fullname = $('#fullname').val().trim();
                 const email = $('#email').val().trim();
                 const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
+                const gender = $('#gender').val();
+                const birthdate = $('#birthdate').val().trim();
                 const password = $('#password').val();
                 const confirm = $('#confirmPassword').val();
                 const agreement = $('#agreement').is(':checked');
@@ -897,6 +1033,19 @@
                     $('#email').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#email').css('border-color', '#d48a9e');
                     $('#emailError').fadeIn(200);
+                    isValid = false;
+                }
+                
+                if (gender === '') {
+                    $('#gender').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#genderError').fadeIn(200);
+                    isValid = false;
+                }
+                
+                if (birthdate === '') {
+                    $('#birthdate').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#birthdate').css('border-color', '#d48a9e');
+                    $('#birthdateError').fadeIn(200);
                     isValid = false;
                 }
                 
@@ -920,12 +1069,12 @@
                 }
                 
                 if (isValid) {
-                    const userData = { fullname: fullname, email: email, registeredDate: new Date().toLocaleString() };
+                    const userData = { fullname: fullname, email: email, gender: gender, birthdate: birthdate, registeredDate: new Date().toLocaleString() };
                     localStorage.setItem('registeredUser', JSON.stringify(userData));
                     $('.btn-register').effect('pulsate', { times: 2 }, 500);
                     
-                    $('<div class="success-dialog">' +
-                        '<i class="fas fa-check-circle"></i>' +
+                    $('<div style="text-align:center; padding:10px;">' +
+                        '<i class="fas fa-check-circle" style="font-size:48px; color:#5cb85c;"></i>' +
                         '<h3>Регистрация прошла успешно!</h3>' +
                         '<p>Добро пожаловать, ' + fullname + '!</p>' +
                         '<p>На указанный email отправлено письмо с подтверждением.</p>' +
@@ -936,12 +1085,12 @@
                         buttons: {
                             'На главную': function() { window.location.href = 'make.html'; },
                             'Остаться': function() { $(this).dialog('close'); }
-                        },
-                        show: { effect: 'fade', duration: 400 },
-                        hide: { effect: 'fade', duration: 400 }
+                        }
                     });
                     
                     $('#registerForm')[0].reset();
+                    $('#gender').val('').selectmenu('refresh');
+                    $('#birthdate').val('');
                     $('#passwordStrength').css('width', '0');
                     $('#strengthText').text('');
                 } else {
