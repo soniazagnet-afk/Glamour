@@ -75,12 +75,8 @@
             align-items: center;
         }
 
-        .col-md-3 {
-            width: 25%;
-        }
-        .col-md-6 {
-            width: 50%;
-        }
+        .col-md-3 { width: 25%; }
+        .col-md-6 { width: 50%; }
 
         .logo {
             font-family: 'Playfair Display', serif;
@@ -93,6 +89,19 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+        }
+
+        .burger-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #d48a9e;
+            position: absolute;
+            top: 5px;
+            right: 20px;
+            z-index: 1001;
         }
 
         .nav-menu {
@@ -220,7 +229,6 @@
         
         .tool-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,138,158,0.4); }
         .tool-btn.reset { background: #4a3b40; }
-        .tool-btn.active { background: #4a3b40; }
         
         .add-form { display: flex; gap: 10px; align-items: center; }
         .add-form input {
@@ -249,7 +257,10 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             transition: all 0.3s;
             position: relative;
+            cursor: grab;
         }
+        
+        .gallery-item:active { cursor: grabbing; }
         
         body.dark-theme .gallery-item { background: #1e1e2e; }
         
@@ -261,15 +272,16 @@
             cursor: pointer;
         }
         
-        /* Анимация при перетаскивании */
+        .gallery-item.ui-draggable-dragging {
+            transform: rotate(3deg) scale(1.05);
+            box-shadow: 0 20px 40px rgba(212,138,158,0.4);
+            opacity: 0.9;
+        }
+        
         .gallery-item.ui-sortable-helper {
             transform: rotate(3deg) scale(1.02);
             box-shadow: 0 20px 40px rgba(212,138,158,0.3);
             cursor: grabbing;
-        }
-        
-        .gallery-item.dragging {
-            opacity: 0.5;
         }
         
         .ui-sortable-placeholder {
@@ -311,128 +323,106 @@
         
         .gallery-item .delete-btn:hover { background: #d48a9e; color: white; transform: scale(1.1); }
         
-        /* Анимации */
-        .gallery-item-new {
-            animation: fadeInScale 0.5s ease-out;
+        /* jQuery UI Dialog стили */
+        .ui-dialog {
+            border-radius: 20px !important;
+            background: rgba(0,0,0,0.95) !important;
+            border: 2px solid #d48a9e !important;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5) !important;
         }
         
-        @keyframes fadeInScale {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
+        .ui-dialog .ui-dialog-titlebar {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            border: none !important;
+            border-radius: 18px 18px 0 0 !important;
+            color: white !important;
+            font-family: 'Playfair Display', serif !important;
+            padding: 12px 20px !important;
         }
         
-        .gallery-item-shake {
-            animation: shake 0.3s ease-in-out;
-            background: #ffe0e0;
+        .ui-dialog .ui-dialog-title {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 1rem !important;
         }
         
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+        .ui-dialog .ui-dialog-titlebar-close {
+            background: rgba(255,255,255,0.2) !important;
+            border: none !important;
+            border-radius: 50% !important;
+            color: white !important;
         }
         
-        .empty-gallery {
-            text-align: center;
-            padding: 60px;
-            color: #7a6a6e;
-            font-size: 1.2rem;
+        .ui-dialog .ui-dialog-titlebar-close:hover {
+            background: rgba(255,255,255,0.4) !important;
         }
         
-        /* ===== МОДАЛЬНОЕ ОКНО НА ВЕСЬ ЭКРАН ===== */
-        .modal-view {
-            display: none;
+        .ui-dialog .ui-dialog-content {
+            background: rgba(0,0,0,0.8) !important;
+            padding: 20px !important;
+            text-align: center !important;
+        }
+        
+        .dialog-img {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 15px;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Подсказка для увеличения */
+        .zoom-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            pointer-events: none;
+        }
+        
+        .dialog-caption {
+            margin-top: 15px;
+            color: white;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+        }
+        
+        /* Оверлей для увеличенного изображения */
+        .zoom-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
+            background: rgba(0,0,0,0.95);
+            z-index: 10000;
+            display: none;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
+            cursor: zoom-out;
         }
         
-        .modal-view .modal-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-view img {
+        .zoom-overlay img {
             max-width: 90vw;
             max-height: 90vh;
-            width: auto;
-            height: auto;
             object-fit: contain;
             border-radius: 10px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            animation: zoomFadeIn 0.3s ease-out;
         }
         
-        .modal-view .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: white;
-            font-size: 40px;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 2001;
-        }
-        
-        .modal-view .close-modal:hover {
-            transform: scale(1.1);
-            color: #d48a9e;
-        }
-        
-        /* Кнопки навигации в модальном окне */
-        .modal-nav {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
+        .zoom-overlay.show {
             display: flex;
-            gap: 30px;
-            z-index: 2002;
         }
         
-        .modal-nav-btn {
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.5rem;
-            transition: all 0.3s;
-            backdrop-filter: blur(5px);
+        @keyframes zoomFadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        .modal-nav-btn:hover {
-            background: #d48a9e;
-            transform: scale(1.1);
-        }
-        
-        /* Информация о текущем изображении */
-        .modal-info {
-            position: absolute;
-            bottom: 30px;
-            left: 30px;
-            color: white;
-            font-family: 'Playfair Display', serif;
-            background: rgba(0,0,0,0.5);
-            padding: 8px 20px;
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            z-index: 2002;
-        }
-        
-        /* Уведомления */
         .gallery-toast {
             position: fixed;
             bottom: 20px;
@@ -443,12 +433,19 @@
             border-radius: 40px;
             z-index: 1000;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            animation: fadeInUp 0.3s ease-out;
+            animation: slideInRight 0.3s ease-out;
         }
         
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .empty-gallery {
+            text-align: center;
+            padding: 60px;
+            color: #7a6a6e;
+            font-size: 1.2rem;
         }
         
         /* Footer */
@@ -466,10 +463,20 @@
             margin-bottom: 30px;
         }
         
-        .footer-section a {
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section p, .footer-section a {
             color: rgba(255,255,255,0.8);
             text-decoration: none;
+            line-height: 1.8;
         }
+        
+        .footer-section a:hover { color: #d48a9e; }
+        .footer-section ul { list-style: none; padding: 0; }
         
         .social-icons { display: flex; gap: 12px; margin-top: 15px; }
         .social-icons a {
@@ -480,12 +487,15 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
+        .social-icons a:hover { background: #d48a9e; transform: translateY(-3px); }
         
         .developer-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            margin-top: 10px;
         }
         
         .footer-bottom {
@@ -496,12 +506,50 @@
         }
         
         @media (max-width: 768px) {
+            .burger-btn { display: block; }
+            .nav-menu {
+                display: none !important;
+                position: absolute;
+                top: 70px;
+                left: 15px;
+                right: 15px;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                border-radius: 20px;
+                gap: 15px;
+                z-index: 1000;
+            }
+            body.dark-theme .nav-menu { background: #1e1e2e; }
+            .nav-menu.show { display: flex !important; }
+            .nav-menu li { text-align: center; width: 100%; }
+            .header-search input { width: 120px; }
             .gallery-hero h1 { font-size: 2rem; }
             .gallery-toolbar { flex-direction: column; align-items: center; }
             .add-form { flex-wrap: wrap; justify-content: center; }
-            .modal-nav-btn { width: 40px; height: 40px; font-size: 1rem; }
-            .modal-info { font-size: 0.8rem; bottom: 20px; left: 20px; }
+            .ui-dialog { width: 95% !important; left: 2.5% !important; }
+            .dialog-img { max-height: 50vh; }
+            .zoom-hint { font-size: 0.6rem; padding: 2px 8px; }
         }
+        
+        @media (max-width: 480px) {
+            .header-search input { width: 100px; }
+            .gallery-hero h1 { font-size: 1.5rem; }
+            .gallery-grid { grid-template-columns: 1fr; }
+        }
+/* 🔧 ГАРАНТИРОВАННОЕ ВОССТАНОВЛЕНИЕ ФОНА */
+body {
+    background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%) !important;
+}
+body.dark-theme {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+}
+.register-container {
+    background: white !important;
+}
+body.dark-theme .register-container {
+    background: #1e1e2e !important;
+}
     </style>
 </head>
 <body>
@@ -518,16 +566,20 @@
                         <i class="fas fa-heart"></i>
                         <span>Glamour</span>
                     </a>
+                    <button class="burger-btn" id="burgerBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
                 <div class="col-md-6">
                     <nav>
-                        <ul class="nav-menu justify-content-center">
+                        <ul class="nav-menu justify-content-center" id="navMenu">
                             <li><a href="make.html">Главная</a></li>
                             <li><a href="catalog.html">Каталог</a></li>
                             <li><a href="tips.html">Советы</a></li>
                             <li><a href="test.html">Тест</a></li>
                             <li><a href="contacts.html">Контакты</a></li>
                             <li><a href="register.html">👤</a></li>
+                           
                         </ul>
                     </nav>
                 </div>
@@ -576,19 +628,6 @@
     <!-- Сетка галереи -->
     <ul class="gallery-grid" id="galleryGrid"></ul>
 
-    <!-- Модальное окно на весь экран -->
-    <div id="imageModal" class="modal-view">
-        <div class="modal-container">
-            <span class="close-modal">&times;</span>
-            <img id="modalImage" src="" alt="Просмотр">
-            <div class="modal-nav">
-                <button class="modal-nav-btn" id="modalPrev">❮</button>
-                <button class="modal-nav-btn" id="modalNext">❯</button>
-            </div>
-            <div class="modal-info" id="modalInfo"></div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -596,19 +635,35 @@
                 <div class="footer-section">
                     <h3><i class="fas fa-heart"></i> Glamour</h3>
                     <p>Сайт о макияже и красоте</p>
+                    <p>Вдохновляйся и сияй каждый день ✨</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Меню</h3>
+                    <h3>📌 Меню</h3>
                     <ul>
                         <li><a href="make.html">Главная</a></li>
                         <li><a href="catalog.html">Каталог</a></li>
                         <li><a href="tips.html">Советы</a></li>
                         <li><a href="test.html">Тест</a></li>
                         <li><a href="contacts.html">Контакты</a></li>
+                        <li><a href="gallery.html">Галерея</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Разработчик</h3>
+                    <h3>📞 Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> @glamour_beauty</a></li>
+                        <li><a href="#"><i class="fab fa-telegram"></i> @glamour</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>👩‍💻 Разработчик</h3>
                     <a href="developer.html" class="developer-link">
                         <i class="fas fa-user-circle"></i>
                         <span>Информация о разработчике</span>
@@ -616,7 +671,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте</p>
+                <p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте 💕</p>
             </div>
         </div>
     </footer>
@@ -648,19 +703,33 @@
         $('#themeToggleBtn').on('click', toggleTheme);
         loadTheme();
 
+        // ===== БУРГЕР-МЕНЮ =====
+        $('#burgerBtn').on('click', function() {
+            $('#navMenu').toggleClass('show');
+        });
+
+        // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА =====
+        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+        $('.nav-menu a').each(function() {
+            if ($(this).attr('href') === currentPage) {
+                $(this).addClass('active');
+            }
+        });
+
         // ===== ГАЛЕРЕЯ =====
         let sortableEnabled = false;
         let sortableInstance = null;
-        let currentImageIndex = 0;
+        let currentImageDialog = null;
+        let currentIndexForDialog = 0;
 
         const defaultImages = [
-                { url: "https://th.bing.com/th/id/OIP.BBBp48LKVOXY3ahU3H02rgHaJQ?w=163&h=204&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Нежный образ" },
-    { url: "https://th.bing.com/th/id/OIP.w3RdzTMPhRyqUMqRLNai0gHaJQ?w=141&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Сияющая кожа" },
-    { url: "https://th.bing.com/th/id/OIP.Mi-KiraLsHnRydPbcMdKvAHaIQ?w=169&h=189&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Гламурный макияж" },
-    { url: "https://th.bing.com/th/id/OIP.1L9Ccgfyv7zKLKf6KfbhqQHaJQ?w=125&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Смоки-айс" },
-    { url: "https://th.bing.com/th/id/OIP.5ZlEbEYpN4aa6LmIgjXp3gHaDd?w=399&h=163&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Красная помада" },
-    { url: "https://th.bing.com/th/id/OIP.00QS53D8PSfgKHWRjCSbKwHaFz?w=265&h=208&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Вечерний образ" }
-];
+            { url: "https://th.bing.com/th/id/OIP.BBBp48LKVOXY3ahU3H02rgHaJQ?w=163&h=204&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Нежный образ" },
+            { url: "https://th.bing.com/th/id/OIP.w3RdzTMPhRyqUMqRLNai0gHaJQ?w=141&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Сияющая кожа" },
+            { url: "https://th.bing.com/th/id/OIP.Mi-KiraLsHnRydPbcMdKvAHaIQ?w=169&h=189&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Гламурный макияж" },
+            { url: "https://th.bing.com/th/id/OIP.1L9Ccgfyv7zKLKf6KfbhqQHaJQ?w=125&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Смоки-айс" },
+            { url: "https://th.bing.com/th/id/OIP.5ZlEbEYpN4aa6LmIgjXp3gHaDd?w=399&h=163&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Красная помада" },
+            { url: "https://th.bing.com/th/id/OIP.00QS53D8PSfgKHWRjCSbKwHaFz?w=265&h=208&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3", title: "Вечерний образ" }
+        ];
 
         let images = [];
 
@@ -677,17 +746,6 @@
             localStorage.setItem('galleryImages', JSON.stringify(images));
         }
 
-        function loadImages() {
-            const saved = localStorage.getItem('galleryImages');
-            if (saved) {
-                images = JSON.parse(saved);
-            } else {
-                images = JSON.parse(JSON.stringify(defaultImages));
-                saveImages();
-            }
-            renderGallery();
-        }
-
         function escapeHtml(text) {
             if (!text) return '';
             return text.replace(/[&<>]/g, function(m) {
@@ -695,6 +753,149 @@
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
                 return m;
+            });
+        }
+
+        // Функция для полноэкранного увеличения изображения
+        function zoomImage(imgSrc, imgTitle) {
+            $('.zoom-overlay').remove();
+            
+            const overlay = $('<div class="zoom-overlay"></div>');
+            const zoomImg = $(`<img src="${imgSrc}" alt="${imgTitle}">`);
+            
+            overlay.append(zoomImg);
+            $('body').append(overlay);
+            overlay.addClass('show');
+            
+            overlay.on('click', function() {
+                $(this).fadeOut(300, function() { $(this).remove(); });
+            });
+            
+            $(document).one('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    overlay.fadeOut(300, function() { $(this).remove(); });
+                }
+            });
+        }
+
+        // Функция для обновления содержимого диалога
+        function updateDialogContent(index) {
+            const image = images[index];
+            if (!image) return;
+            
+            currentIndexForDialog = index;
+            
+            const $dialogContent = $('.dialog-content-wrapper');
+            if ($dialogContent.length) {
+                $dialogContent.html(`
+                    <div style="text-align: center;">
+                        <div style="position: relative;">
+                            <img src="${image.url}" alt="${image.title}" class="dialog-img" data-full-img="${image.url}" data-img-title="${escapeHtml(image.title)}" style="cursor: zoom-in;">
+                            <div class="zoom-hint">
+                                <i class="fas fa-search-plus"></i> Нажмите для увеличения
+                            </div>
+                        </div>
+                        <div class="dialog-caption">
+                            <strong>${escapeHtml(image.title)}</strong><br>
+                            <span style="font-size:0.8rem; opacity:0.7;">${index + 1} из ${images.length}</span>
+                        </div>
+                    </div>
+                `);
+                
+                $('.dialog-img').off('click').on('click', function(e) {
+                    e.stopPropagation();
+                    const imgSrc = $(this).data('full-img');
+                    const imgTitle = $(this).data('img-title');
+                    zoomImage(imgSrc, imgTitle);
+                });
+            }
+        }
+
+        // Создание диалога
+        function openImageDialog(index) {
+            if (images.length === 0) return;
+            
+            currentIndexForDialog = index;
+            const image = images[index];
+            
+            if (currentImageDialog && currentImageDialog.dialog('isOpen')) {
+                currentImageDialog.dialog('destroy');
+                currentImageDialog = null;
+            }
+            
+            const dialogContainer = $('<div class="dialog-content-wrapper"></div>');
+            
+            dialogContainer.html(`
+                <div style="text-align: center;">
+                    <div style="position: relative;">
+                        <img src="${image.url}" alt="${image.title}" class="dialog-img" data-full-img="${image.url}" data-img-title="${escapeHtml(image.title)}" style="cursor: zoom-in;">
+                        <div class="zoom-hint">
+                            <i class="fas fa-search-plus"></i> Нажмите для увеличения
+                        </div>
+                    </div>
+                    <div class="dialog-caption">
+                        <strong>${escapeHtml(image.title)}</strong><br>
+                        <span style="font-size:0.8rem; opacity:0.7;">${index + 1} из ${images.length}</span>
+                    </div>
+                </div>
+            `);
+            
+            currentImageDialog = dialogContainer.dialog({
+                title: 'Просмотр изображения',
+                width: $(window).width() > 768 ? 600 : '95%',
+                modal: true,
+                resizable: false,
+                closeOnEscape: true,
+                buttons: [
+                    {
+                        text: '❮ Назад',
+                        click: function() {
+                            let newIndex = currentIndexForDialog - 1;
+                            if (newIndex < 0) newIndex = images.length - 1;
+                            updateDialogContent(newIndex);
+                        }
+                    },
+                    {
+                        text: 'Вперед ❯',
+                        click: function() {
+                            let newIndex = currentIndexForDialog + 1;
+                            if (newIndex >= images.length) newIndex = 0;
+                            updateDialogContent(newIndex);
+                        }
+                    },
+                    {
+                        text: 'Закрыть',
+                        click: function() {
+                            $(this).dialog('close');
+                        }
+                    }
+                ],
+                open: function() {
+                    $('.ui-dialog-buttonpane button').css({
+                        'background': 'linear-gradient(135deg, #d48a9e, #c2778b)',
+                        'color': 'white',
+                        'border': 'none',
+                        'border-radius': '25px',
+                        'padding': '8px 20px',
+                        'margin': '0 5px',
+                        'cursor': 'pointer',
+                        'font-family': 'Playfair Display, serif'
+                    }).hover(
+                        function() { $(this).css('transform', 'translateY(-2px)'); },
+                        function() { $(this).css('transform', 'translateY(0)'); }
+                    );
+                    
+                    $('.dialog-img').on('click', function(e) {
+                        e.stopPropagation();
+                        const imgSrc = $(this).data('full-img');
+                        const imgTitle = $(this).data('img-title');
+                        zoomImage(imgSrc, imgTitle);
+                    });
+                },
+                close: function() {
+                    $(this).dialog('destroy');
+                    currentImageDialog = null;
+                }
             });
         }
 
@@ -718,35 +919,28 @@
                 </li>
             `).join(''));
 
-            // Обработчик клика на изображение (открытие модального окна)
             $('.gallery-img').off('click').on('click', function(e) {
                 e.stopPropagation();
                 const index = $(this).data('index');
-                openModal(index);
+                openImageDialog(index);
             });
 
-            // Обработчик удаления
             $('.delete-btn').off('click').on('click', function(e) {
                 e.stopPropagation();
                 const index = $(this).data('index');
-                deleteImage(index);
+                const $item = $(`.gallery-item[data-index="${index}"]`);
+                $item.addClass('gallery-item-shake');
+                setTimeout(() => {
+                    images.splice(index, 1);
+                    saveImages();
+                    renderGallery();
+                    showToast('🗑️ Изображение удалено');
+                }, 200);
             });
             
             if (sortableEnabled && sortableInstance) {
                 sortableInstance.sortable('refresh');
             }
-        }
-
-        function deleteImage(index) {
-            const $item = $(`.gallery-item[data-index="${index}"]`);
-            $item.addClass('gallery-item-shake');
-            
-            setTimeout(() => {
-                images.splice(index, 1);
-                saveImages();
-                renderGallery();
-                showToast('🗑️ Изображение удалено');
-            }, 200);
         }
 
         function addImage() {
@@ -768,7 +962,7 @@
             setTimeout(() => $newItem.removeClass('gallery-item-new'), 500);
             
             $('#imageUrl').val('');
-            showToast('✨ Изображение добавлено! Перетащите, чтобы изменить порядок');
+            showToast('✨ Изображение добавлено!');
         }
 
         function enableSortable() {
@@ -833,69 +1027,17 @@
             showToast('🔄 Порядок сброшен к исходному!');
         }
 
-        // ===== МОДАЛЬНОЕ ОКНО НА ВЕСЬ ЭКРАН =====
-        function openModal(index) {
-            currentImageIndex = index;
-            const image = images[currentImageIndex];
-            $('#modalImage').attr('src', image.url);
-            $('#modalInfo').text(`${currentImageIndex + 1} / ${images.length} — ${image.title}`);
-            $('#imageModal').fadeIn(300);
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            $('#imageModal').fadeOut(300);
-            document.body.style.overflow = '';
-        }
-
-        function updateModalImage(index) {
-            if (images.length === 0) return;
-            if (index < 0) index = images.length - 1;
-            if (index >= images.length) index = 0;
-            currentImageIndex = index;
-            const image = images[currentImageIndex];
-            
-            $('#modalImage').fadeOut(200, function() {
-                $(this).attr('src', image.url);
-                $(this).fadeIn(300);
-            });
-            $('#modalInfo').text(`${currentImageIndex + 1} / ${images.length} — ${image.title}`);
-        }
-
-        function nextImage() {
-            updateModalImage(currentImageIndex + 1);
-        }
-
-        function prevImage() {
-            updateModalImage(currentImageIndex - 1);
-        }
-
-        // Закрытие модального окна
-        $('.close-modal, #imageModal').on('click', function(e) {
-            if (e.target === this || $(e.target).hasClass('close-modal')) {
-                closeModal();
+        function loadImages() {
+            const saved = localStorage.getItem('galleryImages');
+            if (saved) {
+                images = JSON.parse(saved);
+            } else {
+                images = JSON.parse(JSON.stringify(defaultImages));
+                saveImages();
             }
-        });
+            renderGallery();
+        }
 
-        $('#modalPrev').on('click', function(e) {
-            e.stopPropagation();
-            prevImage();
-        });
-
-        $('#modalNext').on('click', function(e) {
-            e.stopPropagation();
-            nextImage();
-        });
-
-        $(document).on('keydown', function(e) {
-            if ($('#imageModal').is(':visible')) {
-                if (e.key === 'Escape') closeModal();
-                if (e.key === 'ArrowLeft') prevImage();
-                if (e.key === 'ArrowRight') nextImage();
-            }
-        });
-
-        // Обработчики событий
         $(document).ready(function() {
             loadImages();
             $('#addImageBtn').on('click', addImage);
@@ -907,10 +1049,14 @@
 
         // ===== ПОИСК =====
         const searchData = [
-            { title: "Тональный крем", category: "Каталог", url: "catalog.html#face" },
-            { title: "Консилер", category: "Каталог", url: "catalog.html#face" },
-            { title: "Тушь", category: "Каталог", url: "catalog.html#eyes" },
-            { title: "Помада", category: "Каталог", url: "catalog.html#lips" }
+            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+            { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
+            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
         ];
 
         $('#globalSearchInput').on('input', function() {
@@ -918,7 +1064,10 @@
             if (!query) { $('#globalSearchResults').removeClass('show'); return; }
             const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
             $('#globalSearchResults').html(filtered.length ? filtered.map(item => `
-                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">${item.title} — ${item.category}</div>
+                <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                    <div class="item-title">${item.title}</div>
+                    <div class="item-category">${item.category}</div>
+                </div>
             `).join('') : '<div class="search-dropdown-item">😔 Ничего не найдено</div>').addClass('show');
         });
 
