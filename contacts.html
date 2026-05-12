@@ -111,6 +111,7 @@
             margin-bottom: 25px;
         }
 
+        /* Стилизация с jQuery UI */
         .form-control {
             border-radius: 35px;
             padding: 14px 24px;
@@ -133,6 +134,7 @@
             resize: vertical;
         }
 
+        /* Стили для кнопки с jQuery UI */
         .btn-send {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
@@ -153,39 +155,76 @@
             box-shadow: 0 8px 25px rgba(212, 138, 158, 0.4);
         }
 
-        .success-msg {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px 20px;
-            border-radius: 30px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
+        /* Стили для jQuery UI Dialog */
+        .ui-dialog {
+            border-radius: 20px !important;
+            background: white !important;
+            border: 2px solid #d48a9e !important;
+            box-shadow: 0 25px 50px rgba(212, 138, 158, 0.3) !important;
+        }
+        
+        .ui-dialog .ui-dialog-titlebar {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            border: none !important;
+            border-radius: 18px 18px 0 0 !important;
+            color: white !important;
+            font-family: 'Playfair Display', serif !important;
+            padding: 12px 20px !important;
+        }
+        
+        .ui-dialog .ui-dialog-title {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 1rem !important;
+        }
+        
+        .ui-dialog .ui-dialog-titlebar-close {
+            background: rgba(255,255,255,0.2) !important;
+            border: none !important;
+            border-radius: 50% !important;
+            color: white !important;
+        }
+        
+        .ui-dialog .ui-dialog-titlebar-close:hover {
+            background: rgba(255,255,255,0.4) !important;
+        }
+        
+        .ui-dialog .ui-dialog-content {
+            padding: 25px !important;
+            text-align: center !important;
+            font-family: 'Cormorant Garamond', serif !important;
+            font-size: 1.1rem !important;
+        }
+        
+        .ui-dialog .ui-dialog-buttonpane {
+            border-top: 1px solid #f3dfe4 !important;
+            padding: 15px 20px !important;
+        }
+        
+        .ui-dialog .ui-dialog-buttonpane button {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 30px !important;
+            padding: 8px 25px !important;
+            font-family: 'Playfair Display', serif !important;
+            cursor: pointer !important;
+        }
+        
+        .ui-dialog .ui-dialog-buttonpane button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4);
+        }
+        
+        /* Тёмная тема для диалога */
+        body.dark-theme .ui-dialog {
+            background: #1e1e2e !important;
+            border-color: #3a2f34 !important;
+        }
+        
+        body.dark-theme .ui-dialog .ui-dialog-buttonpane {
+            border-top-color: #3a2f34 !important;
         }
 
-        .error-msg {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px 20px;
-            border-radius: 30px;
-            margin-top: 20px;
-            text-align: center;
-            font-weight: 500;
-            display: none;
-        }
-
-        body.dark-theme .success-msg {
-            background: #1e3a2f;
-            color: #a0e0b0;
-        }
-
-        body.dark-theme .error-msg {
-            background: #4a1a1a;
-            color: #ffaaaa;
-        }
-
-        /* Тёмная тема для контактов */
         body.dark-theme .contacts-container {
             background: #1e1e2e;
             box-shadow: 0 25px 55px rgba(0, 0, 0, 0.3);
@@ -214,7 +253,6 @@
             border-color: #d48a9e;
         }
 
-        /* Медиазапросы */
         @media (max-width: 768px) {
             .contacts-hero h1 {
                 font-size: 2.2rem;
@@ -264,11 +302,9 @@
 </head>
 <body>
 
-    <!-- Декоративные элементы (стили из style.css) -->
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
-    <!-- Header -->
     <header class="header">
         <div class="container">
             <div class="row align-items-center">
@@ -296,7 +332,7 @@
                             <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
                             <div id="globalSearchResults" class="search-dropdown"></div>
                         </div>
-                        <button class="theme-toggle" onclick="toggleTheme()">
+                        <button class="theme-toggle" id="themeToggleBtn">
                             <i class="fas fa-moon"></i>
                         </button>
                     </div>
@@ -318,19 +354,14 @@
                 <div class="contact-info">
                     <h3><i class="fas fa-envelope"></i> Email</h3>
                     <p>info@glamour.ru</p>
-                    
                     <h3><i class="fab fa-instagram"></i> Instagram</h3>
                     <p>@glamour_makeup</p>
-                    
                     <h3><i class="fab fa-telegram"></i> Telegram</h3>
                     <p>@glamour</p>
-                    
                     <h3><i class="fab fa-vk"></i> VK</h3>
                     <p>vk.com/glamour</p>
-                    
                     <h3><i class="fas fa-map-marker-alt"></i> Адрес</h3>
                     <p>г. Минск, ул. Красивая, 15</p>
-                    
                     <h3><i class="fas fa-clock"></i> Режим работы</h3>
                     <p>Пн-Пт: 10:00 - 19:00<br>Сб: 11:00 - 16:00<br>Вс: выходной</p>
                 </div>
@@ -339,30 +370,23 @@
                 <div class="contact-form">
                     <form id="contactForm">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" class="form-control" placeholder="Ваше имя">
+                            <input type="text" id="name" name="name" class="form-control ui-widget ui-widget-content" placeholder="Ваше имя">
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" class="form-control" placeholder="Ваш email">
+                            <input type="email" id="email" name="email" class="form-control ui-widget ui-widget-content" placeholder="Ваш email">
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" class="form-control" placeholder="Ваше сообщение"></textarea>
+                            <textarea id="message" name="message" rows="5" class="form-control ui-widget ui-widget-content" placeholder="Ваше сообщение"></textarea>
                         </div>
-                        <button type="submit" class="btn-send">
+                        <button type="submit" class="btn-send ui-button ui-widget">
                             <i class="fas fa-paper-plane"></i> Отправить сообщение
                         </button>
-                        <div id="successMsg" class="success-msg">
-                            ✅ Сообщение отправлено! Мы свяжемся с вами в ближайшее время.
-                        </div>
-                        <div id="errorMsg" class="error-msg">
-                            ⚠️ Пожалуйста, заполните все поля правильно.
-                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -410,7 +434,6 @@
         </div>
     </footer>
 
-    <!-- jQuery и jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
@@ -420,25 +443,119 @@
             if (document.body.classList.contains('dark-theme')) {
                 document.body.classList.remove('dark-theme');
                 localStorage.setItem('theme', 'light');
-                $('.theme-toggle i').attr('class', 'fas fa-moon');
+                $('#themeToggleBtn i').attr('class', 'fas fa-moon');
             } else {
                 document.body.classList.add('dark-theme');
                 localStorage.setItem('theme', 'dark');
-                $('.theme-toggle i').attr('class', 'fas fa-sun');
+                $('#themeToggleBtn i').attr('class', 'fas fa-sun');
             }
         }
 
         function loadTheme() {
             if (localStorage.getItem('theme') === 'dark') {
                 document.body.classList.add('dark-theme');
-                $('.theme-toggle i').attr('class', 'fas fa-sun');
+                $('#themeToggleBtn i').attr('class', 'fas fa-sun');
             }
         }
+        
+        $('#themeToggleBtn').on('click', toggleTheme);
         loadTheme();
 
-        // ===== КОНТАКТНАЯ ФОРМА С JQUERY И JQUERY UI =====
+        // ===== КОНТАКТНАЯ ФОРМА С JQUERY UI =====
         $(document).ready(function() {
             
+            // ===== 1. AUTOCOMPLETE ДЛЯ ПОЛЯ "ИМЯ" =====
+            const nameSuggestions = [
+                "Александра", "Анастасия", "Анна", "Виктория", "Дарья", 
+                "Екатерина", "Елена", "Мария", "Ольга", "Полина", 
+                "Светлана", "София", "Татьяна", "Юлия", "Яна"
+            ];
+            
+            $("#name").autocomplete({
+                source: nameSuggestions,
+                minLength: 2,
+                delay: 200,
+                select: function(event, ui) {
+                    console.log("Выбрано имя: " + ui.item.value);
+                }
+            });
+            
+            // ===== 2. AUTOCOMPLETE ДЛЯ ПОЛЯ "EMAIL" (подсказки доменов) =====
+            const emailDomains = [
+                "@gmail.com", "@mail.ru", "@yandex.ru", "@bk.ru", 
+                "@inbox.ru", "@list.ru", "@outlook.com", "@rambler.ru",
+                "@yahoo.com", "@icloud.com"
+            ];
+            
+            $("#email").autocomplete({
+                source: function(request, response) {
+                    const term = request.term.toLowerCase();
+                    // Если ввели @, показываем домены
+                    if (term.includes('@')) {
+                        const prefix = term.split('@')[0];
+                        const matches = emailDomains.filter(domain => 
+                            domain.toLowerCase().includes(term.split('@')[1] || '')
+                        );
+                        response(matches.map(domain => prefix + domain));
+                    } else {
+                        // Если не ввели @, показываем популярные email с добавлением домена
+                        response(emailDomains.map(domain => term + domain));
+                    }
+                },
+                minLength: 1,
+                delay: 300
+            });
+            
+            // ===== 3. DIALOG ДЛЯ СООБЩЕНИЙ =====
+            let messageDialog = null;
+            
+            function showDialog(title, message, isSuccess) {
+                if (messageDialog) {
+                    messageDialog.dialog('destroy');
+                }
+                
+                const dialogContent = $('<div>' + message + '</div>');
+                const icon = isSuccess ? '✅' : '❌';
+                const bgGradient = isSuccess ? 
+                    'linear-gradient(135deg, #5cb85c, #4cae4c)' : 
+                    'linear-gradient(135deg, #d48a9e, #c2778b)';
+                
+                messageDialog = dialogContent.dialog({
+                    title: icon + ' ' + title,
+                    modal: true,
+                    width: 400,
+                    resizable: false,
+                    closeOnEscape: true,
+                    buttons: [
+                        {
+                            text: 'Закрыть',
+                            click: function() {
+                                $(this).dialog('close');
+                            }
+                        }
+                    ],
+                    open: function() {
+                        $('.ui-dialog-titlebar').css('background', bgGradient);
+                        $('.ui-dialog-buttonpane button').css({
+                            'background': bgGradient,
+                            'color': 'white',
+                            'border': 'none',
+                            'border-radius': '30px',
+                            'padding': '8px 25px',
+                            'cursor': 'pointer'
+                        }).hover(
+                            function() { $(this).css('transform', 'translateY(-2px)'); },
+                            function() { $(this).css('transform', 'translateY(0)'); }
+                        );
+                    },
+                    close: function() {
+                        $(this).dialog('destroy');
+                        messageDialog = null;
+                    }
+                });
+            }
+            
+            // ===== 4. ЭФФЕКТЫ ПРИ ВЗАИМОДЕЙСТВИИ =====
             $('.form-control').on('focus', function() {
                 $(this).effect('highlight', { color: '#fde8ed' }, 800);
             });
@@ -452,59 +569,89 @@
             
             $('.contacts-container').hide().fadeIn(1000);
             
+            // ===== 5. ВАЛИДАЦИЯ И ОТПРАВКА ФОРМЫ =====
             $('#contactForm').on('submit', function(e) {
                 e.preventDefault();
-                
-                $('#successMsg').hide();
-                $('#errorMsg').hide();
-                $('.form-control').css('border-color', '#f3dfe4');
                 
                 const name = $('#name').val().trim();
                 const email = $('#email').val().trim();
                 const message = $('#message').val().trim();
                 
                 let isValid = true;
+                let errorMessage = "";
                 
+                // Валидация имени
                 if (name === '') {
                     $('#name').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#name').css('border-color', '#d48a9e');
+                    errorMessage += "• Заполните поле «Имя»\n";
                     isValid = false;
+                } else {
+                    $('#name').css('border-color', '#f3dfe4');
                 }
                 
+                // Валидация email
                 const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/;
-                if (email === '' || !emailRegex.test(email)) {
+                if (email === '') {
                     $('#email').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#email').css('border-color', '#d48a9e');
+                    errorMessage += "• Заполните поле «Email»\n";
                     isValid = false;
+                } else if (!emailRegex.test(email)) {
+                    $('#email').effect('shake', { distance: 5, times: 3 }, 500);
+                    $('#email').css('border-color', '#d48a9e');
+                    errorMessage += "• Введите корректный email адрес\n";
+                    isValid = false;
+                } else {
+                    $('#email').css('border-color', '#f3dfe4');
                 }
                 
+                // Валидация сообщения
                 if (message === '') {
                     $('#message').effect('shake', { distance: 5, times: 3 }, 500);
                     $('#message').css('border-color', '#d48a9e');
+                    errorMessage += "• Заполните поле «Сообщение»\n";
                     isValid = false;
+                } else {
+                    $('#message').css('border-color', '#f3dfe4');
                 }
                 
                 if (isValid) {
-                    $('#successMsg').slideDown(400);
+                    // Успешная отправка - показываем Dialog
+                    showDialog(
+                        "Сообщение отправлено!", 
+                        `<div style="text-align: center;">
+                            <i class="fas fa-check-circle" style="font-size: 48px; color: #5cb85c; margin-bottom: 15px;"></i>
+                            <p style="font-size: 1rem;">Ваше сообщение успешно отправлено!</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">Мы свяжемся с вами в ближайшее время.</p>
+                            <p style="font-size: 0.8rem; margin-top: 15px;"><strong>${name}</strong>, спасибо за обращение!</p>
+                        </div>`,
+                        true
+                    );
+                    
+                    // Очищаем форму
                     $('#name').val('');
                     $('#email').val('');
                     $('#message').val('');
                     $('.btn-send').effect('pulsate', { times: 2 }, 500);
-                    setTimeout(() => {
-                        $('#successMsg').slideUp(400);
-                    }, 4000);
                 } else {
-                    $('#errorMsg').slideDown(400);
-                    setTimeout(() => {
-                        $('#errorMsg').slideUp(400);
-                    }, 3000);
+                    // Ошибка валидации - показываем Dialog с ошибками
+                    showDialog(
+                        "Ошибка заполнения!", 
+                        `<div style="text-align: center;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 48px; color: #d48a9e; margin-bottom: 15px;"></i>
+                            <p style="font-size: 1rem;">Пожалуйста, исправьте следующие ошибки:</p>
+                            <p style="font-size: 0.9rem; text-align: left; padding-left: 20px;">${errorMessage.replace(/\n/g, '<br>')}</p>
+                        </div>`,
+                        false
+                    );
                 }
             });
         });
     </script>
 
-    <!-- ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ -->
     <script>
+        // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
         let currentPage = window.location.pathname.split('/').pop();
         if (currentPage === '' || currentPage === '/') {
             currentPage = 'make.html';
@@ -518,8 +665,8 @@
         });
     </script>
 
-    <!-- ГЛОБАЛЬНЫЙ ПОИСК -->
     <script>
+        // ===== ГЛОБАЛЬНЫЙ ПОИСК =====
         const searchInput = document.getElementById('globalSearchInput');
         const searchResults = document.getElementById('globalSearchResults');
         
