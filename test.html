@@ -669,14 +669,16 @@
         loadTheme();
     </script>
 
-   // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
-        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
-            }
-        });
-    <script>
+  <script>
+// ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('href') === currentPage) {
+        link.classList.add('active');
+    }
+});
+</script>
+  <script>
         // ===== ГЛОБАЛЬНЫЙ ПОИСК =====
         const searchInput = document.getElementById('globalSearchInput');
         const searchResults = document.getElementById('globalSearchResults');
