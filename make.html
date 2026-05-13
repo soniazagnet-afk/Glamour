@@ -27,7 +27,6 @@
             background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
             min-height: 100vh;
             transition: background 0.3s;
-            padding-top: 0; /* Компенсация sticky header делается через JS или margin если нужно */
         }
 
         body.dark-theme {
@@ -49,43 +48,37 @@
             50% { transform: translateY(-30px) rotate(5deg); }
         }
 
-        /* ===== ХЕДЕР И NAVBAR ===== */
-        .header {
-            background: rgba(255, 255, 255, 0.95);
+        /* ===== BOOTSTRAP NAVBAR ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.98) !important;
             backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(212, 138, 158, 0.1);
-            padding: 10px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            padding: 15px 0;
         }
 
-        body.dark-theme .header {
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        body.dark-theme .navbar {
+            background: rgba(0, 0, 0, 0.95) !important;
         }
 
-        /* Логотип */
-        .logo {
+        .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        /* Кастомизация Navbar Toggler (Бургер) */
+        .navbar-brand i {
+            color: #d48a9e;
+            -webkit-text-fill-color: #d48a9e;
+        }
+
         .navbar-toggler {
             border: none;
             padding: 0.5rem;
-            transition: all 0.3s;
         }
-        
+
         .navbar-toggler:focus {
             box-shadow: none;
         }
@@ -95,7 +88,6 @@
             font-size: 1.8rem;
         }
 
-        /* Ссылки меню */
         .nav-link {
             color: #4a3b40 !important;
             font-family: 'Playfair Display', serif;
@@ -126,19 +118,18 @@
             background: linear-gradient(90deg, #d48a9e, #c2778b);
         }
 
-        /* Выпадающее меню (Dropdown) */
+        /* Выпадающее меню */
         .dropdown-menu {
             background: white;
             border-radius: 12px;
             border: none;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             padding: 10px 0;
-            margin-top: 10px; /* Отступ от хедера */
+            margin-top: 10px;
         }
 
         body.dark-theme .dropdown-menu {
             background: #1e1e2e;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .dropdown-item {
@@ -164,7 +155,7 @@
             background: #2a2a3e;
         }
 
-        /* Поиск и действия справа */
+        /* Поиск и тема */
         .header-actions {
             display: flex;
             align-items: center;
@@ -198,7 +189,6 @@
             box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
         }
 
-        /* Выпадающие результаты поиска */
         .search-dropdown {
             position: absolute;
             top: 100%;
@@ -210,7 +200,7 @@
             max-height: 350px;
             overflow-y: auto;
             display: none;
-            z-index: 1050; /* Выше чем navbar */
+            z-index: 1000;
             margin-top: 8px;
             border: 1px solid #f3dfe4;
         }
@@ -228,6 +218,33 @@
 
         .search-dropdown-item:hover {
             background: #fef5f0;
+        }
+
+        .search-dropdown-item .item-title {
+            font-weight: 600;
+            font-family: 'Playfair Display', serif;
+            color: #4a3b40;
+            font-size: 0.85rem;
+        }
+
+        .search-dropdown-item .item-category {
+            font-size: 0.7rem;
+            color: #d48a9e;
+            margin-top: 4px;
+        }
+
+        .highlight {
+            background: #fde8ed;
+            color: #c2778b;
+            border-radius: 4px;
+            padding: 0 4px;
+        }
+
+        .no-results {
+            padding: 15px;
+            text-align: center;
+            color: #7a6a6e;
+            font-size: 0.8rem;
         }
 
         .theme-toggle {
@@ -479,314 +496,6 @@
             color: white;
         }
 
-        /* ===== jQuery UI ADAPTIVE COMPONENTS ===== */
-        
-        /* 🔹 TABS - Адаптивные вкладки */
-        .ui-tabs {
-            background: white !important;
-            border-radius: 24px !important;
-            border: 2px solid rgba(212, 138, 158, 0.2) !important;
-            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15) !important;
-            margin: 30px 0;
-        }
-        
-        body.dark-theme .ui-tabs {
-            background: #1e1e2e !important;
-            border-color: #3a2f34 !important;
-        }
-        
-        .ui-tabs-nav {
-            background: linear-gradient(135deg, #fef5f0, #fde8ed) !important;
-            border-radius: 22px 22px 0 0 !important;
-            border-bottom: 2px solid rgba(212, 138, 158, 0.3) !important;
-            padding: 8px !important;
-        }
-        
-        body.dark-theme .ui-tabs-nav {
-            background: linear-gradient(135deg, #2a2a3e, #1e1e2e) !important;
-        }
-        
-        .ui-tabs-nav .ui-state-default {
-            background: transparent !important;
-            border: none !important;
-            border-radius: 20px !important;
-            margin: 0 4px !important;
-        }
-        
-        .ui-tabs-nav .ui-state-default a {
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 600 !important;
-            color: #7a6a6e !important;
-            padding: 10px 20px !important;
-            transition: all 0.3s !important;
-        }
-        
-        body.dark-theme .ui-tabs-nav .ui-state-default a {
-            color: #aaa !important;
-        }
-        
-        .ui-tabs-nav .ui-state-active {
-            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
-            border-radius: 20px !important;
-        }
-        
-        .ui-tabs-nav .ui-state-active a {
-            color: white !important;
-        }
-        
-        .ui-tabs-panel {
-            padding: 25px !important;
-            font-family: 'Cormorant Garamond', serif !important;
-            color: #4a3b40 !important;
-        }
-        
-        body.dark-theme .ui-tabs-panel {
-            color: #ddd !important;
-        }
-        
-        .tabs-content img {
-            max-width: 100%;
-            border-radius: 16px;
-            margin: 15px 0;
-        }
-        
-        .tabs-content ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .tabs-content li {
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(212, 138, 158, 0.3);
-        }
-        
-        .tabs-content li:last-child {
-            border-bottom: none;
-        }
-        
-        .tabs-content li::before {
-            content: "✨ ";
-            color: #d48a9e;
-        }
-
-        /* 🔹 ACCORDION - Адаптивный аккордеон */
-        .ui-accordion {
-            background: white !important;
-            border-radius: 24px !important;
-            border: 2px solid rgba(212, 138, 158, 0.2) !important;
-            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15) !important;
-            margin: 30px 0;
-        }
-        
-        body.dark-theme .ui-accordion {
-            background: #1e1e2e !important;
-            border-color: #3a2f34 !important;
-        }
-        
-        .ui-accordion-header {
-            background: linear-gradient(135deg, #fef5f0, #fde8ed) !important;
-            border: none !important;
-            border-radius: 20px !important;
-            margin: 8px !important;
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 600 !important;
-            color: #4a3b40 !important;
-            padding: 15px 20px !important;
-            transition: all 0.3s !important;
-        }
-        
-        body.dark-theme .ui-accordion-header {
-            background: linear-gradient(135deg, #2a2a3e, #1e1e2e) !important;
-            color: #ddd !important;
-        }
-        
-        .ui-accordion-header:hover {
-            background: linear-gradient(135deg, #fde8ed, #f5e0e8) !important;
-            transform: translateX(5px) !important;
-        }
-        
-        body.dark-theme .ui-accordion-header:hover {
-            background: linear-gradient(135deg, #3a2f34, #2a2a3e) !important;
-        }
-        
-        .ui-accordion-header .ui-icon {
-            background: none !important;
-            width: 20px !important;
-            height: 20px !important;
-        }
-        
-        .ui-accordion-header .ui-icon::before {
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            content: "\f078";
-            color: #d48a9e;
-            position: absolute;
-            right: 20px;
-            transition: transform 0.3s;
-        }
-        
-        .ui-accordion-header.ui-state-active .ui-icon::before {
-            transform: rotate(180deg);
-            content: "\f077";
-        }
-        
-        .ui-accordion-content {
-            background: white !important;
-            border: none !important;
-            border-radius: 0 0 20px 20px !important;
-            margin: 0 8px 8px 8px !important;
-            padding: 20px !important;
-            font-family: 'Cormorant Garamond', serif !important;
-            color: #7a6a6e !important;
-            line-height: 1.6 !important;
-        }
-        
-        body.dark-theme .ui-accordion-content {
-            background: #1e1e2e !important;
-            color: #aaa !important;
-        }
-        
-        .accordion-content strong {
-            color: #d48a9e !important;
-        }
-
-        /* 🔹 DIALOG - Адаптивные модальные окна */
-        .ui-dialog {
-            border-radius: 24px !important;
-            border: 2px solid rgba(212, 138, 158, 0.3) !important;
-            box-shadow: 0 20px 60px rgba(212, 138, 158, 0.4) !important;
-        }
-        
-        .ui-dialog-titlebar {
-            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
-            border: none !important;
-            border-radius: 22px 22px 0 0 !important;
-            padding: 15px 20px !important;
-        }
-        
-        .ui-dialog-title {
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 600 !important;
-            color: white !important;
-            font-size: 1.2rem !important;
-        }
-        
-        .ui-dialog-titlebar-close {
-            background: rgba(255,255,255,0.2) !important;
-            border: none !important;
-            border-radius: 50% !important;
-            width: 32px !important;
-            height: 32px !important;
-            top: 50% !important;
-            transform: translateY(-50%) !important;
-        }
-        
-        .ui-dialog-titlebar-close .ui-icon {
-            background: none !important;
-        }
-        
-        .ui-dialog-titlebar-close .ui-icon::before {
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            content: "\f00d";
-            color: white;
-            font-size: 14px;
-        }
-        
-        .ui-dialog-content {
-            padding: 25px !important;
-            font-family: 'Cormorant Garamond', serif !important;
-            color: #4a3b40 !important;
-        }
-        
-        body.dark-theme .ui-dialog-content {
-            background: #1e1e2e !important;
-            color: #ddd !important;
-        }
-        
-        .ui-dialog-buttonpane {
-            background: #fafafa !important;
-            border-top: 1px solid rgba(212, 138, 158, 0.2) !important;
-            border-radius: 0 0 22px 22px !important;
-            padding: 15px 20px !important;
-        }
-        
-        body.dark-theme .ui-dialog-buttonpane {
-            background: #2a2a3e !important;
-        }
-        
-        .ui-dialog-buttonpane .ui-button {
-            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
-            border: none !important;
-            border-radius: 25px !important;
-            color: white !important;
-            font-family: 'Playfair Display', serif !important;
-            font-weight: 600 !important;
-            padding: 10px 25px !important;
-            margin: 0 5px !important;
-            transition: all 0.3s !important;
-        }
-        
-        .ui-dialog-buttonpane .ui-button:hover {
-            transform: translateY(-2px) !important;
-            box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4) !important;
-        }
-        
-        .ui-dialog-buttonpane .ui-button.ui-button-secondary {
-            background: #f3dfe4 !important;
-            color: #d48a9e !important;
-        }
-        
-        body.dark-theme .ui-dialog-buttonpane .ui-button.ui-button-secondary {
-            background: #3a2f34 !important;
-            color: #ddd !important;
-        }
-
-        /* 🔹 RESIZABLE - Адаптивные размеры */
-        .ui-resizable-handle {
-            background: rgba(212, 138, 158, 0.5) !important;
-            border-radius: 4px !important;
-        }
-
-        /* 🔹 AUTOCOMPLETE - Адаптивный поиск */
-        .ui-autocomplete {
-            max-height: 300px !important;
-            overflow-y: auto !important;
-            border-radius: 16px !important;
-            border: 2px solid rgba(212, 138, 158, 0.3) !important;
-            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.2) !important;
-            font-family: 'Cormorant Garamond', serif !important;
-        }
-        
-        .ui-autocomplete .ui-menu-item {
-            padding: 12px 16px !important;
-            border-bottom: 1px solid #f3dfe4 !important;
-        }
-        
-        .ui-autocomplete .ui-menu-item:last-child {
-            border-bottom: none !important;
-        }
-        
-        .ui-autocomplete .ui-state-focus {
-            background: linear-gradient(135deg, #fde8ed, #f5e0e8) !important;
-            border-radius: 12px !important;
-            color: #4a3b40 !important;
-        }
-        
-        body.dark-theme .ui-autocomplete {
-            background: #1e1e2e !important;
-            border-color: #3a2f34 !important;
-        }
-        
-        body.dark-theme .ui-autocomplete .ui-menu-item {
-            border-color: #3a2f34 !important;
-            color: #ddd !important;
-        }
-        
-        body.dark-theme .ui-autocomplete .ui-state-focus {
-            background: linear-gradient(135deg, #3a2f34, #2a2a3e) !important;
-        }
-
         /* ===== Newsletter ===== */
         .newsletter {
             padding: 60px 0;
@@ -973,7 +682,7 @@
             transform: translateY(-50%) scale(1.05);
         }
 
-        /* ===== КРАСИВАЯ ПАНЕЛЬ УПРАВЛЕНИЯ ===== */
+        /* Панель управления */
         .marquee-panel {
             position: fixed;
             top: 50%;
@@ -1006,7 +715,6 @@
             }
         }
 
-        /* Шапка панели */
         .panel-header {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             padding: 20px 24px;
@@ -1048,7 +756,6 @@
             transform: rotate(90deg);
         }
 
-        /* Тело панели */
         .panel-body {
             padding: 24px;
         }
@@ -1077,7 +784,6 @@
             font-size: 0.75rem;
         }
 
-        /* Кнопки направления и стиля */
         .btn-row {
             display: flex;
             gap: 12px;
@@ -1115,7 +821,6 @@
             box-shadow: 0 6px 14px rgba(212, 138, 158, 0.35);
         }
 
-        /* Ползунок скорости */
         .speed-wrapper {
             display: flex;
             align-items: center;
@@ -1153,7 +858,6 @@
             text-align: center;
         }
 
-        /* Кнопка паузы */
         .pause-action-btn {
             width: 100%;
             background: linear-gradient(135deg, #4a3b40, #3a2f34);
@@ -1178,7 +882,6 @@
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
-        /* Тёмная тема */
         body.dark-theme .marquee-panel {
             background: linear-gradient(145deg, #1e1e2e 0%, #2a2a3e 100%);
             border-color: rgba(212, 138, 158, 0.3);
@@ -1529,9 +1232,7 @@
             box-shadow: 0 5px 20px rgba(212, 138, 158, 0.4);
         }
 
-        /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
         @media (max-width: 991px) {
-            /* Корректировка для мобильного меню Bootstrap */
             .navbar-collapse {
                 background: white;
                 padding: 15px;
@@ -1539,67 +1240,19 @@
                 margin-top: 10px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             }
-            
             body.dark-theme .navbar-collapse {
                 background: #1e1e2e;
             }
-
             .nav-link.active::after {
-                display: none; /* Убираем подчеркивание активного элемента в мобильном виде */
+                display: none;
             }
-            
             .header-search input { 
                 width: 130px; 
             }
-            
             .marquee-text span { margin: 0 20px; font-size: 0.75rem; }
             .marquee-box { width: calc(100% - 55px); }
             .marquee-control-btn { width: 36px; height: 36px; right: 10px; }
             .marquee-panel { width: 300px; right: 10px; }
-            
-            /* 🔹 Адаптивность jQuery UI компонентов на мобильных */
-            .ui-tabs-nav {
-                flex-wrap: wrap !important;
-                justify-content: center !important;
-            }
-            .ui-tabs-nav .ui-state-default {
-                margin: 4px 2px !important;
-                flex: 0 0 auto !important;
-            }
-            .ui-tabs-nav .ui-state-default a {
-                padding: 8px 12px !important;
-                font-size: 0.9rem !important;
-            }
-            .ui-tabs-panel {
-                padding: 15px !important;
-            }
-            .ui-accordion-header {
-                margin: 4px !important;
-                padding: 12px 15px !important;
-                font-size: 0.95rem !important;
-            }
-            .ui-accordion-content {
-                margin: 0 4px 4px 4px !important;
-                padding: 15px !important;
-                font-size: 0.9rem !important;
-            }
-            .ui-dialog {
-                width: 95% !important;
-                max-width: 400px !important;
-                margin: 10px auto !important;
-            }
-            .ui-dialog-titlebar {
-                padding: 12px 15px !important;
-            }
-            .ui-dialog-content {
-                padding: 20px 15px !important;
-                font-size: 0.95rem !important;
-            }
-            .ui-dialog-buttonpane .ui-button {
-                padding: 8px 20px !important;
-                font-size: 0.9rem !important;
-                margin: 5px 3px !important;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1608,16 +1261,6 @@
             .marquee-panel { width: 280px; }
             .panel-body { padding: 18px; }
             .panel-header { padding: 15px 18px; }
-            
-            /* 🔹 Ещё более компактные стили для очень маленьких экранов */
-            .ui-tabs-nav .ui-state-default a {
-                padding: 6px 10px !important;
-                font-size: 0.8rem !important;
-            }
-            .ui-accordion-header {
-                font-size: 0.9rem !important;
-                padding: 10px 12px !important;
-            }
         }
     </style>
 </head>
@@ -1626,68 +1269,58 @@
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
-    <!-- Header с Bootstrap Navbar -->
-    <header class="header">
+    <!-- ===== BOOTSTRAP NAVBAR ===== -->
+    <nav class="navbar navbar-expand-md sticky-top">
         <div class="container">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid px-0">
-                    <!-- Логотип -->
-                    <a class="navbar-brand logo" href="make.html">
-                        <i class="fas fa-heart"></i>
-                        <span>Glamour</span>
-                    </a>
+            <a class="navbar-brand" href="make.html">
+                <i class="fas fa-heart"></i> Glamour
+            </a>
 
-                    <!-- Кнопка Бургер (Bootstrap Toggler) -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#glamourNavbar" aria-controls="glamourNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars navbar-toggler-icon-custom"></i>
-                    </button>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGlamour">
+                <i class="fas fa-bars navbar-toggler-icon-custom"></i>
+            </button>
 
-                    <!-- Сворачиваемое меню -->
-                    <div class="collapse navbar-collapse" id="glamourNavbar">
-                        <!-- Центральное меню -->
-                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="make.html">Главная</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Каталог
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="catalog.html#face">💄 Для лица</a></li>
-                                    <li><a class="dropdown-item" href="catalog.html#eyes">👁️ Для глаз</a></li>
-                                    <li><a class="dropdown-item" href="catalog.html#lips">💋 Для губ</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="tips.html">Советы</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="test.html">Тест</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contacts.html">Контакты</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="register.html">👤</a>
-                            </li>
+            <div class="collapse navbar-collapse" id="navbarGlamour">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="make.html">Главная</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown">
+                            Каталог
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="catalog.html#face">💄 Для лица</a></li>
+                            <li><a class="dropdown-item" href="catalog.html#eyes">👁️ Для глаз</a></li>
+                            <li><a class="dropdown-item" href="catalog.html#lips">💋 Для губ</a></li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tips.html">Советы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.html">Тест</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacts.html">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">👤</a>
+                    </li>
+                </ul>
 
-                        <!-- Правая часть: Поиск и Тема -->
-                        <div class="header-actions mt-3 mt-lg-0">
-                            <div class="header-search">
-                                <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
-                                <div id="globalSearchResults" class="search-dropdown"></div>
-                            </div>
-                            <button class="theme-toggle" id="themeToggleBtn">
-                                <i class="fas fa-moon"></i>
-                            </button>
-                        </div>
+                <div class="header-actions">
+                    <div class="header-search">
+                        <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
+                        <div id="globalSearchResults" class="search-dropdown"></div>
                     </div>
+                    <button class="theme-toggle" id="themeToggleBtn">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
-            </nav>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
     <div class="marquee">
@@ -1707,7 +1340,7 @@
         </div>
     </div>
 
-    <!-- ===== КРАСИВАЯ ПАНЕЛЬ УПРАВЛЕНИЯ ===== -->
+    <!-- ===== ПАНЕЛЬ УПРАВЛЕНИЯ БЕГУЩЕЙ СТРОКОЙ ===== -->
     <div class="marquee-panel" id="marqueePanel">
         <div class="panel-header">
             <h3><i class="fas fa-magic"></i> Управление строкой</h3>
@@ -1779,12 +1412,12 @@
                 </div>
             </div>
         </div>
+        
         <button class="banner-prev" id="bannerPrev">❮</button>
         <button class="banner-next" id="bannerNext">❯</button>
+        
         <div class="banner-dots" id="bannerDots"></div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
     // АНИМИРОВАННЫЙ БАННЕР
@@ -1793,7 +1426,9 @@
         const prevBtn = document.getElementById('bannerPrev');
         const nextBtn = document.getElementById('bannerNext');
         const dotsContainer = document.getElementById('bannerDots');
+        
         if (!slides) return;
+        
         const slideCount = document.querySelectorAll('.banner-slide').length;
         let currentIndex = 0;
         let autoInterval;
@@ -1809,11 +1444,13 @@
                 dotsContainer.appendChild(dot);
             }
         }
+        
         function goToSlide(index) {
             if (index < 0) index = slideCount - 1;
             if (index >= slideCount) index = 0;
             currentIndex = index;
             slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
             if (dotsContainer) {
                 document.querySelectorAll('.banner-dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIndex);
@@ -1821,14 +1458,19 @@
             }
             resetAutoPlay();
         }
+        
         function nextSlide() { goToSlide(currentIndex + 1); }
         function prevSlide() { goToSlide(currentIndex - 1); }
+        
         function startAutoPlay() { autoInterval = setInterval(() => nextSlide(), 5000); }
         function resetAutoPlay() { clearInterval(autoInterval); startAutoPlay(); }
+        
         if (prevBtn) prevBtn.addEventListener('click', prevSlide);
         if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+        
         createDots();
         startAutoPlay();
+        
         const banner = document.querySelector('.banner-slider');
         if (banner) {
             banner.addEventListener('mouseenter', () => clearInterval(autoInterval));
@@ -1849,100 +1491,6 @@
             <div>
                 <a href="catalog.html" class="btn-custom btn-primary-custom">Смотреть каталог</a>
                 <a href="test.html" class="btn-custom btn-secondary-custom">Пройти тест</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔹 jQuery UI TABS - Адаптивные вкладки -->
-    <section class="container">
-        <h2 class="section-title">📚 Бьюти-база знаний</h2>
-        <div id="beautyTabs">
-            <ul>
-                <li><a href="#tab-1">💄 Макияж</a></li>
-                <li><a href="#tab-2">🧴 Уход</a></li>
-                <li><a href="#tab-3">🎨 Цветотипы</a></li>
-            </ul>
-            <div id="tab-1" class="tabs-content">
-                <h3>Основы макияжа</h3>
-                <img src="https://th.bing.com/th/id/OIP.PPLzSPN7HIrGB807ysEl4wHaFC?w=400&h=270&c=7" alt="Макияж" style="float: right; margin: 0 0 15px 15px; width: 200px;">
-                <p>Начните с подготовки кожи: очищение, тонизирование и увлажнение — залог стойкого макияжа.</p>
-                <ul>
-                    <li>Тональный крем наносите влажным спонжем для естественного покрытия</li>
-                    <li>Консилер используйте треугольником под глазами для лифтинг-эффекта</li>
-                    <li>Фиксируйте макияж спреем или пудрой для долговечности</li>
-                    <li>Не забывайте про брови — они обрамляют лицо</li>
-                </ul>
-            </div>
-            <div id="tab-2" class="tabs-content">
-                <h3>Ежедневный уход</h3>
-                <img src="https://th.bing.com/th/id/OIP.kHS565qpR-sUWgVU8fBuiAHaEB?w=400&h=220&c=7" alt="Уход за кожей" style="float: right; margin: 0 0 15px 15px; width: 200px;">
-                <p>Красивая кожа — лучший холст для макияжа. Следуйте простым правилам ухода.</p>
-                <ul>
-                    <li>Утром: очищение → тоник → сыворотка → крем с SPF</li>
-                    <li>Вечером: демакияж → очищение → тоник → ночной крем</li>
-                    <li>1-2 раза в неделю: пилинг и маска по типу кожи</li>
-                    <li>Пейте 1.5-2 литра воды в день для сияния кожи</li>
-                </ul>
-            </div>
-            <div id="tab-3" class="tabs-content">
-                <h3>Определи свой цветотип</h3>
-                <img src="https://th.bing.com/th/id/OIP.8MC6S9KhyNoiuNOwtvQ0BgHaJQ?w=300&h=375&c=7" alt="Цветотипы" style="float: right; margin: 0 0 15px 15px; width: 200px;">
-                <p>Правильно подобранные оттенки подчеркнут вашу природную красоту.</p>
-                <ul>
-                    <li><strong>Весна:</strong> тёплые персиковые, коралловые, золотистые тона</li>
-                    <li><strong>Лето:</strong> холодные розовые, лавандовые, серебристые оттенки</li>
-                    <li><strong>Осень:</strong> тёплые терракотовые, оливковые, медные цвета</li>
-                    <li><strong>Зима:</strong> контрастные винные, изумрудные, чёрные тона</li>
-                </ul>
-                <button class="btn-custom btn-secondary-custom" onclick="openColorTypeDialog()">🎨 Пройти тест на цветотип</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- 🔹 jQuery UI ACCORDION - Адаптивный аккордеон (FAQ) -->
-    <section class="container">
-        <h2 class="section-title">❓ Частые вопросы</h2>
-        <div id="faqAccordion">
-            <h3>Как выбрать тональный крем?</h3>
-            <div class="accordion-content">
-                <p><strong>Шаг 1:</strong> Определите тип кожи (сухая, жирная, комбинированная, нормальная).</p>
-                <p><strong>Шаг 2:</strong> Подберите оттенок: тестируйте на линии челюсти при дневном свете.</p>
-                <p><strong>Шаг 3:</strong> Выберите финиш: матовый для жирной кожи, сияющий для сухой.</p>
-                <p><strong>Совет:</strong> Зимой выбирайте более увлажняющие формулы, летом — лёгкие и стойкие.</p>
-            </div>
-            <h3>Почему осыпается тушь?</h3>
-            <div class="accordion-content">
-                <p>Основные причины и решения:</p>
-                <ul>
-                    <li>❌ Тушь старая (меняйте каждые 3-4 месяца)</li>
-                    <li>❌ Нанесли слишком много слоёв без просушки</li>
-                    <li>❌ Не использовали праймер для ресниц</li>
-                    <li>✅ Решение: наносите тушь зигзагообразными движениями, дайте каждому слою подсохнуть 10-15 секунд</li>
-                </ul>
-            </div>
-            <h3>Как сделать смоки-айс?</h3>
-            <div class="accordion-content">
-                <p>Пошаговая инструкция для начинающих:</p>
-                <ol>
-                    <li>Нанесите базу для теней на всё веко</li>
-                    <li>Светлым оттенком подсветите внутренний уголок</li>
-                    <li>Тёмным оттенком проработайте внешний уголок и складку</li>
-                    <li>Тщательно растушуйте границы кистью</li>
-                    <li>Подведите нижнее веко и добавьте тушь</li>
-                </ol>
-                <p><em>💡 Лайфхак: используйте кремовые тени для более мягкой растушёвки!</em></p>
-            </div>
-            <h3>Какой уход нужен перед макияжем?</h3>
-            <div class="accordion-content">
-                <p>Идеальная подготовка кожи за 10 минут:</p>
-                <ul>
-                    <li>🧼 Очищение мягким средством</li>
-                    <li>💧 Тоник для восстановления pH</li>
-                    <li>✨ Сыворотка с витамином С или гиалуроновой кислотой</li>
-                    <li>🧴 Увлажняющий крем (подождите 2-3 минуты до впитывания)</li>
-                    <li>☀️ SPF-крем (обязательно даже зимой!)</li>
-                </ul>
-                <p><strong>Важно:</strong> Дайте каждому средству впитаться перед нанесением следующего!</p>
             </div>
         </div>
     </section>
@@ -2069,28 +1617,6 @@
         </div>
     </footer>
 
-    <!-- 🔹 jQuery UI DIALOG - Модальное окно для теста цветотипа -->
-    <div id="colorTypeDialog" title="🎨 Тест на цветотип" style="display: none;">
-        <p><strong>Ответьте на 3 вопроса, чтобы узнать свой цветотип:</strong></p>
-        <form id="colorTypeForm">
-            <p><label>1. Какого цвета ваши глаза?</label><br>
-            <select id="eyeColor" class="form-control ui-widget ui-widget-content ui-corner-all" style="width: 100%; padding: 8px; margin: 5px 0;">
-                <option value="warm">Тёплые: карие, зелёные с золотом, ореховые</option>
-                <option value="cool">Холодные: серые, голубые, зелёные с серым</option>
-            </select></p>
-            <p><label>2. Какой у вас оттенок кожи?</label><br>
-            <select id="skinTone" class="form-control ui-widget ui-widget-content ui-corner-all" style="width: 100%; padding: 8px; margin: 5px 0;">
-                <option value="warm">Тёплый: персиковый, золотистый, с веснушками</option>
-                <option value="cool">Холодный: розоватый, оливковый, фарфоровый</option>
-            </select></p>
-            <p><label>3. Какой цвет волос вам идёт больше?</label><br>
-            <select id="hairColor" class="form-control ui-widget ui-widget-content ui-corner-all" style="width: 100%; padding: 8px; margin: 5px 0;">
-                <option value="warm">Тёплые: рыжий, золотистый блонд, каштановый</option>
-                <option value="cool">Холодные: пепельный блонд, чёрный, холодный шатен</option>
-            </select></p>
-        </form>
-    </div>
-
     <!-- ВЫДВИЖНАЯ ПАНЕЛЬ -->
     <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
         <i class="fas fa-gem"></i>
@@ -2137,157 +1663,58 @@
         </div>
     </div>
 
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- jQuery и jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/i18n/datepicker-ru.js"></script>
 
     <script>
     // ОСНОВНЫЕ ФУНКЦИИ
     $(document).ready(function() {
-        // 🔹 ИНИЦИАЛИЗАЦИЯ ТАБОВ (TABS)
-        $("#beautyTabs").tabs({
-            collapsible: false,
-            show: { effect: "fadeIn", duration: 300 },
-            hide: { effect: "fadeOut", duration: 200 },
-            activate: function(event, ui) {
-                // Анимация при переключении
-                $(ui.newPanel).effect("highlight", { color: "#fde8ed" }, 500);
-            }
-        });
-
-        // 🔹 ИНИЦИАЛИЗАЦИЯ АККОРДЕОНА (ACCORDION)
-        $("#faqAccordion").accordion({
-            collapsible: true,
-            active: false,
-            heightStyle: "content",
-            animate: { duration: 300, easing: "easeInOutQuad" },
-            icons: {
-                header: "ui-icon-circle-arrow-e",
-                activeHeader: "ui-icon-circle-arrow-s"
-            },
-            activate: function(event, ui) {
-                if (ui.newPanel.length) {
-                    ui.newPanel.effect("slide", { direction: "down" }, 200);
-                }
-            }
-        });
-
-        // 🔹 ИНИЦИАЛИЗАЦИЯ DIALOG (МОДАЛЬНОЕ ОКНО)
-        $("#colorTypeDialog").dialog({
-            autoOpen: false,
-            modal: true,
-            width: 450,
-            maxWidth: 95,
-            resizable: false,
-            draggable: true,
-            closeOnEscape: true,
-            buttons: [
-                {
-                    text: "Определить цветотип",
-                    class: "ui-button-primary",
-                    click: function() {
-                        const eye = $("#eyeColor").val();
-                        const skin = $("#skinTone").val();
-                        const hair = $("#hairColor").val();
-                        
-                        let warmCount = [eye, skin, hair].filter(v => v === "warm").length;
-                        let result = warmCount >= 2 ? "🌸 Весна/Осень (тёплый)" : "❄️ Лето/Зима (холодный)";
-                        
-                        $(this).dialog("close");
-                        
-                        // Показать результат в новом диалоге
-                        $("<div>").html(`
-                            <div style="text-align: center; padding: 20px;">
-                                <div style="font-size: 48px; margin-bottom: 15px;">
-                                    ${warmCount >= 2 ? '🌸' : '❄️'}
-                                </div>
-                                <h3>Ваш цветотип: ${result}</h3>
-                                <p style="margin: 15px 0; line-height: 1.5;">
-                                    ${warmCount >= 2 
-                                        ? 'Вам подойдут тёплые оттенки: персиковый, коралловый, золотистый, терракотовый.' 
-                                        : 'Вам подойдут холодные оттенки: розовый, лавандовый, серебристый, винный.'}
-                                </p>
-                                <a href="catalog.html" class="btn-custom btn-primary-custom" style="margin-top: 10px;">
-                                    Подобрать косметику →
-                                </a>
-                            </div>
-                        `).dialog({
-                            title: '✨ Результат теста',
-                            modal: true,
-                            width: 400,
-                            buttons: { 'Закрыть': function() { $(this).dialog('close'); } }
-                        });
-                    }
-                },
-                {
-                    text: "Отмена",
-                    class: "ui-button-secondary",
-                    click: function() { $(this).dialog("close"); }
-                }
-            ],
-            open: function() {
-                // Адаптивная ширина на мобильных
-                if (window.innerWidth < 480) {
-                    $(this).parent().css({ width: '95%', left: '2.5%' });
-                }
-            }
-        });
-
-        // Функция открытия диалога цветотипа
-        window.openColorTypeDialog = function() {
-            $("#colorTypeDialog").dialog("open");
-        };
-
         // Подсветка активного пункта меню
         let currentPage = window.location.pathname.split('/').pop() || 'make.html';
         $('.nav-link').each(function() {
-            // Проверка для обычных ссылок
             let href = $(this).attr('href');
             if (href === currentPage) {
                 $(this).addClass('active');
             }
         });
 
-        // Поиск с jQuery UI Autocomplete
+        // Поиск
         const searchData = [
-            { label: "Тональный крем Perfect Skin", value: "catalog.html#face", category: "Каталог → Лицо" },
-            { label: "Консилер Hide and Shine", value: "catalog.html#face", category: "Каталог → Лицо" },
-            { label: "Пудра Velvet Finish", value: "catalog.html#face", category: "Каталог → Лицо" },
-            { label: "Тушь Lash Queen", value: "catalog.html#eyes", category: "Каталог → Глаза" },
-            { label: "Матовая помада Red Velvet", value: "catalog.html#lips", category: "Каталог → Губы" },
-            { label: "Как нанести тональный крем", value: "tips.html", category: "Советы" },
-            { label: "Смоки-айс для начинающих", value: "tips.html", category: "Советы" },
-            { label: "Тест: Подбери помаду", value: "test.html", category: "Тесты" }
+            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
+            { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
+            { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
+            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
+            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
+            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
         ];
 
-        $("#globalSearchInput").autocomplete({
-            source: function(request, response) {
-                const term = request.term.toLowerCase();
-                const matches = searchData.filter(item => 
-                    item.label.toLowerCase().includes(term) || 
-                    item.category.toLowerCase().includes(term)
-                );
-                response($.map(matches, function(item) {
-                    return {
-                        label: item.label,
-                        value: item.label,
-                        url: item.value,
-                        category: item.category
-                    };
-                }));
-            },
-            minLength: 2,
-            select: function(event, ui) {
-                if (ui.item.url) {
-                    window.location.href = ui.item.url;
-                }
+        $("#globalSearchInput").on("input", function() {
+            const query = $(this).val().trim();
+            if (!query) { $("#globalSearchResults").removeClass("show"); return; }
+            const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+            if (filtered.length === 0) {
+                $("#globalSearchResults").html('<div class="no-results">😔 Ничего не найдено</div>');
+            } else {
+                $("#globalSearchResults").html(filtered.map(item => `
+                    <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
+                        <div class="item-title">${item.title}</div>
+                        <div class="item-category">${item.category}</div>
+                    </div>
+                `).join(''));
             }
-        }).autocomplete("instance")._renderItem = function(ul, item) {
-            return $("<li>")
-                .append(`<div><strong>${item.label}</strong><br><small style="color:#d48a9e">${item.category}</small></div>`)
-                .appendTo(ul);
-        };
+            $("#globalSearchResults").addClass("show");
+        });
+
+        $(document).on("click", function(e) {
+            if (!$(e.target).closest(".header-search").length) {
+                $("#globalSearchResults").removeClass("show");
+            }
+        });
 
         // Подписка
         $('#newsletterForm').on('submit', function(e) {
@@ -2348,25 +1775,16 @@
         }
         $('#themeToggleBtn').on('click', toggleTheme);
         loadTheme();
-
-        // 🔹 АДАПТИВНОСТЬ: Пересчёт размеров компонентов при ресайзе
-        $(window).on('resize', function() {
-            // Обновляем позиции диалогов
-            if ($("#colorTypeDialog").dialog("isOpen")) {
-                if (window.innerWidth < 480) {
-                    $("#colorTypeDialog").parent().css({ width: '95%', left: '2.5%' });
-                } else {
-                    $("#colorTypeDialog").parent().css({ width: 450, left: '' });
-                }
-            }
-            // Обновляем табы и аккордеон (они адаптивны по CSS)
-            $("#beautyTabs").tabs("refresh");
-            $("#faqAccordion").accordion("refresh");
-        });
     });
-    </script>
 
-    <script>
+// ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
     // ===== УПРАВЛЕНИЕ БЕГУЩЕЙ СТРОКОЙ =====
     (function() {
         function initMarquee() {
@@ -2452,6 +1870,5 @@
         } else { initMarquee(); }
     })();
     </script>
-
 </body>
 </html>
