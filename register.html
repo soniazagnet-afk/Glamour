@@ -1132,6 +1132,14 @@
                 }
             });
         });
+// ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+
 
         // Поиск
         const searchData = [
