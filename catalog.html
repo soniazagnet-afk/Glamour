@@ -11,15 +11,190 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- jQuery UI CSS -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
-    <!-- ЕДИНЫЙ CSS -->
-    <link rel="stylesheet" href="style.css">
     
     <style>
-        /* ===== ТОЛЬКО УНИКАЛЬНЫЕ СТИЛИ ДЛЯ СТРАНИЦЫ КАТАЛОГА ===== */
+        /* ===== ОСНОВНЫЕ СТИЛИ ===== */
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
+            min-height: 100vh;
+        }
+
+        body.dark-theme {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+
+        /* Декоративные элементы */
+        .decoration {
+            position: fixed;
+            pointer-events: none;
+            opacity: 0.08;
+            z-index: 0;
+            font-size: 120px;
+        }
+        .decoration-1 { top: 10%; left: 5%; animation: float 8s ease-in-out infinite; }
+        .decoration-2 { bottom: 15%; right: 3%; animation: float 10s ease-in-out infinite reverse; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* ===== BOOTSTRAP NAVBAR ===== */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 0;
+        }
+
+        body.dark-theme .navbar {
+            background: rgba(0, 0, 0, 0.95) !important;
+        }
+
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #d48a9e, #c2778b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navbar-brand i {
+            color: #d48a9e;
+            -webkit-text-fill-color: #d48a9e;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        .navbar-toggler-icon-custom {
+            color: #d48a9e;
+            font-size: 1.8rem;
+        }
+
+        .nav-link {
+            color: #4a3b40 !important;
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        body.dark-theme .nav-link {
+            color: #ddd !important;
+        }
+
+        .nav-link:hover {
+            color: #d48a9e !important;
+        }
+
+        /* Только черточка для активного пункта, без изменения цвета */
+                body.dark-theme .nav-link.active {
+            color: #ddd !important;
+        }
+
         
-        /* Hero Section каталога */
+        /* Выпадающее меню */
+        .dropdown-menu {
+            background: white;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+
+        body.dark-theme .dropdown-menu {
+            background: #1e1e2e;
+        }
+
+        .dropdown-item {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 8px 20px;
+            color: #4a3b40;
+            transition: all 0.2s;
+        }
+
+        body.dark-theme .dropdown-item {
+            color: #ddd;
+        }
+
+        .dropdown-item:hover {
+            background: #fde8ed;
+            color: #d48a9e;
+            transform: translateX(5px);
+        }
+
+        body.dark-theme .dropdown-item:hover {
+            background: #2a2a3e;
+        }
+
+        /* Поиск и тема */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-search {
+            position: relative;
+        }
+
+        .header-search input {
+            padding: 8px 15px;
+            border: 1px solid #f3dfe4;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            width: 180px;
+            outline: none;
+            transition: all 0.3s;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        body.dark-theme .header-search input {
+            background: #2a2a3e;
+            border-color: #3a2f34;
+            color: white;
+        }
+
+        .header-search input:focus {
+            width: 220px;
+            border-color: #d48a9e;
+            box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
+        }
+
+        .theme-toggle {
+            background: rgba(212, 138, 158, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            color: #d48a9e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(212, 138, 158, 0.4);
+        }
+
+        /* ===== Hero Section ===== */
         .catalog-hero { 
             padding: 80px 0 40px; 
             text-align: center; 
@@ -34,19 +209,14 @@
             margin-bottom: 15px; 
             font-weight: 700; 
             letter-spacing: 2px; 
-            animation: fadeInUp 0.8s ease-out; 
         }
         .catalog-hero p { 
             font-family: 'Cormorant Garamond', serif; 
             font-size: 1.3rem; 
             color: #7a6a6e; 
-            font-weight: 400; 
-            animation: fadeInUp 0.8s ease-out 0.2s forwards; 
-            opacity: 0; 
-            animation-fill-mode: forwards; 
         }
 
-        /* Категории */
+        /* ===== КАТАЛОГ ТОВАРОВ ===== */
         .category-section { 
             padding: 50px 0; 
         }
@@ -84,6 +254,10 @@
             border: 1px solid rgba(212, 138, 158, 0.1); 
             height: 100%; 
         }
+        body.dark-theme .product-card {
+            background: #1e1e2e;
+            border-color: #3a2f34;
+        }
         .product-card:hover { 
             transform: translateY(-12px); 
             box-shadow: 0 25px 45px rgba(212, 138, 158, 0.25); 
@@ -107,6 +281,9 @@
             color: #4a3b40; 
             margin: 12px 0 8px; 
             line-height: 1.3; 
+        }
+        body.dark-theme .product-title {
+            color: #ddd;
         }
         .product-price { 
             font-family: 'Playfair Display', serif; 
@@ -139,6 +316,62 @@
             box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4); 
         }
 
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #4a3b40, #3a2f34);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        .footer-section a:hover {
+            color: #d48a9e;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .social-icons {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .social-icons a {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .social-icons a:hover {
+            background: #d48a9e;
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+
         /* Модальное окно */
         .modal {
             display: none;
@@ -165,11 +398,10 @@
             animation: fadeInUp 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
             box-shadow: 0 35px 60px rgba(212, 138, 158, 0.4);
             border: 1px solid rgba(212, 138, 158, 0.3);
-            scrollbar-width: thin;
         }
-        .modal-content::-webkit-scrollbar { width: 5px; }
-        .modal-content::-webkit-scrollbar-track { background: #fde8ed; border-radius: 10px; }
-        .modal-content::-webkit-scrollbar-thumb { background: #d48a9e; border-radius: 10px; }
+        body.dark-theme .modal-content {
+            background: linear-gradient(145deg, #1e1e2e 0%, #2a2a3e 100%);
+        }
         .modal-header { 
             display: flex; 
             justify-content: space-between; 
@@ -221,6 +453,9 @@
             margin-bottom: 16px; 
             border-left: 4px solid #d48a9e; 
         }
+        body.dark-theme .info-section {
+            background: #2a2a3e;
+        }
         .info-section h4 { 
             font-family: 'Playfair Display', serif; 
             font-size: 1.2rem; 
@@ -237,6 +472,9 @@
             line-height: 1.5; 
             margin: 0; 
         }
+        body.dark-theme .info-section p {
+            color: #ddd;
+        }
         .benefits-list { 
             list-style: none; 
             padding: 0; 
@@ -251,6 +489,10 @@
             align-items: center; 
             gap: 10px; 
             border-bottom: 1px solid #f3dfe4; 
+        }
+        body.dark-theme .benefits-list li {
+            color: #ddd;
+            border-color: #3a2f34;
         }
         .benefits-list li:last-child { 
             border-bottom: none; 
@@ -278,7 +520,26 @@
             box-shadow: 0 8px 20px rgba(212, 138, 158, 0.3); 
         }
 
-        /* Медиазапросы для каталога */
+        /* Адаптивность */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: white;
+                padding: 15px;
+                border-radius: 15px;
+                margin-top: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+            body.dark-theme .navbar-collapse {
+                background: #1e1e2e;
+            }
+            .nav-link.active::after {
+                display: none;
+            }
+            .header-search input { 
+                width: 130px; 
+            }
+        }
+
         @media (max-width: 768px) {
             .catalog-hero h1 { 
                 font-size: 2.2rem; 
@@ -320,62 +581,86 @@
                 font-size: 0.8rem;
             }
         }
+.nav-link.active {
+    color: #4a3b40 !important;
+    position: relative;
+}
+
+.nav-link.active::after {
+content: '' !important;
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 30px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #d48a9e, #c2778b) !important;
+
+}
+
+/* Тёмная тема */
+body.dark-theme .nav-link.active {
+    color: #ddd !important;
+}
     </style>
 </head>
 <body>
 
-    <!-- Декоративные элементы -->
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
-    <!-- Header -->
-    <header class="header">
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar navbar-expand-md sticky-top">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-3">
-                    <a href="make.html" class="logo">
-                        <i class="fas fa-heart"></i>
-                        <span>Glamour</span>
-                    </a>
-                    <button class="burger-btn" id="burgerBtn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-                <div class="col-md-6">
-                    <nav>
-                        <ul class="nav-menu justify-content-center" id="navMenu">
-                            <li><a href="make.html">Главная</a></li>
-                            <li class="dropdown">
-                                <a href="catalog.html">Каталог</a>
-                                <ul class="dropdown-menu-sub">
-                                    <li><a href="catalog.html#face">💄 Для лица</a></li>
-                                    <li><a href="catalog.html#eyes">👁️ Для глаз</a></li>
-                                    <li><a href="catalog.html#lips">💋 Для губ</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="tips.html">Советы</a></li>
-                            <li><a href="test.html">Тест</a></li>
-                            <li><a href="contacts.html">Контакты</a></li>
-                            <li><a href="register.html">👤</a></li>
+            <a class="navbar-brand" href="make.html">
+                <i class="fas fa-heart"></i> Glamour
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGlamour">
+                <i class="fas fa-bars navbar-toggler-icon-custom"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarGlamour">
+                <ul class="navbar-nav mx-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="make.html">Главная</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown">
+                            Каталог
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="catalog.html#face">💄 Для лица</a></li>
+                            <li><a class="dropdown-item" href="catalog.html#eyes">👁️ Для глаз</a></li>
+                            <li><a class="dropdown-item" href="catalog.html#lips">💋 Для губ</a></li>
                         </ul>
-                    </nav>
-                </div>
-                <div class="col-md-3">
-                    <div class="header-actions justify-content-end" style="display: flex; align-items: center; gap: 12px;">
-                        <div class="header-search">
-                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
-                            <div id="globalSearchResults" class="search-dropdown"></div>
-                        </div>
-                        <button class="theme-toggle" id="themeToggleBtn">
-                            <i class="fas fa-moon"></i>
-                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tips.html">Советы</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="test.html">Тест</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacts.html">Контакты</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">👤</a>
+                    </li>
+                </ul>
+
+                <div class="header-actions">
+                    <div class="header-search">
+                        <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
                     </div>
+                    <button class="theme-toggle" id="themeToggleBtn">
+                        <i class="fas fa-moon"></i>
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section каталога -->
     <section class="catalog-hero">
         <div class="container">
             <h1>Наш каталог косметики</h1>
@@ -384,74 +669,97 @@
     </section>
 
     <div class="container">
-        <!-- ЛИЦО -->
+        <!-- ЛИЦО (8 товаров) -->
         <div id="face" class="category-section">
             <div class="text-center"><h2 class="category-title">Макияж для лица</h2></div>
             <div class="row">
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.lyq2x-JiC6a6qxjt0bG45gHaHa?w=180&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Тональный крем Perfect Skin</h3><div class="rating">★★★★☆</div><div class="product-price">89 BYN</div><button class="btn-detail" onclick='showProductStructured("Тональный крем Perfect Skin", "✨ ЛЕГКОЕ ПОКРЫТИЕ С SPF 15 ✨", "Гиалуроновая кислота, витамин E, SPF 15 фильтры", ["Увлажняет и выравнивает тон кожи", "Не забивает поры", "Подходит для всех типов кожи", "Стойкость до 12 часов"], "Нанесите на очищенную и увлажненную кожу. Распределите спонжем от центра лица к периферии.", "Ежедневного использования. Создает эффект \"второй кожи\"", "https://th.bing.com/th/id/OIP.lyq2x-JiC6a6qxjt0bG45gHaHa?w=180&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", 89)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.RPXX7PX_GIYwDLOTq5Q5MwHaIy?w=161&h=191&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Консилер Hide and Shine</h3><div class="rating">★★★★★</div><div class="product-price">59 BYN</div><button class="btn-detail" onclick='showProductStructured("Консилер Hide and Shine", "✨ МАКСИМАЛЬНОЕ ПЕРЕКРЫТИЕ ✨", "Кофеин, витамин C, светоотражающие частицы", ["Маскирует темные круги и покраснения", "Стойкая формула до 12 часов", "Не скатывается в складки", "Увлажняет область вокруг глаз"], "Нанесите точечно на проблемные зоны, растушуйте подушечками пальцев.", "Маскировки синяков под глазами, акне и пигментации", "https://th.bing.com/th/id/OIP.RPXX7PX_GIYwDLOTq5Q5MwHaIy?w=161&h=191&c=7&r=0&o=5&dpr=1.3&pid=1.7", 59)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Q6Ob9V7Ksu_Wq51_ptdzYQAAAA?w=173&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Пудра Velvet Finish</h3><div class="rating">★★★★☆</div><div class="product-price">69 BYN</div><button class="btn-detail" onclick='showProductStructured("Пудра Velvet Finish", "✨ БАРХАТИСТАЯ МАТОВОСТЬ ✨", "Рисовая пудра, экстракт ромашки, витамин B5", ["Матирует на 8+ часов", "Фиксирует макияж", "Не сушит кожу", "Придает бархатистость"], "Наносите широкой кистью на Т-зону и область вокруг глаз.", "Жирной и комбинированной кожи, для создания матового финиша", "https://th.bing.com/th/id/OIP.Q6Ob9V7Ksu_Wq51_ptdzYQAAAA?w=173&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", 69)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.R8lHSLZ7Jd9pY6I0h98pSAHaHa?w=205&h=205&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Хайлайтер Glow Up</h3><div class="rating">★★★★★</div><div class="product-price">75 BYN</div><button class="btn-detail" onclick='showProductStructured("Хайлайтер Glow Up", "✨ СИЯНИЕ ИЗНУТРИ ✨", "Перламутровые частицы, витамин C, масло жожоба", ["Придает здоровое сияние", "Не подчеркивает поры", "Мелкий помол — естественный блеск", "Можно использовать на все лицо"], "Нанесите на выступающие точки: скулы, переносицу, под бровь.", "Создания эффекта \"влажной кожи\" и скульптурирования", "https://th.bing.com/th/id/OIP.R8lHSLZ7Jd9pY6I0h98pSAHaHa?w=205&h=205&c=7&r=0&o=5&dpr=1.3&pid=1.7", 75)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.2dyAWJgXnju9dIN_zHCViwHaFB?w=275&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Румяна Blush Pink</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProductStructured("Румяна Blush Pink", "✨ СВЕЖЕСТЬ КАК ПОСЛЕ ПРОГУЛКИ ✨", "Экстракт розы, витамин E, пигменты", ["Нежный розовый оттенок", "Легко растушевываются", "Придают естественный румянец", "Стойкость до 8 часов"], "Улыбнитесь и нанесите на \"яблочки\" щек, растушуйте к вискам.", "Ежедневного макияжа и придания свежести лицу", "https://th.bing.com/th/id/OIP.2dyAWJgXnju9dIN_zHCViwHaFB?w=275&h=186&c=7&r=0&o=5&dpr=1.3&pid=1.7", 49)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.uZzduX9lh7SM_wNgCEPKcAHaHa?w=197&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Праймер Smooth Base</h3><div class="rating">★★★★☆</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProductStructured("Праймер Smooth Base", "✨ ИДЕАЛЬНАЯ ОСНОВА ДЛЯ МАКИЯЖА ✨", "Силиконы, гиалуроновая кислота, экстракт зеленого чая", ["Выравнивает текстуру кожи", "Скрывает поры", "Продлевает стойкость до 16 часов", "Матирует блеск"], "Нанесите тонким слоем после увлажнения.", "Подготовки кожи к тону, особенно для жирной кожи", "https://th.bing.com/th/id/OIP.uZzduX9lh7SM_wNgCEPKcAHaHa?w=197&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7", 79)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.dzQPd3Y52PeIYGwbhXp1TwHaHa?w=181&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">BB-крем Natural Look</h3><div class="rating">★★★☆☆</div><div class="product-price">65 BYN</div><button class="btn-detail" onclick='showProductStructured("BB-крем Natural Look", "✨ КРЕМ + УХОД В ОДНОМ ✨", "Гиалуроновая кислота, витамин C, SPF 25", ["Легкое покрытие без маски", "Увлажняет в течение дня", "Защищает от солнца", "Выравнивает тон"], "Нанесите пальцами или спонжем как обычный крем.", "Ежедневного использования — минимум макияжа, максимум ухода", "https://th.bing.com/th/id/OIP.dzQPd3Y52PeIYGwbhXp1TwHaHa?w=181&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7", 65)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.sndD95xHV8ppbTz1T-qcSwHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Фиксатор Stay All Day</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProductStructured("Фиксатор макияжа Stay All Day", "✨ МАКИЯЖ НЕ СОЙДЕТ ДО ВЕЧЕРА ✨", "Термальная вода, полимеры фиксации, экстракт алоэ", ["Фиксирует макияж на 12+ часов", "Невесомая формула", "Защищает от осыпания", "Увлажняет кожу"], "Распылите на лицо с расстояния 20-30 см после макияжа.", "Долгих мероприятий, фотосессий и жаркой погоды", "https://th.bing.com/th/id/OIP.sndD95xHV8ppbTz1T-qcSwHaHa?w=170&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", 45)'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.lyq2x-JiC6a6qxjt0bG45gHaHa?w=180&h=180" class="product-img"><h3 class="product-title">Тональный крем Perfect Skin</h3><div class="rating">★★★★☆</div><div class="product-price">89 BYN</div><button class="btn-detail" onclick='showProduct("Тональный крем Perfect Skin", 89, "https://th.bing.com/th/id/OIP.lyq2x-JiC6a6qxjt0bG45gHaHa?w=180&h=180")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.RPXX7PX_GIYwDLOTq5Q5MwHaIy?w=161&h=191" class="product-img"><h3 class="product-title">Консилер Hide and Shine</h3><div class="rating">★★★★★</div><div class="product-price">59 BYN</div><button class="btn-detail" onclick='showProduct("Консилер Hide and Shine", 59, "https://th.bing.com/th/id/OIP.RPXX7PX_GIYwDLOTq5Q5MwHaIy?w=161&h=191")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Q6Ob9V7Ksu_Wq51_ptdzYQAAAA?w=173&h=180" class="product-img"><h3 class="product-title">Пудра Velvet Finish</h3><div class="rating">★★★★☆</div><div class="product-price">69 BYN</div><button class="btn-detail" onclick='showProduct("Пудра Velvet Finish", 69, "https://th.bing.com/th/id/OIP.Q6Ob9V7Ksu_Wq51_ptdzYQAAAA?w=173&h=180")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.R8lHSLZ7Jd9pY6I0h98pSAHaHa?w=205&h=205" class="product-img"><h3 class="product-title">Хайлайтер Glow Up</h3><div class="rating">★★★★★</div><div class="product-price">75 BYN</div><button class="btn-detail" onclick='showProduct("Хайлайтер Glow Up", 75, "https://th.bing.com/th/id/OIP.R8lHSLZ7Jd9pY6I0h98pSAHaHa?w=205&h=205")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.2dyAWJgXnju9dIN_zHCViwHaFB?w=275&h=186" class="product-img"><h3 class="product-title">Румяна Blush Pink</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProduct("Румяна Blush Pink", 49, "https://th.bing.com/th/id/OIP.2dyAWJgXnju9dIN_zHCViwHaFB?w=275&h=186")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.uZzduX9lh7SM_wNgCEPKcAHaHa?w=197&h=197" class="product-img"><h3 class="product-title">Праймер Smooth Base</h3><div class="rating">★★★★☆</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProduct("Праймер Smooth Base", 79, "https://th.bing.com/th/id/OIP.uZzduX9lh7SM_wNgCEPKcAHaHa?w=197&h=197")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.dzQPd3Y52PeIYGwbhXp1TwHaHa?w=181&h=181" class="product-img"><h3 class="product-title">BB-крем Natural Look</h3><div class="rating">★★★☆☆</div><div class="product-price">65 BYN</div><button class="btn-detail" onclick='showProduct("BB-крем Natural Look", 65, "https://th.bing.com/th/id/OIP.dzQPd3Y52PeIYGwbhXp1TwHaHa?w=181&h=181")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.sndD95xHV8ppbTz1T-qcSwHaHa?w=170&h=180" class="product-img"><h3 class="product-title">Фиксатор Stay All Day</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProduct("Фиксатор Stay All Day", 45, "https://th.bing.com/th/id/OIP.sndD95xHV8ppbTz1T-qcSwHaHa?w=170&h=180")'>Подробнее</button></div></div>
             </div>
         </div>
 
-        <!-- ГЛАЗА -->
+        <!-- ГЛАЗА (8 товаров) -->
         <div id="eyes" class="category-section">
             <div class="text-center"><h2 class="category-title">Макияж для глаз</h2></div>
             <div class="row">
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.ZiB8XnRFqLRTTN91QsqOAwHaHa?w=196&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Тушь Lash Queen</h3><div class="rating">★★★★★</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProductStructured("Тушь Lash Queen", "✨ ОБЪЕМ И ДЛИНА ✨", "Кератин, пантенол, воски", ["Объем и длина без комочков", "Устойчива к осыпанию", "Не течет при слезах", "Подкручивает ресницы"], "Наносите зигзагообразными движениями от корней к кончикам.", "Эффекта накладных ресниц без накладных", "https://th.bing.com/th/id/OIP.ZiB8XnRFqLRTTN91QsqOAwHaHa?w=196&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7", 79)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.U3DZk1tbLT2znGrft3I2mAHaHa?w=180&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Палетка теней Nude Dream</h3><div class="rating">★★★★★</div><div class="product-price">129 BYN</div><button class="btn-detail" onclick='showProductStructured("Палетка теней Nude Dream", "✨ 12 ОТТЕНКОВ ✨", "Минеральные пигменты, витамин E, масло ши", ["12 пигментированных оттенков", "Матовые и шиммерные", "Не осыпаются", "Легко растушевываются"], "Светлый оттенок на все веко, средний в складку, темный во внешний уголок.", "Дневных и вечерних образов от нюд до смоки", "https://th.bing.com/th/id/OIP.U3DZk1tbLT2znGrft3I2mAHaHa?w=180&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", 129)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.VfhlbKsZ7XoupgVbZeqe5AAAAA?w=154&h=206&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Подводка Perfect Line</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProductStructured("Подводка Perfect Line", "✨ ИДЕАЛЬНАЯ СТРЕЛКА ✨", "Водостойкая формула, черные пигменты", ["Стойкая, не растекается", "Тонкий аппликатор", "Моментально сохнет", "Устойчива к трению"], "Проведите линию от внутреннего уголка к внешнему.", "Графического макияжа и классических стрелок", "https://th.bing.com/th/id/OIP.VfhlbKsZ7XoupgVbZeqe5AAAAA?w=154&h=206&c=7&r=0&o=5&dpr=1.3&pid=1.7", 49)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Y2EcyEpv97tYP3sOAF6upQHaHa?w=182&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Карандаш Soft Liner</h3><div class="rating">★★★★☆</div><div class="product-price">39 BYN</div><button class="btn-detail" onclick='showProductStructured("Карандаш Soft Liner", "✨ МЯГКИЙ КАДЖАЛ ✨", "Масло ши, витамин E, черные пигменты", ["Мягкая текстура", "Легко растушевывается", "Можно на слизистую", "Водостойкий"], "Нанесите по линии роста ресниц, растушуйте кистью.", "Sultry smoke eyes и дымчатой растушевки", "https://th.bing.com/th/id/OIP.Y2EcyEpv97tYP3sOAF6upQHaHa?w=182&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7", 39)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.iQ9zpd83Rt1c-GgroWq1VgHaHa?w=174&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">База под тени Prime Eyes</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProductStructured("База под тени Prime Eyes", "✨ ТЕНИ НЕ ОСЫПАЮТСЯ ✨", "Воски, силиконы, пигменты", ["Продлевает стойкость", "Делает цвет ярче", "Матирует веко", "Препятствует скатыванию"], "Нанесите тонким слоем на все подвижное веко.", "Жирных век и ярких макияжей", "https://th.bing.com/th/id/OIP.iQ9zpd83Rt1c-GgroWq1VgHaHa?w=174&h=182&c=7&r=0&o=5&dpr=1.3&pid=1.7", 45)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.uZPiyqOvODzo4lw_tivAXAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Тени для бровей Brow Kit</h3><div class="rating">★★★★☆</div><div class="product-price">55 BYN</div><button class="btn-detail" onclick='showProductStructured("Тени для бровей Brow Kit", "✨ НАТУРАЛЬНЫЕ БРОВИ ✨", "Минеральные пигменты, воск, витамин B5", ["2 оттенка в комплекте", "Кисточка в подарок", "Стойкость до 24 часов", "Не осыпаются"], "Заполните форму брови скошенной кистью.", "Ежедневного макияжа бровей и коррекции формы", "https://th.bing.com/th/id/OIP.uZPiyqOvODzo4lw_tivAXAHaHa?w=199&h=199&c=7&r=0&o=5&dpr=1.3&pid=1.7", 55)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.MNGYxhjhqaBmXGcQKC2uCgHaIO?w=195&h=216&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Гель для бровей Brow Fix</h3><div class="rating">★★★★☆</div><div class="product-price">35 BYN</div><button class="btn-detail" onclick='showProductStructured("Гель для бровей Brow Fix", "✨ БРОВИ НА МЕСТЕ ✨", "Аквафикс, пантенол, экстракт алоэ", ["Фиксирует форму", "Придает блеск", "Не склеивает", "Стойкость до 24 часов"], "Расчешите брови щеточкой по направлению роста.", "Фиксации непослушных бровей", "https://th.bing.com/th/id/OIP.MNGYxhjhqaBmXGcQKC2uCgHaIO?w=195&h=216&c=7&r=0&o=5&dpr=1.3&pid=1.7", 35)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://tse2.mm.bing.net/th/id/OIP.vi61mF7jynCnMfjiLmaZEwHaKG?r=0&pid=ImgDet&w=184&h=251&c=7&dpr=1.3&o=7&rm=3" class="product-img"><h3 class="product-title">Палетка Smoky Eyes</h3><div class="rating">★★★★★</div><div class="product-price">99 BYN</div><button class="btn-detail" onclick='showProductStructured("Палетка Smoky Eyes", "✨ КЛАССИЧЕСКИЙ СМОКИ ✨", "Минеральные пигменты, черные и серые оттенки", ["6 оттенков", "Матовые текстуры", "Легкая растушевка", "Стойкость до 12 часов"], "Светлый под бровь, средний на веко, темный во внешний уголок и складку. Тщательно растушуйте!", "Вечернего макияжа, клубных образов и фотосессий", "https://tse2.mm.bing.net/th/id/OIP.vi61mF7jynCnMfjiLmaZEwHaKG?r=0&pid=ImgDet&w=184&h=251&c=7&dpr=1.3&o=7&rm=3", 99)'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.ZiB8XnRFqLRTTN91QsqOAwHaHa?w=196&h=196" class="product-img"><h3 class="product-title">Тушь Lash Queen</h3><div class="rating">★★★★★</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProduct("Тушь Lash Queen", 79, "https://th.bing.com/th/id/OIP.ZiB8XnRFqLRTTN91QsqOAwHaHa?w=196&h=196")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.U3DZk1tbLT2znGrft3I2mAHaHa?w=180&h=180" class="product-img"><h3 class="product-title">Палетка теней Nude Dream</h3><div class="rating">★★★★★</div><div class="product-price">129 BYN</div><button class="btn-detail" onclick='showProduct("Палетка теней Nude Dream", 129, "https://th.bing.com/th/id/OIP.U3DZk1tbLT2znGrft3I2mAHaHa?w=180&h=180")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.VfhlbKsZ7XoupgVbZeqe5AAAAA?w=154&h=206" class="product-img"><h3 class="product-title">Подводка Perfect Line</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProduct("Подводка Perfect Line", 49, "https://th.bing.com/th/id/OIP.VfhlbKsZ7XoupgVbZeqe5AAAAA?w=154&h=206")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Y2EcyEpv97tYP3sOAF6upQHaHa?w=182&h=182" class="product-img"><h3 class="product-title">Карандаш Soft Liner</h3><div class="rating">★★★★☆</div><div class="product-price">39 BYN</div><button class="btn-detail" onclick='showProduct("Карандаш Soft Liner", 39, "https://th.bing.com/th/id/OIP.Y2EcyEpv97tYP3sOAF6upQHaHa?w=182&h=182")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.iQ9zpd83Rt1c-GgroWq1VgHaHa?w=174&h=182" class="product-img"><h3 class="product-title">База под тени Prime Eyes</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProduct("База под тени Prime Eyes", 45, "https://th.bing.com/th/id/OIP.iQ9zpd83Rt1c-GgroWq1VgHaHa?w=174&h=182")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.uZPiyqOvODzo4lw_tivAXAHaHa?w=199&h=199" class="product-img"><h3 class="product-title">Тени для бровей Brow Kit</h3><div class="rating">★★★★☆</div><div class="product-price">55 BYN</div><button class="btn-detail" onclick='showProduct("Тени для бровей Brow Kit", 55, "https://th.bing.com/th/id/OIP.uZPiyqOvODzo4lw_tivAXAHaHa?w=199&h=199")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.MNGYxhjhqaBmXGcQKC2uCgHaIO?w=195&h=216" class="product-img"><h3 class="product-title">Гель для бровей Brow Fix</h3><div class="rating">★★★★☆</div><div class="product-price">35 BYN</div><button class="btn-detail" onclick='showProduct("Гель для бровей Brow Fix", 35, "https://th.bing.com/th/id/OIP.MNGYxhjhqaBmXGcQKC2uCgHaIO?w=195&h=216")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://tse2.mm.bing.net/th/id/OIP.vi61mF7jynCnMfjiLmaZEwHaKG?r=0&pid=ImgDet&w=184&h=251" class="product-img"><h3 class="product-title">Палетка Smoky Eyes</h3><div class="rating">★★★★★</div><div class="product-price">99 BYN</div><button class="btn-detail" onclick='showProduct("Палетка Smoky Eyes", 99, "https://tse2.mm.bing.net/th/id/OIP.vi61mF7jynCnMfjiLmaZEwHaKG?r=0&pid=ImgDet&w=184&h=251")'>Подробнее</button></div></div>
             </div>
         </div>
 
-        <!-- ГУБЫ -->
+        <!-- ГУБЫ (8 товаров) -->
         <div id="lips" class="category-section">
             <div class="text-center"><h2 class="category-title">Макияж для губ</h2></div>
             <div class="row">
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.q9U4KDRM8xkXeDT4GsZi9wHaHa?w=196&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Матовая помада Red Velvet</h3><div class="rating">★★★★★</div><div class="product-price">85 BYN</div><button class="btn-detail" onclick='showProductStructured("Матовая помада Red Velvet", "✨ КЛАССИЧЕСКИЙ RED ✨", "Масло ши, витамин E, стойкие пигменты", ["Стойкость до 10 часов", "Не сушит губы", "Бархатистая текстура", "Без запаха"], "Нанесите карандашом контур, заполните помадой.", "Важных мероприятий и яркого акцента", "https://th.bing.com/th/id/OIP.q9U4KDRM8xkXeDT4GsZi9wHaHa?w=196&h=197&c=7&r=0&o=5&dpr=1.3&pid=1.7", 85)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.o7wpRlZE0d_oiGXT3uSI0gHaHa?w=196&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Блеск Shiny Gloss</h3><div class="rating">★★★★☆</div><div class="product-price">55 BYN</div><button class="btn-detail" onclick='showProductStructured("Блеск Shiny Gloss", "✨ ОБЪЕМНЫЙ ГЛЯНЕЦ ✨", "Гиалуроновая кислота, масла, блестки", ["Придает объем", "Сияние как у лака", "Увлажняет", "Не липкий"], "Нанесите аппликатором в 1-2 слоя.", "Летнего макияжа и photo-ready блеска", "https://th.bing.com/th/id/OIP.o7wpRlZE0d_oiGXT3uSI0gHaHa?w=196&h=196&c=7&r=0&o=5&dpr=1.3&pid=1.7", 55)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.ZQsPYVB85QI_bEdZxg1YywHaJO?w=153&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Карандаш Lip Liner</h3><div class="rating">★★★★☆</div><div class="product-price">39 BYN</div><button class="btn-detail" onclick='showProductStructured("Карандаш для губ Lip Liner", "✨ ИДЕАЛЬНЫЙ КОНТУР ✨", "Воски, масло жожоба, пигменты", ["Четкая линия", "Не растушевывается", "Стойкость до 8 часов", "Можно как основу"], "Обведите контур губ от центра к уголкам.", "Коррекции формы губ и продления стойкости", "https://th.bing.com/th/id/OIP.ZQsPYVB85QI_bEdZxg1YywHaJO?w=153&h=190&c=7&r=0&o=5&dpr=1.3&pid=1.7", 39)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Mtt-xhxvBmGbHVClIitNiQHaHZ?w=181&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Жидкая помада Liquid Matte</h3><div class="rating">★★★★★</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProductStructured("Жидкая помада Liquid Matte", "✨ СУПЕРСТОЙКАЯ ✨", "Стойкие полимеры, масло авокадо, витамин E", ["Стойкость до 16 часов", "Не отпечатывается", "Матовый финиш", "Не сушит"], "Нанесите аппликатором, дайте высохнуть 1 минуту.", "Поцелуев, свиданий и долгих мероприятий", "https://th.bing.com/th/id/OIP.Mtt-xhxvBmGbHVClIitNiQHaHZ?w=181&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7", 79)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.mOQ_hMYU6aqh3v9RKcZduwHaHa?w=185&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Масло Lip Oil</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProductStructured("Масло для губ Lip Oil", "✨ ПИТАНИЕ И БЛЕСК ✨", "Масло кокоса, масло шиповника, витамин C", ["Глубоко увлажняет", "Питает", "Дает легкий блеск", "Заживляет трещинки"], "Наносите как бальзам в течение дня или на ночь.", "Зимы, сухих губ и базового ухода", "https://th.bing.com/th/id/OIP.mOQ_hMYU6aqh3v9RKcZduwHaHa?w=185&h=185&c=7&r=0&o=5&dpr=1.3&pid=1.7", 45)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.BBS8kY9HrAF8OONgtoI0LwHaHa?w=194&h=194&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Тинт Lip Tint</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProductStructured("Тинт для губ Lip Tint", "✨ ВОДНАЯ ЛЕГКОСТЬ ✨", "Водная основа, натуральные красители, алоэ", ["Легкий оттенок", "Стойкость до 12 часов", "Не ощущается", "Постепенный слой"], "Нанесите на губы, дайте впитаться 5 минут.", "Макияжа \"без макияжа\"", "https://th.bing.com/th/id/OIP.BBS8kY9HrAF8OONgtoI0LwHaHa?w=194&h=194&c=7&r=0&o=5&dpr=1.3&pid=1.7", 49)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.0_V2_nfA8CtEkw1M8h-qLQHaTh?w=115&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Нюдовая помада Nude Kiss</h3><div class="rating">★★★★☆</div><div class="product-price">65 BYN</div><button class="btn-detail" onclick='showProductStructured("Нюдовая помада Nude Kiss", "✨ ЕСТЕСТВЕННЫЙ ОТТЕНОК ✨", "Масло жожоба, пчелиный воск, гиалуроновая кислота", ["Естественный оттенок", "Увлажняет", "Для повседневного макияжа", "Не требует карандаша"], "Наносите как бальзам, носите в сумочке.", "Офиса, учебы, встреч с семьей", "https://th.bing.com/th/id/OIP.0_V2_nfA8CtEkw1M8h-qLQHaTh?w=115&h=181&c=7&r=0&o=5&dpr=1.3&pid=1.7", 65)'>Подробнее</button></div></div>
-                <div class="col-md-3 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP._7rG1epOQhDm1gdGutFr_QHaHa?w=191&h=191&c=7&r=0&o=5&dpr=1.3&pid=1.7" class="product-img"><h3 class="product-title">Скраб Sugar Lip</h3><div class="rating">★★★★☆</div><div class="product-price">35 BYN</div><button class="btn-detail" onclick='showProductStructured("Скраб для губ Sugar Lip", "✨ ШЕЛКОВЫЕ ГУБЫ ✨", "Сахарная пудра, масло кокоса, экстракт ванили", ["Нежно отшелушивает", "Делает губы мягкими", "Приятный вкус", "Можно съесть"], "Массируйте влажные губы 1 минуту, смойте.", "Подготовки губ к помаде и ухода зимой", "https://th.bing.com/th/id/OIP._7rG1epOQhDm1gdGutFr_QHaHa?w=191&h=191&c=7&r=0&o=5&dpr=1.3&pid=1.7", 35)'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.q9U4KDRM8xkXeDT4GsZi9wHaHa?w=196&h=197" class="product-img"><h3 class="product-title">Матовая помада Red Velvet</h3><div class="rating">★★★★★</div><div class="product-price">85 BYN</div><button class="btn-detail" onclick='showProduct("Матовая помада Red Velvet", 85, "https://th.bing.com/th/id/OIP.q9U4KDRM8xkXeDT4GsZi9wHaHa?w=196&h=197")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.o7wpRlZE0d_oiGXT3uSI0gHaHa?w=196&h=196" class="product-img"><h3 class="product-title">Блеск Shiny Gloss</h3><div class="rating">★★★★☆</div><div class="product-price">55 BYN</div><button class="btn-detail" onclick='showProduct("Блеск Shiny Gloss", 55, "https://th.bing.com/th/id/OIP.o7wpRlZE0d_oiGXT3uSI0gHaHa?w=196&h=196")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.ZQsPYVB85QI_bEdZxg1YywHaJO?w=153&h=190" class="product-img"><h3 class="product-title">Карандаш Lip Liner</h3><div class="rating">★★★★☆</div><div class="product-price">39 BYN</div><button class="btn-detail" onclick='showProduct("Карандаш Lip Liner", 39, "https://th.bing.com/th/id/OIP.ZQsPYVB85QI_bEdZxg1YywHaJO?w=153&h=190")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.Mtt-xhxvBmGbHVClIitNiQHaHZ?w=181&h=180" class="product-img"><h3 class="product-title">Жидкая помада Liquid Matte</h3><div class="rating">★★★★★</div><div class="product-price">79 BYN</div><button class="btn-detail" onclick='showProduct("Жидкая помада Liquid Matte", 79, "https://th.bing.com/th/id/OIP.Mtt-xhxvBmGbHVClIitNiQHaHZ?w=181&h=180")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.mOQ_hMYU6aqh3v9RKcZduwHaHa?w=185&h=185" class="product-img"><h3 class="product-title">Масло Lip Oil</h3><div class="rating">★★★★☆</div><div class="product-price">45 BYN</div><button class="btn-detail" onclick='showProduct("Масло Lip Oil", 45, "https://th.bing.com/th/id/OIP.mOQ_hMYU6aqh3v9RKcZduwHaHa?w=185&h=185")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.BBS8kY9HrAF8OONgtoI0LwHaHa?w=194&h=194" class="product-img"><h3 class="product-title">Тинт Lip Tint</h3><div class="rating">★★★★☆</div><div class="product-price">49 BYN</div><button class="btn-detail" onclick='showProduct("Тинт Lip Tint", 49, "https://th.bing.com/th/id/OIP.BBS8kY9HrAF8OONgtoI0LwHaHa?w=194&h=194")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP.0_V2_nfA8CtEkw1M8h-qLQHaTh?w=115&h=181" class="product-img"><h3 class="product-title">Нюдовая помада Nude Kiss</h3><div class="rating">★★★★☆</div><div class="product-price">65 BYN</div><button class="btn-detail" onclick='showProduct("Нюдовая помада Nude Kiss", 65, "https://th.bing.com/th/id/OIP.0_V2_nfA8CtEkw1M8h-qLQHaTh?w=115&h=181")'>Подробнее</button></div></div>
+                <div class="col-lg-3 col-md-4 col-sm-6"><div class="product-card"><img src="https://th.bing.com/th/id/OIP._7rG1epOQhDm1gdGutFr_QHaHa?w=191&h=191" class="product-img"><h3 class="product-title">Скраб Sugar Lip</h3><div class="rating">★★★★☆</div><div class="product-price">35 BYN</div><button class="btn-detail" onclick='showProduct("Скраб Sugar Lip", 35, "https://th.bing.com/th/id/OIP._7rG1epOQhDm1gdGutFr_QHaHa?w=191&h=191")'>Подробнее</button></div></div>
             </div>
         </div>
     </div>
 
-    <!-- Модальное окно -->
-    <div id="productModal" class="modal"><div class="modal-content" id="modalContent"></div></div>
+    <div id="productModal" class="modal">
+        <div class="modal-content" id="modalContent"></div>
+    </div>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section"><h3><i class="fas fa-heart"></i> Glamour</h3><p>Сайт о макияже и красоте</p><p>Вдохновляйся и сияй каждый день</p></div>
-                <div class="footer-section"><h3>Меню</h3><ul><li><a href="make.html">Главная</a></li><li><a href="catalog.html">Каталог</a></li><li><a href="tips.html">Советы</a></li><li><a href="test.html">Тест</a></li><li><a href="contacts.html">Контакты</a></li><li><a href="gallery.html">Галерея</a></li></ul></div>
-                <div class="footer-section"><h3>Контакты</h3><ul><li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li><li><a href="#"><i class="fab fa-instagram"></i> glamour_beauty</a></li><li><a href="#"><i class="fab fa-telegram"></i> glamour</a></li></ul><div class="social-icons"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-telegram-plane"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-youtube"></i></a></div></div>
-                <div class="footer-section"><h3>Разработчик</h3><a href="developer.html" class="developer-link"><i class="fas fa-user-circle"></i><span>Информация о разработчике</span></a></div>
+                <div class="footer-section">
+                    <h3><i class="fas fa-heart"></i> Glamour</h3>
+                    <p>Сайт о макияже и красоте</p>
+                    <p>Вдохновляйся и сияй каждый день</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Меню</h3>
+                    <ul>
+                        <li><a href="make.html">Главная</a></li>
+                        <li><a href="catalog.html">Каталог</a></li>
+                        <li><a href="tips.html">Советы</a></li>
+                        <li><a href="test.html">Тест</a></li>
+                        <li><a href="contacts.html">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <ul>
+                        <li><a href="mailto:info@glamour.ru"><i class="fas fa-envelope"></i> info@glamour.ru</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> glamour_beauty</a></li>
+                    </ul>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-bottom"><p>&copy; 2026 Glamour. Все права защищены. Создано с любовью к красоте</p></div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Glamour. Все права защищены.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- jQuery и jQuery UI -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ===== ТЁМНАЯ ТЕМА =====
+        // ТЁМНАЯ ТЕМА
         function toggleTheme() {
             if (document.body.classList.contains('dark-theme')) {
                 document.body.classList.remove('dark-theme');
@@ -474,54 +782,17 @@
         document.getElementById('themeToggleBtn').addEventListener('click', toggleTheme);
         loadTheme();
 
-        // ===== БУРГЕР-МЕНЮ =====
-        document.getElementById('burgerBtn').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('show');
-            const icon = this.querySelector('i');
-            if (icon.classList.contains('fa-bars')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-
-        // ===== АДАПТИВНОЕ ПОДМЕНЮ =====
-        function initDropdown() {
-            const dropdowns = document.querySelectorAll('.dropdown');
-            if (window.innerWidth <= 768) {
-                dropdowns.forEach(dropdown => {
-                    const link = dropdown.querySelector('> a');
-                    const submenu = dropdown.querySelector('.dropdown-menu-sub');
-                    link.onclick = function(e) {
-                        e.preventDefault();
-                        submenu.classList.toggle('show');
-                    };
-                });
-            } else {
-                dropdowns.forEach(dropdown => {
-                    const link = dropdown.querySelector('> a');
-                    const submenu = dropdown.querySelector('.dropdown-menu-sub');
-                    link.onclick = null;
-                    dropdown.onmouseenter = function() { submenu.style.display = 'block'; };
-                    dropdown.onmouseleave = function() { submenu.style.display = 'none'; };
-                });
-            }
-        }
-        initDropdown();
-        window.addEventListener('resize', initDropdown);
-
-        // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА =====
+        // ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ (только черточка, цвет не меняется)
         let currentPage = window.location.pathname.split('/').pop() || 'make.html';
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
+        document.querySelectorAll('.nav-link').forEach(link => {
+            let href = link.getAttribute('href');
+            if (href === currentPage) {
                 link.classList.add('active');
             }
         });
 
-        // ===== МОДАЛЬНОЕ ОКНО =====
-        function showProductStructured(title, header, composition, benefits, howToUse, idealFor, imgUrl, price) {
+        // МОДАЛЬНОЕ ОКНО
+        function showProduct(title, price, imgUrl) {
             const modalContent = document.getElementById('modalContent');
             modalContent.innerHTML = `
                 <div class="modal-header">
@@ -531,26 +802,17 @@
                 <div class="modal-product-img">
                     <img src="${imgUrl}" alt="${title}" class="modal-img">
                 </div>
-                <div class="info-section" style="background: linear-gradient(135deg, #fff5f7, #fff);">
-                    <h4><i class="fas fa-star" style="color:#d48a9e;"></i> ${header}</h4>
-                </div>
                 <div class="info-section">
-                    <h4><i class="fas fa-flask"></i> Состав</h4>
-                    <p>${composition}</p>
+                    <h4><i class="fas fa-info-circle"></i> Описание</h4>
+                    <p>Профессиональное косметическое средство высшего качества.</p>
                 </div>
                 <div class="info-section">
                     <h4><i class="fas fa-check-circle"></i> Преимущества</h4>
                     <ul class="benefits-list">
-                        ${benefits.map(b => `<li><i class="fas fa-heart"></i> ${b}</li>`).join('')}
+                        <li><i class="fas fa-heart"></i> Стойкость до 12 часов</li>
+                        <li><i class="fas fa-heart"></i> Гипоаллергенная формула</li>
+                        <li><i class="fas fa-heart"></i> Подходит для всех типов кожи</li>
                     </ul>
-                </div>
-                <div class="info-section">
-                    <h4><i class="fas fa-hand-peace"></i> Способ применения</h4>
-                    <p>${howToUse}</p>
-                </div>
-                <div class="info-section">
-                    <h4><i class="fas fa-user-check"></i> Идеален для</h4>
-                    <p>${idealFor}</p>
                 </div>
                 <div class="modal-price">
                     <div class="price-tag">${price} BYN</div>
@@ -572,60 +834,23 @@
         document.addEventListener('keydown', function(event) { 
             if (event.key === 'Escape' && document.getElementById('productModal').style.display === 'flex') closeModal(); 
         });
-
-        // ===== ПОИСК =====
-        const searchInput = document.getElementById('globalSearchInput');
-        const searchResults = document.getElementById('globalSearchResults');
-        
-        const searchData = [
-            { title: "Тональный крем Perfect Skin", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Консилер Hide and Shine", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Пудра Velvet Finish", category: "Каталог → Лицо", url: "catalog.html#face" },
-            { title: "Тушь Lash Queen", category: "Каталог → Глаза", url: "catalog.html#eyes" },
-            { title: "Матовая помада Red Velvet", category: "Каталог → Губы", url: "catalog.html#lips" },
-            { title: "Как нанести тональный крем", category: "Советы", url: "tips.html" },
-            { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
-            { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
-        ];
-        
-        function highlightText(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            return text.replace(regex, '<span class="highlight">$1</span>');
-        }
-        
-        function performGlobalSearch() {
-            const query = searchInput.value.trim();
-            if (query === '') {
-                searchResults.classList.remove('show');
-                return;
-            }
-            const filtered = searchData.filter(item => 
-                item.title.toLowerCase().includes(query.toLowerCase())
-            );
-            if (filtered.length === 0) {
-                searchResults.innerHTML = `<div class="no-results">😔 Ничего не найдено по запросу «${query}»</div>`;
-            } else {
-                searchResults.innerHTML = filtered.map(item => `
-                    <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
-                        <div class="item-title">${highlightText(item.title, query)}</div>
-                        <div class="item-category">${item.category}</div>
-                    </div>
-                `).join('');
-            }
-            searchResults.classList.add('show');
-        }
-        
-        if (searchInput) {
-            searchInput.addEventListener('input', performGlobalSearch);
-            document.addEventListener('click', function(e) {
-                if (searchInput && searchResults) {
-                    if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-                        searchResults.classList.remove('show');
-                    }
-                }
-            });
-        }
     </script>
+<script>
+// ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+
+// Если страница tips.html или contacts.html
+if (currentPage === 'tips.html' || currentPage === 'contacts.html') {
+    // Находим все ссылки в меню
+    const menuLinks = document.querySelectorAll('.nav-menu a, .navbar-nav .nav-link');
+    
+    menuLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+        }
+    });
+}
+</script>
 </body>
 </html>
