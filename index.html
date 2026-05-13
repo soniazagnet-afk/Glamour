@@ -27,6 +27,7 @@
             background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
             min-height: 100vh;
             transition: background 0.3s;
+            padding-top: 0; /* Компенсация sticky header делается через JS или margin если нужно */
         }
 
         body.dark-theme {
@@ -48,7 +49,7 @@
             50% { transform: translateY(-30px) rotate(5deg); }
         }
 
-        /* ===== ХЕДЕР ===== */
+        /* ===== ХЕДЕР И NAVBAR ===== */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -56,32 +57,13 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(212, 138, 158, 0.1);
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         body.dark-theme .header {
             background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            position: relative;
-        }
-
-        .col-md-3, .col-md-6 {
-            padding: 0 15px;
-        }
-
-        .col-md-3 { width: 25%; }
-        .col-md-6 { width: 50%; }
 
         /* Логотип */
         .logo {
@@ -97,63 +79,46 @@
             gap: 8px;
         }
 
-        /* БУРГЕР-КНОПКА */
-        .burger-btn {
-            display: none;
-            background: none;
+        /* Кастомизация Navbar Toggler (Бургер) */
+        .navbar-toggler {
             border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: #d48a9e;
-            transition: transform 0.3s;
-            position: absolute;
-            top: 5px;
-            right: 20px;
-            z-index: 1001;
-        }
-
-        .burger-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Навигационное меню */
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
+            padding: 0.5rem;
             transition: all 0.3s;
         }
-
-        .nav-menu li {
-            position: relative;
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
         }
 
-        .nav-menu a {
-            text-decoration: none;
-            color: #4a3b40;
+        .navbar-toggler-icon-custom {
+            color: #d48a9e;
+            font-size: 1.8rem;
+        }
+
+        /* Ссылки меню */
+        .nav-link {
+            color: #4a3b40 !important;
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             font-size: 1.1rem;
+            padding: 0.5rem 1rem !important;
             transition: all 0.3s;
-            padding: 8px 0;
-            display: inline-block;
+            position: relative;
         }
 
-        body.dark-theme .nav-menu a {
-            color: #ddd;
+        body.dark-theme .nav-link {
+            color: #ddd !important;
         }
 
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: #d48a9e;
+        .nav-link:hover,
+        .nav-link.active {
+            color: #d48a9e !important;
         }
 
-        .nav-menu a.active::after {
+        .nav-link.active::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0px;
             left: 50%;
             transform: translateX(-50%);
             width: 30px;
@@ -161,56 +126,49 @@
             background: linear-gradient(90deg, #d48a9e, #c2778b);
         }
 
-        /* Выпадающее подменю */
-        .dropdown {
-            position: relative;
-        }
-
-        .dropdown-menu-sub {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
+        /* Выпадающее меню (Dropdown) */
+        .dropdown-menu {
             background: white;
             border-radius: 12px;
-            padding: 10px 0;
-            min-width: 160px;
+            border: none;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            list-style: none;
+            padding: 10px 0;
+            margin-top: 10px; /* Отступ от хедера */
         }
 
-        body.dark-theme .dropdown-menu-sub {
+        body.dark-theme .dropdown-menu {
             background: #1e1e2e;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
-        .dropdown-menu-sub li {
-            margin: 0;
-        }
-
-        .dropdown-menu-sub a {
+        .dropdown-item {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: 1rem;
             padding: 8px 20px;
-            display: block;
-            white-space: nowrap;
-            font-size: 0.95rem;
+            color: #4a3b40;
+            transition: all 0.2s;
         }
 
-        .dropdown-menu-sub a:hover {
+        body.dark-theme .dropdown-item {
+            color: #ddd;
+        }
+
+        .dropdown-item:hover {
             background: #fde8ed;
+            color: #d48a9e;
             transform: translateX(5px);
         }
 
-        body.dark-theme .dropdown-menu-sub a:hover {
+        body.dark-theme .dropdown-item:hover {
             background: #2a2a3e;
         }
 
-        /* Поиск и тема */
+        /* Поиск и действия справа */
         .header-actions {
             display: flex;
             align-items: center;
             gap: 12px;
-            justify-content: flex-end;
         }
 
         .header-search {
@@ -228,12 +186,19 @@
             font-family: 'Cormorant Garamond', serif;
         }
 
+        body.dark-theme .header-search input {
+            background: #2a2a3e;
+            border-color: #3a2f34;
+            color: white;
+        }
+
         .header-search input:focus {
             width: 220px;
             border-color: #d48a9e;
             box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
         }
 
+        /* Выпадающие результаты поиска */
         .search-dropdown {
             position: absolute;
             top: 100%;
@@ -245,7 +210,7 @@
             max-height: 350px;
             overflow-y: auto;
             display: none;
-            z-index: 1000;
+            z-index: 1050; /* Выше чем navbar */
             margin-top: 8px;
             border: 1px solid #f3dfe4;
         }
@@ -263,33 +228,6 @@
 
         .search-dropdown-item:hover {
             background: #fef5f0;
-        }
-
-        .search-dropdown-item .item-title {
-            font-weight: 600;
-            font-family: 'Playfair Display', serif;
-            color: #4a3b40;
-            font-size: 0.85rem;
-        }
-
-        .search-dropdown-item .item-category {
-            font-size: 0.7rem;
-            color: #d48a9e;
-            margin-top: 4px;
-        }
-
-        .highlight {
-            background: #fde8ed;
-            color: #c2778b;
-            border-radius: 4px;
-            padding: 0 4px;
-        }
-
-        .no-results {
-            padding: 15px;
-            text-align: center;
-            color: #7a6a6e;
-            font-size: 0.8rem;
         }
 
         .theme-toggle {
@@ -1592,35 +1530,28 @@
         }
 
         /* ===== МОБИЛЬНАЯ АДАПТАЦИЯ ===== */
-        @media (max-width: 768px) {
-            .burger-btn { display: block; }
-            .nav-menu {
-                display: none !important;
-                position: absolute;
-                top: 70px;
-                left: 15px;
-                right: 15px;
+        @media (max-width: 991px) {
+            /* Корректировка для мобильного меню Bootstrap */
+            .navbar-collapse {
                 background: white;
-                flex-direction: column;
-                padding: 20px;
-                border-radius: 20px;
-                box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-                gap: 15px;
-                z-index: 1000;
+                padding: 15px;
+                border-radius: 15px;
+                margin-top: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             }
-            body.dark-theme .nav-menu { background: #1e1e2e; }
-            .nav-menu.show { display: flex !important; }
-            .nav-menu li { text-align: center; width: 100%; }
-            .dropdown-menu-sub {
-                position: static;
-                display: none;
-                box-shadow: none;
-                padding-left: 20px;
-                background: transparent;
+            
+            body.dark-theme .navbar-collapse {
+                background: #1e1e2e;
             }
-            .dropdown-menu-sub.show { display: block; }
-            .dropdown > a::after { content: " ▼"; font-size: 10px; }
-            .header-search input { width: 130px; }
+
+            .nav-link.active::after {
+                display: none; /* Убираем подчеркивание активного элемента в мобильном виде */
+            }
+            
+            .header-search input { 
+                width: 130px; 
+            }
+            
             .marquee-text span { margin: 0 20px; font-size: 0.75rem; }
             .marquee-box { width: calc(100% - 55px); }
             .marquee-control-btn { width: 36px; height: 36px; right: 10px; }
@@ -1695,50 +1626,66 @@
     <div class="decoration decoration-1">🌺</div>
     <div class="decoration decoration-2">🌸</div>
 
-    <!-- Header -->
+    <!-- Header с Bootstrap Navbar -->
     <header class="header">
         <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="make.html" class="logo">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container-fluid px-0">
+                    <!-- Логотип -->
+                    <a class="navbar-brand logo" href="make.html">
                         <i class="fas fa-heart"></i>
                         <span>Glamour</span>
                     </a>
-                    <button class="burger-btn" id="burgerBtn">
-                        <i class="fas fa-bars"></i>
+
+                    <!-- Кнопка Бургер (Bootstrap Toggler) -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#glamourNavbar" aria-controls="glamourNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars navbar-toggler-icon-custom"></i>
                     </button>
-                </div>
-                <div class="col-md-6">
-                    <nav>
-                        <ul class="nav-menu justify-content-center" id="navMenu">
-                            <li><a href="make.html">Главная</a></li>
-                            <li class="dropdown">
-                                <a href="catalog.html">Каталог</a>
-                                <ul class="dropdown-menu-sub">
-                                    <li><a href="catalog.html#face">💄 Для лица</a></li>
-                                    <li><a href="catalog.html#eyes">👁️ Для глаз</a></li>
-                                    <li><a href="catalog.html#lips">💋 Для губ</a></li>
+
+                    <!-- Сворачиваемое меню -->
+                    <div class="collapse navbar-collapse" id="glamourNavbar">
+                        <!-- Центральное меню -->
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="make.html">Главная</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Каталог
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="catalog.html#face">💄 Для лица</a></li>
+                                    <li><a class="dropdown-item" href="catalog.html#eyes">👁️ Для глаз</a></li>
+                                    <li><a class="dropdown-item" href="catalog.html#lips">💋 Для губ</a></li>
                                 </ul>
                             </li>
-                            <li><a href="tips.html">Советы</a></li>
-                            <li><a href="test.html">Тест</a></li>
-                            <li><a href="contacts.html">Контакты</a></li>
-                            <li><a href="register.html">👤</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="tips.html">Советы</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="test.html">Тест</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contacts.html">Контакты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="register.html">👤</a>
+                            </li>
                         </ul>
-                    </nav>
-                </div>
-                <div class="col-md-3">
-                    <div class="header-actions">
-                        <div class="header-search">
-                            <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
-                            <div id="globalSearchResults" class="search-dropdown"></div>
+
+                        <!-- Правая часть: Поиск и Тема -->
+                        <div class="header-actions mt-3 mt-lg-0">
+                            <div class="header-search">
+                                <input type="text" id="globalSearchInput" placeholder="🔍 Поиск...">
+                                <div id="globalSearchResults" class="search-dropdown"></div>
+                            </div>
+                            <button class="theme-toggle" id="themeToggleBtn">
+                                <i class="fas fa-moon"></i>
+                            </button>
                         </div>
-                        <button class="theme-toggle" id="themeToggleBtn">
-                            <i class="fas fa-moon"></i>
-                        </button>
                     </div>
                 </div>
-            </div>
+            </nav>
         </div>
     </header>
 
@@ -1836,6 +1783,8 @@
         <button class="banner-next" id="bannerNext">❯</button>
         <div class="banner-dots" id="bannerDots"></div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
     // АНИМИРОВАННЫЙ БАННЕР
@@ -2290,40 +2239,12 @@
             $("#colorTypeDialog").dialog("open");
         };
 
-        // Бургер-меню
-        $('#burgerBtn').on('click', function() {
-            $('#navMenu').toggleClass('show');
-            const icon = $(this).find('i');
-            if (icon.hasClass('fa-bars')) {
-                icon.removeClass('fa-bars').addClass('fa-times');
-            } else {
-                icon.removeClass('fa-times').addClass('fa-bars');
-            }
-        });
-
-        // Адаптивное подменю
-        function initDropdown() {
-            if (window.innerWidth <= 768) {
-                $('.dropdown > a').off('mouseenter mouseleave').on('click', function(e) {
-                    e.preventDefault();
-                    $(this).siblings('.dropdown-menu-sub').toggleClass('show');
-                });
-            } else {
-                $('.dropdown > a').off('click');
-                $('.dropdown').off('mouseenter mouseleave').on('mouseenter', function() {
-                    $(this).find('.dropdown-menu-sub').stop(true, true).slideDown(200);
-                }).on('mouseleave', function() {
-                    $(this).find('.dropdown-menu-sub').stop(true, true).slideUp(200);
-                });
-            }
-        }
-        initDropdown();
-        $(window).on('resize', initDropdown);
-
-        // Подсветка активного пункта
+        // Подсветка активного пункта меню
         let currentPage = window.location.pathname.split('/').pop() || 'make.html';
-        $('.nav-menu a').each(function() {
-            if ($(this).attr('href') === currentPage) {
+        $('.nav-link').each(function() {
+            // Проверка для обычных ссылок
+            let href = $(this).attr('href');
+            if (href === currentPage) {
                 $(this).addClass('active');
             }
         });
