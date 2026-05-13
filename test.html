@@ -669,22 +669,13 @@
         loadTheme();
     </script>
 
-    <script>
-        // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
-        let currentPage = window.location.pathname.split('/').pop();
-        if (currentPage === '' || currentPage === '/') {
-            currentPage = 'make.html';
-        }
-        
-        const menuLinks = document.querySelectorAll('.nav-menu a');
-        menuLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === currentPage) {
+   // ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
+        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
                 link.classList.add('active');
             }
         });
-    </script>
-
     <script>
         // ===== ГЛОБАЛЬНЫЙ ПОИСК =====
         const searchInput = document.getElementById('globalSearchInput');
@@ -736,5 +727,20 @@
             });
         }
     </script>
+<script>
+// ПРИНУДИТЕЛЬНАЯ ПОДСВЕТКА АКТИВНОГО ПУНКТА
+document.addEventListener('DOMContentLoaded', function() {
+    let currentPage = window.location.pathname.split('/').pop() || 'make.html';
+    console.log('Текущая страница:', currentPage);
+    
+    document.querySelectorAll('.nav-menu a').forEach(function(link) {
+        let href = link.getAttribute('href');
+        if (href === currentPage) {
+            link.classList.add('active');
+            console.log('Добавлен active для:', href);
+        }
+    });
+});
+</script>
 </body>
 </html>
