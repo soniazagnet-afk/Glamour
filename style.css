@@ -107,21 +107,7 @@ body.dark-theme .nav-menu a {
     color: #ddd;
 }
 
-.nav-menu a:hover,
-.nav-menu a.active {
-    color: #d48a9e;
-}
 
-.nav-menu a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 2px;
-    background: linear-gradient(90deg, #d48a9e, #c2778b);
-}
 
 /* Выпадающее подменю */
 .dropdown {
@@ -1686,4 +1672,62 @@ body.dark-theme .dropdown-menu-sub li a {
 
 body.dark-theme .dropdown-menu-sub li a:hover {
     background: #2a2a3e;
+}
+/* ===== ТОЛЬКО ЧЕРТОЧКА, БЕЗ ОВАЛА ===== */
+.nav-menu a.active {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 8px 0 !important;
+}
+
+.nav-menu a.active::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 30px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #d48a9e, #c2778b) !important;
+    border-radius: 2px !important;
+}
+
+/* Отменяем любой фон/округление при наведении */
+.nav-menu a:hover {
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+/* ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА ТОЛЬКО ЧЕРТОЧКОЙ, БЕЗ СМЕНЫ ЦВЕТА ===== */
+.nav-menu a.active {
+    color: #4a3b40 !important;  /* Цвет как у обычных пунктов */
+    background: transparent !important;
+    border-radius: 0 !important;
+    position: relative !important;
+}
+
+/* Тёмная тема */
+body.dark-theme .nav-menu a.active {
+    color: #ddd !important;  /* Цвет как у обычных пунктов в тёмной теме */
+}
+
+/* Черточка снизу */
+.nav-menu a.active::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -5px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 30px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #d48a9e, #c2778b) !important;
+}
+
+/* Убираем изменение цвета при наведении на активный пункт */
+.nav-menu a.active:hover {
+    color: #4a3b40 !important;
+}
+body.dark-theme .nav-menu a.active:hover {
+    color: #ddd !important;
 }
