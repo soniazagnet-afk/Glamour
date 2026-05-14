@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Glamour – сайт о макияже</title>
+    <title>Glamour – сайт о макияже | Профессиональная косметика и советы</title>
     
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
-    <!-- jQuery UI CSS - Smoothness theme -->
+    <!-- jQuery UI CSS -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/smoothness/jquery-ui.css">
     
     <style>
@@ -27,10 +27,12 @@
             background: linear-gradient(135deg, #fef5f0 0%, #fde8ed 100%);
             min-height: 100vh;
             transition: background 0.3s;
+            color: #4a3b40;
         }
 
         body.dark-theme {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ddd;
         }
 
         /* Декоративные элементы */
@@ -55,11 +57,9 @@
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             padding: 15px 0;
         }
-
         body.dark-theme .navbar {
             background: rgba(0, 0, 0, 0.95) !important;
         }
-
         .navbar-brand {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -68,26 +68,21 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .navbar-brand i {
             color: #d48a9e;
             -webkit-text-fill-color: #d48a9e;
         }
-
         .navbar-toggler {
             border: none;
             padding: 0.5rem;
         }
-
         .navbar-toggler:focus {
             box-shadow: none;
         }
-
         .navbar-toggler-icon-custom {
             color: #d48a9e;
             font-size: 1.8rem;
         }
-
         .nav-link {
             color: #4a3b40 !important;
             font-family: 'Playfair Display', serif;
@@ -97,16 +92,13 @@
             transition: all 0.3s;
             position: relative;
         }
-
         body.dark-theme .nav-link {
             color: #ddd !important;
         }
-
         .nav-link:hover,
         .nav-link.active {
             color: #d48a9e !important;
         }
-
         .nav-link.active::after {
             content: '';
             position: absolute;
@@ -117,8 +109,6 @@
             height: 2px;
             background: linear-gradient(90deg, #d48a9e, #c2778b);
         }
-
-        /* Выпадающее меню */
         .dropdown-menu {
             background: white;
             border-radius: 12px;
@@ -127,11 +117,9 @@
             padding: 10px 0;
             margin-top: 10px;
         }
-
         body.dark-theme .dropdown-menu {
             background: #1e1e2e;
         }
-
         .dropdown-item {
             font-family: 'Cormorant Garamond', serif;
             font-weight: 500;
@@ -140,32 +128,25 @@
             color: #4a3b40;
             transition: all 0.2s;
         }
-
         body.dark-theme .dropdown-item {
             color: #ddd;
         }
-
         .dropdown-item:hover {
             background: #fde8ed;
             color: #d48a9e;
             transform: translateX(5px);
         }
-
         body.dark-theme .dropdown-item:hover {
             background: #2a2a3e;
         }
-
-        /* Поиск и тема */
         .header-actions {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
         .header-search {
             position: relative;
         }
-
         .header-search input {
             padding: 8px 15px;
             border: 1px solid #f3dfe4;
@@ -176,19 +157,16 @@
             transition: all 0.3s;
             font-family: 'Cormorant Garamond', serif;
         }
-
         body.dark-theme .header-search input {
             background: #2a2a3e;
             border-color: #3a2f34;
             color: white;
         }
-
         .header-search input:focus {
             width: 220px;
             border-color: #d48a9e;
             box-shadow: 0 0 0 2px rgba(212, 138, 158, 0.1);
         }
-
         .search-dropdown {
             position: absolute;
             top: 100%;
@@ -204,49 +182,29 @@
             margin-top: 8px;
             border: 1px solid #f3dfe4;
         }
-
         .search-dropdown.show {
             display: block;
         }
-
         .search-dropdown-item {
             padding: 12px 16px;
             border-bottom: 1px solid #f3dfe4;
             cursor: pointer;
             transition: background 0.2s;
         }
-
         .search-dropdown-item:hover {
             background: #fef5f0;
         }
-
         .search-dropdown-item .item-title {
             font-weight: 600;
             font-family: 'Playfair Display', serif;
             color: #4a3b40;
             font-size: 0.85rem;
         }
-
         .search-dropdown-item .item-category {
             font-size: 0.7rem;
             color: #d48a9e;
             margin-top: 4px;
         }
-
-        .highlight {
-            background: #fde8ed;
-            color: #c2778b;
-            border-radius: 4px;
-            padding: 0 4px;
-        }
-
-        .no-results {
-            padding: 15px;
-            text-align: center;
-            color: #7a6a6e;
-            font-size: 0.8rem;
-        }
-
         .theme-toggle {
             background: rgba(212, 138, 158, 0.2);
             border: none;
@@ -261,7 +219,6 @@
             align-items: center;
             justify-content: center;
         }
-
         .theme-toggle:hover {
             transform: scale(1.1);
             background: rgba(212, 138, 158, 0.4);
@@ -272,7 +229,6 @@
             padding: 60px 0 40px;
             text-align: center;
         }
-
         .slogan {
             font-family: 'Playfair Display', serif;
             font-size: 1.2rem;
@@ -280,7 +236,6 @@
             margin-bottom: 15px;
             font-style: italic;
         }
-
         .hero h1 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.8rem, 5vw, 3.5rem);
@@ -289,14 +244,12 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
-
         .hero p {
             font-size: clamp(1rem, 2.5vw, 1.3rem);
             color: #7a6a6e;
             max-width: 700px;
             margin: 0 auto 30px;
         }
-
         .hero-image {
             max-width: 800px;
             margin: 30px auto;
@@ -304,13 +257,11 @@
             overflow: hidden;
             box-shadow: 0 20px 50px rgba(212, 138, 158, 0.3);
         }
-
         .hero-image img {
             width: 100%;
             height: auto;
             display: block;
         }
-
         .btn-custom {
             padding: 12px 35px;
             margin: 10px;
@@ -322,25 +273,21 @@
             font-family: 'Playfair Display', serif;
             font-size: 1rem;
         }
-
         .btn-primary-custom {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
             box-shadow: 0 5px 15px rgba(212, 138, 158, 0.4);
         }
-
         .btn-primary-custom:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(212, 138, 158, 0.5);
             color: white;
         }
-
         .btn-secondary-custom {
             background: white;
             color: #d48a9e;
             border: 2px solid #d48a9e;
         }
-
         .btn-secondary-custom:hover {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
@@ -352,11 +299,9 @@
             padding: 60px 0;
             background: white;
         }
-
         body.dark-theme .categories {
             background: transparent;
         }
-
         .section-title {
             text-align: center;
             font-family: 'Playfair Display', serif;
@@ -366,7 +311,6 @@
             -webkit-text-fill-color: transparent;
             margin-bottom: 50px;
         }
-
         .category-card {
             text-align: center;
             padding: 30px 20px;
@@ -377,16 +321,13 @@
             border: 2px solid rgba(212, 138, 158, 0.1);
             margin-bottom: 20px;
         }
-
         body.dark-theme .category-card {
             background: #1e1e2e;
         }
-
         .category-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(212, 138, 158, 0.2);
         }
-
         .category-img {
             width: 180px;
             height: 180px;
@@ -396,18 +337,15 @@
             border: 4px solid white;
             box-shadow: 0 5px 15px rgba(212, 138, 158, 0.2);
         }
-
         .category-card h3 {
             font-family: 'Playfair Display', serif;
             color: #4a3b40;
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
-
         body.dark-theme .category-card h3 {
             color: #ddd;
         }
-
         .category-card p {
             color: #7a6a6e;
         }
@@ -417,11 +355,9 @@
             padding: 60px 0;
             background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
         }
-
         body.dark-theme .tips {
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
         }
-
         .tip-card {
             background: white;
             border-radius: 25px;
@@ -430,42 +366,34 @@
             transition: all 0.4s;
             margin-bottom: 30px;
         }
-
         body.dark-theme .tip-card {
             background: #1e1e2e;
         }
-
         .tip-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(212, 138, 158, 0.25);
         }
-
         .tip-img {
             width: 100%;
             height: 220px;
             object-fit: cover;
         }
-
         .tip-content {
             padding: 25px;
         }
-
         .tip-content h3 {
             font-family: 'Playfair Display', serif;
             color: #4a3b40;
             font-size: 1.4rem;
             margin-bottom: 12px;
         }
-
         body.dark-theme .tip-content h3 {
             color: #ddd;
         }
-
         .tip-content p {
             color: #7a6a6e;
             line-height: 1.6;
         }
-
         .tag {
             display: inline-block;
             padding: 5px 15px;
@@ -476,7 +404,6 @@
             margin-top: 15px;
             margin-right: 8px;
         }
-
         .btn-all-tips {
             display: block;
             width: fit-content;
@@ -490,7 +417,6 @@
             font-weight: 600;
             transition: all 0.3s;
         }
-
         .btn-all-tips:hover {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
@@ -502,20 +428,17 @@
             background: linear-gradient(135deg, #d48a9e 0%, #c2778b 50%, #b595a8 100%);
             text-align: center;
         }
-
         .newsletter h2 {
             font-family: 'Playfair Display', serif;
             color: white;
             font-size: clamp(1.8rem, 4vw, 2.5rem);
             margin-bottom: 15px;
         }
-
         .newsletter p {
             color: rgba(255, 255, 255, 0.95);
             font-size: 1.1rem;
             margin-bottom: 30px;
         }
-
         .newsletter-form {
             max-width: 500px;
             margin: 0 auto;
@@ -524,7 +447,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .newsletter-form input {
             flex: 1;
             min-width: 200px;
@@ -534,7 +456,6 @@
             outline: none;
             font-size: 1rem;
         }
-
         .newsletter-form button {
             padding: 12px 35px;
             background: #4a3b40;
@@ -545,7 +466,6 @@
             font-weight: 600;
             transition: all 0.3s;
         }
-
         .newsletter-form button:hover {
             background: #3a2f34;
             transform: translateY(-2px);
@@ -557,41 +477,34 @@
             color: white;
             padding: 40px 0 20px;
         }
-
         .footer-content {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 30px;
             margin-bottom: 30px;
         }
-
         .footer-section h3 {
             font-family: 'Playfair Display', serif;
             margin-bottom: 15px;
             font-size: 1.2rem;
         }
-
         .footer-section p, .footer-section a {
             color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
             line-height: 1.8;
         }
-
         .footer-section a:hover {
             color: #d48a9e;
         }
-
         .footer-section ul {
             list-style: none;
             padding: 0;
         }
-
         .social-icons {
             display: flex;
             gap: 12px;
             margin-top: 15px;
         }
-
         .social-icons a {
             width: 35px;
             height: 35px;
@@ -602,19 +515,16 @@
             justify-content: center;
             transition: all 0.3s;
         }
-
         .social-icons a:hover {
             background: #d48a9e;
             transform: translateY(-3px);
         }
-
         .developer-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
             margin-top: 10px;
         }
-
         .footer-bottom {
             text-align: center;
             padding-top: 20px;
@@ -630,14 +540,12 @@
             position: relative;
             transition: background 0.3s;
         }
-
         .marquee-box {
             overflow: hidden;
             white-space: nowrap;
             width: calc(100% - 70px);
             margin-right: 60px;
         }
-
         .marquee-text {
             display: inline-block;
             white-space: nowrap;
@@ -646,17 +554,13 @@
             font-family: 'Playfair Display', serif;
             animation: marqueeScroll 15s linear infinite;
         }
-
         .marquee-text span {
             margin: 0 30px;
         }
-
         @keyframes marqueeScroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-100%); }
         }
-
-        /* Кнопка управления */
         .marquee-control-btn {
             position: absolute;
             right: 15px;
@@ -676,13 +580,10 @@
             justify-content: center;
             font-size: 1.2rem;
         }
-
         .marquee-control-btn:hover {
             background: rgba(255,255,255,0.5);
             transform: translateY(-50%) scale(1.05);
         }
-
-        /* Панель управления */
         .marquee-panel {
             position: fixed;
             top: 50%;
@@ -698,12 +599,10 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 138, 158, 0.3);
         }
-
         .marquee-panel.show {
             display: block;
             animation: panelSlideIn 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-
         @keyframes panelSlideIn {
             from {
                 opacity: 0;
@@ -714,7 +613,6 @@
                 transform: translateY(-50%) translateX(0);
             }
         }
-
         .panel-header {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             padding: 20px 24px;
@@ -722,7 +620,6 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .panel-header h3 {
             margin: 0;
             font-size: 1.2rem;
@@ -731,11 +628,9 @@
             font-weight: 600;
             letter-spacing: 0.5px;
         }
-
         .panel-header h3 i {
             margin-right: 10px;
         }
-
         .panel-close {
             background: rgba(255,255,255,0.2);
             border: none;
@@ -750,24 +645,19 @@
             align-items: center;
             justify-content: center;
         }
-
         .panel-close:hover {
             background: rgba(255,255,255,0.35);
             transform: rotate(90deg);
         }
-
         .panel-body {
             padding: 24px;
         }
-
         .panel-group {
             margin-bottom: 24px;
         }
-
         .panel-group:last-child {
             margin-bottom: 0;
         }
-
         .panel-group label {
             display: flex;
             align-items: center;
@@ -779,16 +669,13 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-
         .panel-group label i {
             font-size: 0.75rem;
         }
-
         .btn-row {
             display: flex;
             gap: 12px;
         }
-
         .panel-btn {
             flex: 1;
             background: #fdf5f7;
@@ -803,30 +690,25 @@
             color: #5a4a4f;
             text-align: center;
         }
-
         .panel-btn i {
             margin: 0 4px;
         }
-
         .panel-btn:hover {
             background: #fde8ed;
             transform: translateY(-2px);
             border-color: #d48a9e;
         }
-
         .panel-btn.active {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
             border-color: transparent;
             box-shadow: 0 6px 14px rgba(212, 138, 158, 0.35);
         }
-
         .speed-wrapper {
             display: flex;
             align-items: center;
             gap: 15px;
         }
-
         .speed-wrapper input {
             flex: 1;
             height: 6px;
@@ -835,7 +717,6 @@
             background: #f0e0e5;
             outline: none;
         }
-
         .speed-wrapper input::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 18px;
@@ -846,7 +727,6 @@
             box-shadow: 0 2px 8px rgba(212, 138, 158, 0.5);
             border: 2px solid white;
         }
-
         .speed-value {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
@@ -857,7 +737,6 @@
             min-width: 48px;
             text-align: center;
         }
-
         .pause-action-btn {
             width: 100%;
             background: linear-gradient(135deg, #4a3b40, #3a2f34);
@@ -875,38 +754,31 @@
             justify-content: center;
             gap: 10px;
         }
-
         .pause-action-btn:hover {
             background: linear-gradient(135deg, #5a4a4f, #4a3b40);
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
-
         body.dark-theme .marquee-panel {
             background: linear-gradient(145deg, #1e1e2e 0%, #2a2a3e 100%);
             border-color: rgba(212, 138, 158, 0.3);
         }
-
         body.dark-theme .panel-btn {
             background: #2a2a3e;
             border-color: #3a2f34;
             color: #ddd;
         }
-
         body.dark-theme .panel-btn:hover {
             background: #3a2f34;
             border-color: #d48a9e;
         }
-
         body.dark-theme .panel-btn.active {
             background: linear-gradient(135deg, #d48a9e, #c2778b);
             color: white;
         }
-
         body.dark-theme .pause-action-btn {
             background: linear-gradient(135deg, #2a2a3e, #1e1e2e);
         }
-
         body.dark-theme .pause-action-btn:hover {
             background: linear-gradient(135deg, #3a2f34, #2a2a3e);
         }
@@ -920,12 +792,10 @@
             border-radius: 24px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
-
         .banner-slides {
             display: flex;
             transition: transform 0.5s ease-in-out;
         }
-
         .banner-slide {
             min-width: 100%;
             position: relative;
@@ -936,7 +806,6 @@
             align-items: center;
             justify-content: flex-start;
         }
-
         .banner-slide::before {
             content: '';
             position: absolute;
@@ -947,7 +816,6 @@
             background: rgba(0, 0, 0, 0.55);
             z-index: 1;
         }
-
         .banner-content {
             position: relative;
             z-index: 2;
@@ -957,20 +825,17 @@
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
             animation: slideInLeft 0.8s ease-out;
         }
-
         .banner-content h2 {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
             margin-bottom: 15px;
             letter-spacing: 2px;
         }
-
         .banner-content p {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.2rem;
             margin-bottom: 25px;
         }
-
         .banner-btn {
             display: inline-block;
             padding: 12px 35px;
@@ -983,12 +848,10 @@
             transition: all 0.3s;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
         .banner-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(212,138,158,0.5);
         }
-
         .banner-prev, .banner-next {
             position: absolute;
             top: 50%;
@@ -1004,15 +867,12 @@
             transition: all 0.3s;
             z-index: 10;
         }
-
         .banner-prev:hover, .banner-next:hover {
             background: rgba(255,255,255,0.5);
             transform: translateY(-50%) scale(1.1);
         }
-
         .banner-prev { left: 20px; }
         .banner-next { right: 20px; }
-
         .banner-dots {
             position: absolute;
             bottom: 20px;
@@ -1022,7 +882,6 @@
             gap: 12px;
             z-index: 10;
         }
-
         .banner-dot {
             width: 12px;
             height: 12px;
@@ -1031,17 +890,14 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-
         .banner-dot.active {
             background: #d48a9e;
             width: 25px;
             border-radius: 10px;
         }
-
         .banner-slide-1 { background-image: url('https://www.bing.com/th/id/OIP.A3tT6j0ucQblIj4TU7qpEwHaEy?w=193&h=135&c=8&rs=1&qlt=90&o=6&dpr=1.3&pid=3.1&rm=2'); }
         .banner-slide-2 { background-image: url('https://th.bing.com/th/id/OIP.gx20THLtgYdrHrl9dGa99AHaHZ?w=189&h=188&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'); }
         .banner-slide-3 { background-image: url('https://th.bing.com/th/id/OIP.h_4E9gAuzfMcU-8tWNtgkwHaHa?w=210&h=210&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'); }
-
         @keyframes slideInLeft {
             from { opacity: 0; transform: translateX(-50px); }
             to { opacity: 1; transform: translateX(0); }
@@ -1064,14 +920,11 @@
             overflow-y: auto;
             border-left: 4px solid #d48a9e;
         }
-
         body.dark-theme .sidebar {
             background: linear-gradient(145deg, #1e1e2e 0%, #2a2a3e 100%);
             border-left-color: #d48a9e;
         }
-
         .sidebar.open { right: 0; }
-
         .sidebar-toggle-btn {
             position: fixed;
             right: 20px;
@@ -1091,12 +944,10 @@
             font-size: 1.5rem;
             transition: all 0.3s;
         }
-
         .sidebar-toggle-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 25px rgba(212, 138, 158, 0.5);
         }
-
         .sidebar-overlay {
             position: fixed;
             top: 0;
@@ -1109,12 +960,10 @@
             visibility: hidden;
             transition: all 0.3s;
         }
-
         .sidebar-overlay.active {
             opacity: 1;
             visibility: visible;
         }
-
         .sidebar-header {
             padding: 25px;
             border-bottom: 2px dashed #f3dfe4;
@@ -1122,14 +971,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .sidebar-header h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
             color: #c2778b;
             margin: 0;
         }
-
         .sidebar-close {
             background: none;
             border: none;
@@ -1138,14 +985,11 @@
             color: #d48a9e;
             transition: all 0.3s;
         }
-
         .sidebar-close:hover { transform: rotate(90deg); }
-
         .sidebar-content {
             padding: 25px;
             flex: 1;
         }
-
         .sidebar-section {
             margin-bottom: 25px;
             padding: 15px;
@@ -1153,26 +997,21 @@
             border-radius: 16px;
             transition: all 0.3s;
         }
-
         body.dark-theme .sidebar-section {
             background: #2a2a3e;
         }
-
         .sidebar-section:hover { transform: translateX(-5px); }
-
         .sidebar-section h4 {
             font-family: 'Playfair Display', serif;
             color: #d48a9e;
             margin-bottom: 10px;
             font-size: 1.1rem;
         }
-
         .sidebar-section p {
             color: #7a6a6e;
             font-size: 0.9rem;
             line-height: 1.5;
         }
-
         .sidebar-tip {
             display: flex;
             gap: 12px;
@@ -1183,36 +1022,29 @@
             border-radius: 12px;
             transition: all 0.3s;
         }
-
         body.dark-theme .sidebar-tip {
             background: #1e1e2e;
         }
-
         .sidebar-tip:hover {
             transform: translateX(-5px);
             box-shadow: 0 5px 15px rgba(212, 138, 158, 0.2);
         }
-
         .sidebar-tip i {
             color: #d48a9e;
             font-size: 1.2rem;
             margin-top: 3px;
         }
-
         .sidebar-tip-text h5 {
             font-family: 'Playfair Display', serif;
             font-size: 0.9rem;
             color: #4a3b40;
             margin-bottom: 5px;
         }
-
         body.dark-theme .sidebar-tip-text h5 { color: #ddd; }
-
         .sidebar-tip-text p {
             font-size: 0.8rem;
             color: #7a6a6e;
         }
-
         .sidebar-btn {
             width: 100%;
             padding: 12px;
@@ -1226,10 +1058,346 @@
             margin-top: 20px;
             transition: all 0.3s;
         }
-
         .sidebar-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 20px rgba(212, 138, 158, 0.4);
+        }
+
+        /* ===== JQUERY UI КАСТОМИЗАЦИЯ ===== */
+        .ui-tabs {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+            margin: 40px 0;
+            border: none !important;
+        }
+        body.dark-theme .ui-tabs {
+            background: #1e1e2e;
+        }
+        .ui-tabs-nav {
+            background: linear-gradient(135deg, #fff5f7 0%, #fff 100%);
+            border-radius: 20px 20px 0 0 !important;
+            border: none !important;
+            padding: 15px 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+        body.dark-theme .ui-tabs-nav {
+            background: linear-gradient(135deg, #2a2a3e 0%, #1e1e2e 100%);
+        }
+        .ui-tabs-nav li {
+            margin: 0 !important;
+            float: none !important;
+        }
+        .ui-tabs-nav li a {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            font-size: 1rem !important;
+            padding: 10px 22px !important;
+            border-radius: 30px !important;
+            border: 2px solid transparent !important;
+            background: transparent !important;
+            color: #7a6a6e !important;
+            transition: all 0.3s !important;
+        }
+        .ui-tabs-nav li a:hover {
+            background: rgba(212, 138, 158, 0.1) !important;
+            color: #d48a9e !important;
+        }
+        .ui-tabs-nav li.ui-tabs-active a {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 12px rgba(212, 138, 158, 0.3) !important;
+        }
+        .ui-tabs-panel {
+            padding: 25px !important;
+            border: none !important;
+            background: transparent !important;
+        }
+
+        .ui-accordion {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+            margin: 40px 0;
+            border: none !important;
+        }
+        body.dark-theme .ui-accordion {
+            background: #1e1e2e;
+        }
+        .ui-accordion-header {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            font-size: 1.15rem !important;
+            padding: 16px 20px !important;
+            background: linear-gradient(135deg, #fff5f7 0%, #fff 100%) !important;
+            border: none !important;
+            border-radius: 15px !important;
+            margin: 8px !important;
+            color: #4a3b40 !important;
+            cursor: pointer;
+            transition: all 0.3s !important;
+        }
+        body.dark-theme .ui-accordion-header {
+            background: linear-gradient(135deg, #2a2a3e 0%, #1e1e2e 100%) !important;
+            color: #ddd !important;
+        }
+        .ui-accordion-header:hover {
+            transform: translateX(5px) !important;
+            background: #fde8ed !important;
+        }
+        .ui-accordion-header.ui-state-active {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+        }
+        .ui-accordion-header .ui-icon {
+            background: none !important;
+            position: relative !important;
+            width: 20px !important;
+        }
+        .ui-accordion-header .ui-icon::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            content: '\f078';
+            color: inherit;
+            font-size: 0.9rem;
+            transition: transform 0.3s;
+        }
+        .ui-accordion-header.ui-state-active .ui-icon::before {
+            content: '\f077';
+            transform: rotate(180deg);
+        }
+        .ui-accordion-content {
+            padding: 15px 25px 25px !important;
+            margin: 0 8px 15px !important;
+            background: #fefafa !important;
+            border: none !important;
+            border-radius: 0 0 15px 15px !important;
+            color: #7a6a6e !important;
+            line-height: 1.7 !important;
+        }
+        body.dark-theme .ui-accordion-content {
+            background: #252535 !important;
+            color: #bbb !important;
+        }
+
+        .ui-dialog {
+            border-radius: 25px !important;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.3) !important;
+            border: none !important;
+            overflow: hidden;
+        }
+        .ui-dialog-titlebar {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            border: none !important;
+            border-radius: 25px 25px 0 0 !important;
+            padding: 18px 25px !important;
+        }
+        .ui-dialog-title {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 700 !important;
+            font-size: 1.3rem !important;
+            color: white !important;
+        }
+        .ui-dialog-titlebar-close {
+            background: rgba(255,255,255,0.2) !important;
+            border: none !important;
+            border-radius: 50% !important;
+            width: 32px !important;
+            height: 32px !important;
+            top: 15px !important;
+            right: 15px !important;
+            padding: 0 !important;
+            transition: all 0.3s !important;
+        }
+        .ui-dialog-titlebar-close:hover {
+            background: rgba(255,255,255,0.4) !important;
+            transform: rotate(90deg) !important;
+        }
+        .ui-dialog-titlebar-close .ui-icon {
+            background: none !important;
+            position: relative !important;
+        }
+        .ui-dialog-titlebar-close .ui-icon::before {
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            content: '\f00d';
+            color: white;
+            font-size: 1rem;
+        }
+        .ui-dialog-content {
+            padding: 25px !important;
+            background: white !important;
+            color: #4a3b40 !important;
+        }
+        body.dark-theme .ui-dialog-content {
+            background: #1e1e2e !important;
+            color: #ddd !important;
+        }
+        .ui-dialog-buttonpane {
+            background: #faf8f9 !important;
+            border: none !important;
+            padding: 15px 25px 25px !important;
+            margin: 0 !important;
+        }
+        body.dark-theme .ui-dialog-buttonpane {
+            background: #252535 !important;
+        }
+        .ui-button {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            border-radius: 35px !important;
+            padding: 10px 25px !important;
+            border: none !important;
+            transition: all 0.3s !important;
+            margin: 5px !important;
+        }
+        .ui-button.ui-button-primary {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+            box-shadow: 0 4px 15px rgba(212, 138, 158, 0.4) !important;
+        }
+        .ui-button.ui-button-primary:hover {
+            transform: translateY(-2px) !important;
+            box-shadow: 0 8px 25px rgba(212, 138, 158, 0.5) !important;
+        }
+        .ui-button.ui-button-secondary {
+            background: white !important;
+            color: #d48a9e !important;
+            border: 2px solid #d48a9e !important;
+        }
+        .ui-button.ui-button-secondary:hover {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+        }
+
+        .ui-datepicker {
+            background: white !important;
+            border: none !important;
+            border-radius: 20px !important;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
+            padding: 15px !important;
+            font-family: 'Cormorant Garamond', serif !important;
+        }
+        body.dark-theme .ui-datepicker {
+            background: #1e1e2e !important;
+        }
+        .ui-datepicker-header {
+            background: linear-gradient(135deg, #fde8ed, #fff) !important;
+            border: none !important;
+            border-radius: 15px !important;
+            padding: 10px !important;
+            margin-bottom: 10px !important;
+        }
+        body.dark-theme .ui-datepicker-header {
+            background: linear-gradient(135deg, #2a2a3e, #1e1e2e) !important;
+        }
+        .ui-datepicker-title {
+            font-family: 'Playfair Display', serif !important;
+            font-weight: 600 !important;
+            color: #4a3b40 !important;
+        }
+        body.dark-theme .ui-datepicker-title {
+            color: #ddd !important;
+        }
+        .ui-datepicker-calendar th {
+            color: #d48a9e !important;
+            font-weight: 600 !important;
+            padding: 8px !important;
+        }
+        .ui-datepicker-calendar td {
+            padding: 3px !important;
+        }
+        .ui-datepicker-calendar a {
+            border-radius: 50% !important;
+            width: 32px !important;
+            height: 32px !important;
+            line-height: 32px !important;
+            text-align: center !important;
+            display: block !important;
+            color: #4a3b40 !important;
+            transition: all 0.2s !important;
+        }
+        body.dark-theme .ui-datepicker-calendar a {
+            color: #ddd !important;
+        }
+        .ui-datepicker-calendar a:hover {
+            background: #fde8ed !important;
+            color: #d48a9e !important;
+        }
+        .ui-datepicker-calendar .ui-state-highlight a,
+        .ui-datepicker-calendar .ui-state-active a {
+            background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+            color: white !important;
+            font-weight: 600 !important;
+        }
+
+        /* ===== СЕКЦИЯ JQUERY UI ===== */
+        .jquery-ui-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #fff5f7 0%, #ffeef2 100%);
+            transition: background 0.3s;
+        }
+        body.dark-theme .jquery-ui-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%) !important;
+        }
+        .jquery-ui-section .booking-form {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(212, 138, 158, 0.15);
+            margin-top: 40px;
+            transition: background 0.3s;
+        }
+        body.dark-theme .jquery-ui-section .booking-form {
+            background: #1e1e2e !important;
+        }
+        .jquery-ui-section .subsection-title {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            margin: 40px 0 20px;
+            color: #c2778b;
+        }
+        body.dark-theme .jquery-ui-section .subsection-title {
+            color: #d48a9e !important;
+        }
+        .jquery-ui-section .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #4a3b40;
+        }
+        body.dark-theme .jquery-ui-section .form-label {
+            color: #ddd !important;
+        }
+        .jquery-ui-section .color-type-btn {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .ui-widget input, .ui-widget select {
+            font-family: 'Cormorant Garamond', serif !important;
+            padding: 12px 20px !important;
+            border: 2px solid #f3dfe4 !important;
+            border-radius: 15px !important;
+            background: white !important;
+            color: #4a3b40 !important;
+            transition: all 0.3s !important;
+            width: 100%;
+        }
+        body.dark-theme .ui-widget input,
+        body.dark-theme .ui-widget select {
+            background: #2a2a3e !important;
+            border-color: #3a2f34 !important;
+            color: #ddd !important;
+        }
+        .ui-widget input:focus,
+        .ui-widget select:focus {
+            border-color: #d48a9e !important;
+            box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.15) !important;
+            outline: none !important;
         }
 
         @media (max-width: 991px) {
@@ -1246,22 +1414,148 @@
             .nav-link.active::after {
                 display: none;
             }
-            .header-search input { 
-                width: 130px; 
-            }
+            .header-search input { width: 130px; }
             .marquee-text span { margin: 0 20px; font-size: 0.75rem; }
             .marquee-box { width: calc(100% - 55px); }
             .marquee-control-btn { width: 36px; height: 36px; right: 10px; }
             .marquee-panel { width: 300px; right: 10px; }
         }
-
+        @media (max-width: 768px) {
+            .jquery-ui-section { padding: 40px 0; }
+            .jquery-ui-section .booking-form { padding: 20px; }
+            .ui-tabs-nav li a { font-size: 0.9rem !important; padding: 8px 15px !important; }
+        }
         @media (max-width: 480px) {
             .sidebar { width: 100%; right: -100%; }
             .sidebar-toggle-btn { width: 45px; height: 45px; font-size: 1.2rem; bottom: 70px; right: 15px; }
             .marquee-panel { width: 280px; }
             .panel-body { padding: 18px; }
             .panel-header { padding: 15px 18px; }
+            .ui-tabs-nav li { width: 100%; }
+            .ui-tabs-nav li a { width: 100%; text-align: center; }
         }
+/* ===== ИСПРАВЛЕНИЕ ТЁМНОЙ ТЕМЫ ДЛЯ JQUERY UI ===== */
+
+/* Текст внутри вкладок (табов) */
+body.dark-theme .ui-tabs .ui-tabs-panel,
+body.dark-theme .ui-tabs-panel p,
+body.dark-theme .tab-content-text {
+    color: #e0e0e0 !important;
+}
+
+/* Заголовки вкладок (неактивные) */
+body.dark-theme .ui-tabs-nav li a {
+    color: #aaa !important;
+}
+
+body.dark-theme .ui-tabs-nav li a:hover {
+    color: #d48a9e !important;
+    background: rgba(212, 138, 158, 0.15) !important;
+}
+
+/* Активная вкладка */
+body.dark-theme .ui-tabs-nav li.ui-tabs-active a {
+    background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+    color: white !important;
+}
+
+/* Аккордеон — заголовки */
+body.dark-theme .ui-accordion-header {
+    background: linear-gradient(135deg, #2a2a3e 0%, #1e1e2e 100%) !important;
+    color: #e0e0e0 !important;
+    border-color: #3a2f34 !important;
+}
+
+body.dark-theme .ui-accordion-header:hover {
+    background: #3a2f34 !important;
+    color: #d48a9e !important;
+}
+
+body.dark-theme .ui-accordion-header.ui-state-active {
+    background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+    color: white !important;
+}
+
+/* Аккордеон — содержимое */
+body.dark-theme .ui-accordion-content,
+body.dark-theme .ui-accordion-content p,
+body.dark-theme .faq-answer {
+    background: #252535 !important;
+    color: #ccc !important;
+}
+
+/* Форма записи в тёмной теме */
+body.dark-theme .jquery-ui-section .booking-form {
+    background: #1e1e2e !important;
+}
+
+body.dark-theme .jquery-ui-section .booking-form .form-label {
+    color: #d48a9e !important;
+}
+
+/* Поля ввода в тёмной теме */
+body.dark-theme .ui-widget input,
+body.dark-theme .ui-widget select,
+body.dark-theme .ui-widget textarea {
+    background: #2a2a3e !important;
+    border-color: #4a3f44 !important;
+    color: #f0f0f0 !important;
+}
+
+body.dark-theme .ui-widget input::placeholder,
+body.dark-theme .ui-widget select::placeholder {
+    color: #888 !important;
+}
+
+body.dark-theme .ui-widget input:focus,
+body.dark-theme .ui-widget select:focus {
+    border-color: #d48a9e !important;
+    box-shadow: 0 0 0 3px rgba(212, 138, 158, 0.2) !important;
+}
+
+/* Выпадающий список (select) в тёмной теме */
+body.dark-theme .ui-widget select option {
+    background: #2a2a3e !important;
+    color: #f0f0f0 !important;
+}
+
+/* Кнопки в тёмной теме */
+body.dark-theme .ui-button.ui-button-secondary {
+    background: #2a2a3e !important;
+    color: #d48a9e !important;
+    border-color: #d48a9e !important;
+}
+
+body.dark-theme .ui-button.ui-button-secondary:hover {
+    background: linear-gradient(135deg, #d48a9e, #c2778b) !important;
+    color: white !important;
+}
+
+/* Диалоговое окно в тёмной теме */
+body.dark-theme .ui-dialog .ui-dialog-content {
+    background: #1e1e2e !important;
+    color: #e0e0e0 !important;
+}
+
+body.dark-theme .ui-dialog .ui-dialog-content p,
+body.dark-theme .ui-dialog .ui-dialog-content label {
+    color: #e0e0e0 !important;
+}
+
+body.dark-theme .ui-dialog .ui-widget select {
+    background: #2a2a3e !important;
+    color: #f0f0f0 !important;
+}
+
+/* Заголовки секции */
+body.dark-theme .jquery-ui-section .subsection-title {
+    color: #d48a9e !important;
+}
+
+/* Текст внутри booking-form */
+body.dark-theme .booking-form h3 {
+    color: #d48a9e !important;
+}
     </style>
 </head>
 <body>
@@ -1275,48 +1569,31 @@
             <a class="navbar-brand" href="make.html">
                 <i class="fas fa-heart"></i> Glamour
             </a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarGlamour">
                 <i class="fas fa-bars navbar-toggler-icon-custom"></i>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarGlamour">
                 <ul class="navbar-nav mx-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="make.html">Главная</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="make.html">Главная</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown">
-                            Каталог
-                        </a>
+                        <a class="nav-link dropdown-toggle" href="catalog.html" role="button" data-bs-toggle="dropdown">Каталог</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="catalog.html#face">💄 Для лица</a></li>
                             <li><a class="dropdown-item" href="catalog.html#eyes">👁️ Для глаз</a></li>
                             <li><a class="dropdown-item" href="catalog.html#lips">💋 Для губ</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="tips.html">Советы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="test.html">Тест</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="contacts.html">Контакты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="register.html">👤</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" href="tips.html">Советы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="test.html">Тест</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacts.html">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html">👤</a></li>
                 </ul>
-
                 <div class="header-actions">
                     <div class="header-search">
                         <input type="text" id="globalSearchInput" placeholder="🔍 Поиск..." autocomplete="off">
                         <div id="globalSearchResults" class="search-dropdown"></div>
                     </div>
-                    <button class="theme-toggle" id="themeToggleBtn">
-                        <i class="fas fa-moon"></i>
-                    </button>
+                    <button class="theme-toggle" id="themeToggleBtn"><i class="fas fa-moon"></i></button>
                 </div>
             </div>
         </div>
@@ -1333,10 +1610,7 @@
                     <span>💎 СМОКИ-АЙС ДЛЯ НАЧИНАЮЩИХ: смотри в разделе Советы 💎</span>
                 </div>
             </div>
-            
-            <button class="marquee-control-btn" id="marqueeControlBtn">
-                <i class="fas fa-sliders-h"></i>
-            </button>
+            <button class="marquee-control-btn" id="marqueeControlBtn"><i class="fas fa-sliders-h"></i></button>
         </div>
     </div>
 
@@ -1350,12 +1624,8 @@
             <div class="panel-group">
                 <label><i class="fas fa-arrows-alt-h"></i> Направление</label>
                 <div class="btn-row">
-                    <button class="panel-btn dir-btn active" data-dir="left">
-                        <i class="fas fa-arrow-left"></i> Влево
-                    </button>
-                    <button class="panel-btn dir-btn" data-dir="right">
-                        Вправо <i class="fas fa-arrow-right"></i>
-                    </button>
+                    <button class="panel-btn dir-btn active" data-dir="left"><i class="fas fa-arrow-left"></i> Влево</button>
+                    <button class="panel-btn dir-btn" data-dir="right">Вправо <i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
             <div class="panel-group">
@@ -1368,21 +1638,13 @@
             <div class="panel-group">
                 <label><i class="fas fa-palette"></i> Стиль</label>
                 <div class="btn-row">
-                    <button class="panel-btn style-btn active" data-style="0">
-                        <i class="fas fa-heart"></i> Розовый
-                    </button>
-                    <button class="panel-btn style-btn" data-style="1">
-                        <i class="fas fa-star"></i> Лаванда
-                    </button>
-                    <button class="panel-btn style-btn" data-style="2">
-                        <i class="fas fa-leaf"></i> Мятный
-                    </button>
+                    <button class="panel-btn style-btn active" data-style="0"><i class="fas fa-heart"></i> Розовый</button>
+                    <button class="panel-btn style-btn" data-style="1"><i class="fas fa-star"></i> Лаванда</button>
+                    <button class="panel-btn style-btn" data-style="2"><i class="fas fa-leaf"></i> Мятный</button>
                 </div>
             </div>
             <div class="panel-group">
-                <button class="pause-action-btn" id="pauseMarqueeBtn">
-                    <i class="fas fa-pause"></i> Пауза
-                </button>
+                <button class="pause-action-btn" id="pauseMarqueeBtn"><i class="fas fa-pause"></i> Пауза</button>
             </div>
         </div>
     </div>
@@ -1412,10 +1674,8 @@
                 </div>
             </div>
         </div>
-        
         <button class="banner-prev" id="bannerPrev">❮</button>
         <button class="banner-next" id="bannerNext">❯</button>
-        
         <div class="banner-dots" id="bannerDots"></div>
     </div>
 
@@ -1426,9 +1686,7 @@
         const prevBtn = document.getElementById('bannerPrev');
         const nextBtn = document.getElementById('bannerNext');
         const dotsContainer = document.getElementById('bannerDots');
-        
         if (!slides) return;
-        
         const slideCount = document.querySelectorAll('.banner-slide').length;
         let currentIndex = 0;
         let autoInterval;
@@ -1450,7 +1708,6 @@
             if (index >= slideCount) index = 0;
             currentIndex = index;
             slides.style.transform = `translateX(-${currentIndex * 100}%)`;
-            
             if (dotsContainer) {
                 document.querySelectorAll('.banner-dot').forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIndex);
@@ -1461,13 +1718,11 @@
         
         function nextSlide() { goToSlide(currentIndex + 1); }
         function prevSlide() { goToSlide(currentIndex - 1); }
-        
         function startAutoPlay() { autoInterval = setInterval(() => nextSlide(), 5000); }
         function resetAutoPlay() { clearInterval(autoInterval); startAutoPlay(); }
         
         if (prevBtn) prevBtn.addEventListener('click', prevSlide);
         if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-        
         createDots();
         startAutoPlay();
         
@@ -1557,6 +1812,109 @@
         </div>
     </section>
 
+    <!-- 🔹 JQUERY UI СЕКЦИЯ -->
+    <section class="section jquery-ui-section">
+        <div class="container">
+            <h2 class="section-title">Каталог услуг</h2>
+            
+            <!-- TABS -->
+            <div id="beautyTabs">
+                <ul>
+                    <li><a href="#tab-face"><i class="fas fa-face-smile"></i> Макияж лица</a></li>
+                    <li><a href="#tab-eyes"><i class="fas fa-eye"></i> Макияж глаз</a></li>
+                    <li><a href="#tab-care"><i class="fas fa-spa"></i> Уход</a></li>
+                </ul>
+                <div id="tab-face">
+                    <p style="padding: 20px;">💄 Профессиональный дневной и вечерний макияж. Подбор тональной основы, коррекция контуров, стойкое покрытие до 24 часов. <br>🕒 Длительность: 1.5–2 часа | 💰 От 35 ₽</p>
+                </div>
+                <div id="tab-eyes">
+                    <p style="padding: 20px;">👁️ Создание идеального взгляда: смоки-айс, стрелки, нюд, наращивание ресниц. Работаем только с гипоаллергенными продуктами.<br>🕒 Длительность: 1 час | 💰 От 25 ₽</p>
+                </div>
+                <div id="tab-care">
+                    <p style="padding: 20px;">🌿 Комплексный уход перед макияжем: очищение, увлажнение, подготовка кожи. Ваши секреты сияния!<br>🕒 Длительность: 40 мин | 💰 От 20 ₽</p>
+                </div>
+            </div>
+
+            <!-- ACCORDION FAQ -->
+            <h3 class="subsection-title">❓ Часто задаваемые вопросы</h3>
+            <div id="faqAccordion">
+                <h3><i class="fas fa-question-circle"></i> Как подготовиться к сеансу?</h3>
+                <div><p>Приходите с чистой кожей без макияжа. За день до визита не используйте скрабы с крупными частицами. Возьмите с собой фото желаемого образа.</p></div>
+                <h3><i class="fas fa-truck"></i> Вы работаете на выезд?</h3>
+                <div><p>Да, мы выезжаем на свадьбы, фотосессии и мероприятия. Стоимость рассчитывается индивидуально в зависимости от удалённости.</p></div>
+                <h3><i class="fas fa-shield-alt"></i> Безопасна ли ваша косметика?</h3>
+                <div><p>Абсолютно! Мы используем только сертифицированные бренды с маркировкой «Dermatologically Tested». Все кисти проходят обработку после каждого клиента.</p></div>
+                <h3><i class="fas fa-calendar-check"></i> Как отменить или перенести запись?</h3>
+                <div><p>Бесплатная отмена возможна за 24 часа до назначенного времени. Для переноса свяжитесь с нами в WhatsApp или по телефону.</p></div>
+            </div>
+
+            <!-- DATEPICKER + ФОРМА -->
+            <div class="booking-form">
+                <h3 class="subsection-title">📅 Записаться онлайн</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <label class="form-label" for="clientName">Ваше имя</label>
+                        <input type="text" id="clientName" class="ui-widget" placeholder="Введите имя">
+                    </div>
+                    <div>
+                        <label class="form-label" for="clientPhone">Телефон</label>
+                        <input type="tel" id="clientPhone" class="ui-widget" placeholder="+375 (29) 000-00-00">
+                    </div>
+                    <div>
+                        <label class="form-label" for="appointmentDate">Желаемая дата</label>
+                        <input type="text" id="appointmentDate" class="ui-widget" placeholder="Выберите дату">
+                    </div>
+                    <div>
+                        <label class="form-label" for="serviceType">Услуга</label>
+                        <select id="serviceType" class="ui-widget">
+                            <option>Дневной макияж</option>
+                            <option>Вечерний образ</option>
+                            <option>Свадебный лук</option>
+                            <option>Урок визажа</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 25px;">
+                    <button class="ui-button ui-button-primary" onclick="alert('✅ Заявка отправлена! Мы свяжемся с вами.')">
+                        <i class="fas fa-paper-plane"></i> Отправить заявку
+                    </button>
+                </div>
+            </div>
+
+            <!-- DIALOG: ТЕСТ НА ЦВЕТОТИП -->
+            <div class="color-type-btn">
+                <button class="ui-button ui-button-secondary" onclick="openColorTypeDialog()">
+                    <i class="fas fa-palette"></i> Пройти тест на цветотип
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div id="colorTypeDialog" title="✨ Определите свой цветотип">
+        <p style="margin-bottom: 15px;">Ответьте на 3 вопроса, чтобы подобрать идеальные оттенки:</p>
+        <div style="margin-bottom: 15px;">
+            <label style="display:block; margin-bottom:5px;">👁️ Цвет глаз:</label>
+            <select id="eyeColor" class="ui-widget">
+                <option value="warm">Тёплые (карие, зелёные с золотом)</option>
+                <option value="cool">Холодные (серые, голубые)</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label style="display:block; margin-bottom:5px;">🌞 Оттенок кожи:</label>
+            <select id="skinTone" class="ui-widget">
+                <option value="warm">Тёплый (персиковый, оливковый)</option>
+                <option value="cool">Холодный (фарфоровый, розоватый)</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label style="display:block; margin-bottom:5px;">💇 Натуральный цвет волос:</label>
+            <select id="hairColor" class="ui-widget">
+                <option value="warm">Тёплые (рыжие, каштановые, медовый)</option>
+                <option value="cool">Холодные (пепельные, чёрные, русые)</option>
+            </select>
+        </div>
+    </div>
+
     <!-- Newsletter -->
     <section class="newsletter">
         <div class="container">
@@ -1618,9 +1976,7 @@
     </footer>
 
     <!-- ВЫДВИЖНАЯ ПАНЕЛЬ -->
-    <button class="sidebar-toggle-btn" id="sidebarToggleBtn">
-        <i class="fas fa-gem"></i>
-    </button>
+    <button class="sidebar-toggle-btn" id="sidebarToggleBtn"><i class="fas fa-gem"></i></button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -1663,22 +2019,19 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- SCRIPTS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery и jQuery UI -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/i18n/datepicker-ru.js"></script>
 
     <script>
-    // ОСНОВНЫЕ ФУНКЦИИ
     $(document).ready(function() {
         // Подсветка активного пункта меню
         let currentPage = window.location.pathname.split('/').pop() || 'make.html';
         $('.nav-link').each(function() {
             let href = $(this).attr('href');
-            if (href === currentPage) {
-                $(this).addClass('active');
-            }
+            if (href === currentPage) $(this).addClass('active');
         });
 
         // Поиск
@@ -1692,28 +2045,28 @@
             { title: "Смоки-айс для начинающих", category: "Советы", url: "tips.html" },
             { title: "Тест: Подбери помаду", category: "Тесты", url: "test.html" }
         ];
-
+        
         $("#globalSearchInput").on("input", function() {
             const query = $(this).val().trim();
-            if (!query) { $("#globalSearchResults").removeClass("show"); return; }
+            if (!query) { 
+                $("#globalSearchResults").removeClass("show"); 
+                return; 
+            }
             const filtered = searchData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
-            if (filtered.length === 0) {
-                $("#globalSearchResults").html('<div class="no-results">😔 Ничего не найдено</div>');
-            } else {
-                $("#globalSearchResults").html(filtered.map(item => `
+            $("#globalSearchResults").html(filtered.length === 0 ? 
+                '<div class="no-results">😔 Ничего не найдено</div>' : 
+                filtered.map(item => `
                     <div class="search-dropdown-item" onclick="window.location.href='${item.url}'">
                         <div class="item-title">${item.title}</div>
                         <div class="item-category">${item.category}</div>
                     </div>
                 `).join(''));
-            }
             $("#globalSearchResults").addClass("show");
         });
-
-        $(document).on("click", function(e) {
-            if (!$(e.target).closest(".header-search").length) {
-                $("#globalSearchResults").removeClass("show");
-            }
+        
+        $(document).on("click", function(e) { 
+            if (!$(e.target).closest(".header-search").length) 
+                $("#globalSearchResults").removeClass("show"); 
         });
 
         // Подписка
@@ -1740,7 +2093,7 @@
         const sidebarOverlay = document.getElementById('sidebarOverlay');
         const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
         const sidebarCloseBtn = document.getElementById('sidebarCloseBtn');
-
+        
         function openSidebar() {
             sidebar.classList.add('open');
             sidebarOverlay.classList.add('active');
@@ -1767,25 +2120,80 @@
                 $('#themeToggleBtn i').attr('class', 'fas fa-sun');
             }
         }
-        function loadTheme() {
-            if (localStorage.getItem('theme') === 'dark') {
-                document.body.classList.add('dark-theme');
-                $('#themeToggleBtn i').attr('class', 'fas fa-sun');
-            }
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-theme');
+            $('#themeToggleBtn i').attr('class', 'fas fa-sun');
         }
         $('#themeToggleBtn').on('click', toggleTheme);
-        loadTheme();
-    });
 
-// ===== ПОДСВЕТКА АКТИВНОГО ПУНКТА МЕНЮ =====
-        let currentPage = window.location.pathname.split('/').pop() || 'make.html';
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
-            }
+        // ===== JQUERY UI ИНИЦИАЛИЗАЦИЯ =====
+        
+        // Tabs
+        $("#beautyTabs").tabs({
+            collapsible: false,
+            show: { effect: "fadeIn", duration: 300 },
+            hide: { effect: "fadeOut", duration: 200 }
         });
 
-    // ===== УПРАВЛЕНИЕ БЕГУЩЕЙ СТРОКОЙ =====
+        // Accordion
+        $("#faqAccordion").accordion({
+            collapsible: true,
+            active: false,
+            heightStyle: "content",
+            animate: { duration: 300 }
+        });
+
+        // Datepicker (русский)
+        $.datepicker.setDefaults($.datepicker.regional["ru"]);
+        $("#appointmentDate").datepicker({
+            dateFormat: "dd.mm.yy",
+            minDate: 0,
+            maxDate: "+3M",
+            beforeShowDay: function(date) { return [(date.getDay() !== 0), '']; }
+        });
+
+        // Dialog для теста цветотипа
+        $("#colorTypeDialog").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 450,
+            resizable: false,
+            buttons: [
+                { 
+                    text: "Определить цветотип", 
+                    class: "ui-button ui-button-primary", 
+                    click: function() {
+                        const warmCount = ["#eyeColor", "#skinTone", "#hairColor"].map(s => $(s).val()).filter(v => v === "warm").length;
+                        const isWarm = warmCount >= 2;
+                        $(this).dialog("close");
+                        $("<div>").html(`
+                            <div style="text-align: center; padding: 20px;">
+                                <div style="font-size: 48px; margin-bottom: 15px;">${isWarm ? '🌸' : '❄️'}</div>
+                                <h3 style="font-family: 'Playfair Display', serif; margin-bottom: 15px;">${isWarm ? 'Весна/Осень (тёплый)' : 'Лето/Зима (холодный)'}</h3>
+                                <p style="margin: 15px 0; line-height: 1.6;">${isWarm ? 'Вам подойдут тёплые оттенки: персиковый, коралловый, золотистый, терракотовый.' : 'Вам подойдут холодные оттенки: розовый, лавандовый, серебристый, винный.'}</p>
+                            </div>
+                        `).dialog({ 
+                            title: '✨ Результат теста', 
+                            modal: true, 
+                            width: 400,
+                            buttons: { 'Отлично!': function() { $(this).dialog('close'); } }
+                        });
+                    }
+                },
+                { 
+                    text: "Отмена", 
+                    class: "ui-button ui-button-secondary", 
+                    click: function() { $(this).dialog("close"); } 
+                }
+            ]
+        });
+        
+        window.openColorTypeDialog = function() { 
+            $("#colorTypeDialog").dialog("open"); 
+        };
+    });
+
+    // Управление бегущей строкой
     (function() {
         function initMarquee() {
             const btn = document.getElementById('marqueeControlBtn');
@@ -1803,10 +2211,8 @@
                 closeBtn.onclick = function() { panel.classList.remove('show'); };
             }
             document.addEventListener('click', function(e) {
-                if (panel.classList.contains('show')) {
-                    if (!panel.contains(e.target) && e.target !== btn) {
-                        panel.classList.remove('show');
-                    }
+                if (panel.classList.contains('show') && !panel.contains(e.target) && e.target !== btn) {
+                    panel.classList.remove('show');
                 }
             });
             
@@ -1867,7 +2273,9 @@
         }
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', initMarquee);
-        } else { initMarquee(); }
+        } else { 
+            initMarquee(); 
+        }
     })();
     </script>
 </body>
